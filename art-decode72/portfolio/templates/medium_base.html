@@ -1,0 +1,11 @@
+<div id='medium' class='medium'>
+{% for piece in pieces %}
+	<a href='/{{ piece.series.all.0.slug }}/{{ piece.slug }}' class='default_image'><img src='{{ piece.default_image }}'/>{% csrf_token %}</a>
+	<p>{{ piece }}</p>
+{% endfor %}
+</div>
+
+<script type='text/javascript'>
+    initImgs();
+    window.setTimeout('initImgs();initImgs();',450);
+</script>

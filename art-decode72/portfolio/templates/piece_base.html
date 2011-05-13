@@ -1,0 +1,22 @@
+<div id='piece' class='piece'>
+	{% block main-image %}
+	<div id='current-image'><img height='{{ piece.default_image.image.height }}px;' width='{{ piece.default_image.image.width }}px;'src='{{ piece.default_image }}'/></div>
+	{% endblock %}
+	<div id='piece-info'>
+		<h3>{{ piece.series.all.0 }}</h3>
+		<p id='discription'>{% autoescape off %}{{ piece.series.all.0.description }}{% endautoescape %}</p>
+		<p id='price'><strong>price:</strong> {% if piece.price == None %}Not for sale{% else %}${{ piece.price }}{% endif %}</p>
+		<p id='year'><strong>year:</strong> {{ piece.date.year }}</p>
+	</div>
+	<div id='other-images'>
+    {% for p in pieces %}
+        {% if piece != p %}
+	   <img id='other-{{ p.image.pk }}' src='/media/{{ p.default_image }}' />
+       {% endif %}
+	{% endfor %}
+	</div>
+</div>
+
+<script type='text/javascript'>
+    initThumbnails();
+</script>

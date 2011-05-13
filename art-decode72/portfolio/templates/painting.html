@@ -1,0 +1,8 @@
+<h1> this is paitings </h1>
+	{% for piece in pieces %}
+	<li> {{ piece }} </li>
+    <img src='{{ img }}' />
+	<p>discpription: {{ piece.discription }} </p>
+	<p>price: {{ piece.price }} </p>
+	<p>dimensions: {{ piece.dimensions }}</p>
+	{% endfor %}

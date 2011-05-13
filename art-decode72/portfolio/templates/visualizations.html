@@ -1,0 +1,144 @@
+<div id='viz'>
+    <script type="text/javascript" src="http://www.java.com/js/deployJava.js">
+    </script>
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        
+        var attributes = {
+			{% if piece.slug == 'power-of-flower' %}
+                code: 'power_of_flower.class',
+                archive: '/media/p5/{{ piece.slug }}/power_of_flower.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar',
+			{% else %}
+			     {% if piece.slug == 'rainbow-sprout' %}
+				 code: 'rainbow_sprout.class',
+                 archive: '/media/p5/{{ piece.slug }}/rainbow_sprout.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar',
+				 {% else %}
+				 code: '{{ piece.slug }}.class',
+                 archive: '/media/p5/{{ piece.slug }}/{{ piece.slug }}.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar',
+			 {% endif %}
+			 {% endif %}
+            width: 800,
+            height: 600,
+            image: 'loading.gif'
+        };
+        var parameters = {};
+        var version = '1.5';
+        deployJava.runApplet(attributes, parameters, version);
+        
+        /* ]]> */
+    </script>
+    <noscript>
+        <div>
+            <!--[if !IE]> -->
+                {% if piece.slug == 'power-of-flower' %}
+				<object classid="java:power_of_flower.class" type="application/x-java-applet" archive="{{ piece.slug }}.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" width="800" height="600" standby="Loading Processing software...">
+                    <param id='p5' name="archive" value='/media/p5/{{ piece.slug }}/power_of_flower.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar' /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="outer" />
+                <!--<![endif]--><!-- For more instructions on deployment,
+                or to update the CAB file listed here, see:
+                http://java.sun.com/javase/6/webnotes/family-clsid.html
+                http://java.sun.com/javase/6/webnotes/install/jre/autodownload.html -->
+                <object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93" codebase="http://java.sun.com/update/1.6.0/jinstall-6u20-windows-i586.cab" width="800" height="600" standby="Loading Processing software...">
+                    <param name="code" value="{{ piece.slug }}" /><param name="archive" value="power_of_flower.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="inner" />
+                    <p>
+                        <strong>This browser does not have a Java Plug-in.
+                            <br/>
+                            <a href="http://www.java.com/getjava" title="Download Java Plug-in">Get the latest Java Plug-in here.</a>
+                        </strong>
+                    </p>
+                </object>
+                <!--[if !IE]> -->
+                </object>
+				{% else %}
+                 {% if piece.slug == 'rainbow-sprout' %}
+					 <object classid="java:rainbow_sprout.class" type="application/x-java-applet" archive="{{ piece.slug }}.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" width="800" height="600" standby="Loading Processing software...">
+	                    <param id='p5' name="archive" value='/media/p5/{{ piece.slug }}/rainbow_sprout.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar' /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="outer" />
+	                <!--<![endif]--><!-- For more instructions on deployment,
+	                or to update the CAB file listed here, see:
+	                http://java.sun.com/javase/6/webnotes/family-clsid.html
+	                http://java.sun.com/javase/6/webnotes/install/jre/autodownload.html -->
+	                <object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93" codebase="http://java.sun.com/update/1.6.0/jinstall-6u20-windows-i586.cab" width="800" height="600" standby="Loading Processing software...">
+	                    <param name="code" value="{{ piece.slug }}" /><param name="archive" value="rainbow_sprout.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="inner" />
+	                    <p>
+	                        <strong>This browser does not have a Java Plug-in.
+	                            <br/>
+	                            <a href="http://www.java.com/getjava" title="Download Java Plug-in">Get the latest Java Plug-in here.</a>
+	                        </strong>
+	                    </p>
+	                </object>
+	                <!--[if !IE]> -->
+	                </object>
+                <!--<![endif]-->
+				{% else %}
+				    <object classid="java:{{ piece.slug }}.class" type="application/x-java-applet" archive="{{ piece.slug }}.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" width="800" height="600" standby="Loading Processing software...">
+                        <param id='p5' name="archive" value='/media/p5/{{ piece.slug }}/rainbow_sprout.jar,/media/p5/{{ piece.slug }}/jl1.0.jar,/media/p5/{{ piece.slug }}/jsminim.jar,/media/p5/{{ piece.slug }}/minim-spi.jar,/media/p5/{{ piece.slug }}/minim.jar,/media/p5/{{ piece.slug }}/mp3spi1.9.4.jar,/media/p5/{{ piece.slug }}/tritonus_aos.jar,/media/p5/{{ piece.slug }}/tritonus_share.jar,/media/p5/{{ piece.slug }}/core.jar' /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="outer" />
+                    <!--<![endif]--><!-- For more instructions on deployment,
+                    or to update the CAB file listed here, see:
+                    http://java.sun.com/javase/6/webnotes/family-clsid.html
+                    http://java.sun.com/javase/6/webnotes/install/jre/autodownload.html -->
+                    <object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93" codebase="http://java.sun.com/update/1.6.0/jinstall-6u20-windows-i586.cab" width="800" height="600" standby="Loading Processing software...">
+                        <param name="code" value="{{ piece.slug }}" /><param name="archive" value="{{ piece.slug }}.jar,jl1.0.jar,jsminim.jar,minim-spi.jar,minim.jar,mp3spi1.9.4.jar,tritonus_aos.jar,tritonus_share.jar,core.jar" /><param name="mayscript" value="true" /><param name="scriptable" value="true" /><param name="image" value="loading.gif" /><param name="boxmessage" value="Loading Processing software..." /><param name="boxbgcolor" value="#FFFFFF" /><param name="test_string" value="inner" />
+                        <p>
+                            <strong>This browser does not have a Java Plug-in.
+                                <br/>
+                                <a href="http://www.java.com/getjava" title="Download Java Plug-in">Get the latest Java Plug-in here.</a>
+                            </strong>
+                        </p>
+                    </object>
+                    <!--[if !IE]> -->
+                    </object>
+                <!--<![endif]-->
+				{% endif %}
+				{% endif %}
+        </div>
+    </noscript>
+</div>
+<div id='viz-info'>
+    <h3>{{ piece }}</h3>
+    <p id='discription'>
+        {% autoescape off %}{{ piece.description }}{% endautoescape %}
+    </p>
+    <p id='materials'>
+        <strong>materials:</strong>
+        <p>
+            Source code: <a href="/media/p5/{{ piece.slug }}/{{ piece.slug }}.pde">{{ piece.title }}</a>
+        </p>
+		<p>
+            download: <a href="/media/p5/{{ piece.slug }}/mac.zip">mac</a>
+			<a href="/media/p5/{{ piece.slug }}/windows.zip">windows</a>
+			<a href="/media/p5/{{ piece.slug }}/linux.zip">linux</a>
+        </p>
+        <p>
+            Built with <a href="http://processing.org" title="Processing.org">Processing</a>
+        </p>
+    </p>
+    <p id='year'>
+        <strong>year:</strong>
+        {{ piece.date.year }}
+    </p>
+</div>
+<div id='viz-directions'>
+	<p><strong>directions:</strong>
+    <p>
+        Hit <strong>p</strong> to start playing music. 
+        <br/>
+        Use <strong>arrow keys</strong> to move the picture around.
+        <br/>
+        Hold <strong>Ctrl</strong> key and move mouse around to control x,y and rotations
+        <br/>
+        Hold <strong>Shift</strong> key and move mouse around to control z and rotations
+        <br/>
+        Hold <strong>Alt</strong> key and move mouse around to contrl x,y position
+        <br/>
+        Press <strong>r</strong> to rotate around X axis 15 degrees
+        <br/>
+        Press <strong>L</strong> to make littler
+        <br/>
+        Press <strong>b</strong> to make bigger
+        <br/>
+        Press <strong>1, 2, 3, 4</strong> for presets
+        <br/>
+        Press <strong>ESC</strong> or <strong>s</strong> to stop
+        <br/>
+    </strongp>
+</div>
+</div>

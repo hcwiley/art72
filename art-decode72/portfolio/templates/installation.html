@@ -1,0 +1,57 @@
+<style>
+    #current-image img {
+        visibility: hidden;
+    }
+</style>
+{% include 'piece_base.html' %}
+<div style='display:none;' id='owl'>
+    <object width="640" height="385">
+        <param name="movie" value="http://www.youtube.com/v/hHomhbMZIqU?fs=1&amp;hl=en_US">
+        </param><param name="allowFullScreen" value="true">
+        </param><param name="allowscriptaccess" value="always">
+        </param>
+        <embed src="http://www.youtube.com/v/hHomhbMZIqU?fs=1&amp;hl=en_US" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="640" height="385">
+        </embed>
+    </object>
+</div>
+<div stlye='display:none;' id='kon'>
+    <iframe src="http://player.vimeo.com/video/22422698" width="800" height="600" frameborder="0">
+    </iframe>
+</div>
+<div stlye='display:none;' id='abs'>
+    <iframe src="http://player.vimeo.com/video/22617722?title=0&amp;byline=0&amp;portrait=0" width="800" height="600" frameborder="0">
+    </iframe>
+</div>
+</div>
+<script>
+    window.setTimeout(function(){
+        loc = (window.location + '').split('\/');
+        loc = loc[loc.length - 1];
+        //alert(loc);
+        if (loc == 'owl-eyes') {
+            $('#current-image').children('img').remove();
+            $('#current-image').appendTo('#owl');
+            $('#owl').css('display', 'block');
+            $('#abs').remove();
+            $('#kon').remove();
+        }
+        else if (loc == 'sketching-abstractions') {
+            $('#current-image').children('img').remove();
+            $('#current-image').appendTo('#abs');
+            $('#abs').css('display', 'block');
+            $('#owl').remove();
+            $('#kon').remove();
+        }
+        else if (loc == 'konnecting-it-all') {
+            $('#current-image').children('img').remove();
+            $('#current-image').appendTo('#kon');
+            $('#kon').css('display', 'block');
+            $('#owl').remove();
+            $('#abs').remove();
+            var p = document.createElement('A');
+            p.setAttribute("href", '/media/videos/00034.MTS');
+            p.innerHTML = "Additional video can be downloaded here";
+            document.getElementById('piece-info').appendChild(p);
+        }
+    }, 200);
+</script>
