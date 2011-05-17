@@ -34,5 +34,5 @@ function initThumbnails(){
 }
 
 function initPieceGallery(){
-	initThumbnails();
+    initThumbnails();
 }

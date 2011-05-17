@@ -36,7 +36,25 @@ if settings.IS_DEV:
         (r'media/gallery/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
         (r'^media/*/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
     )
+#add content
+urlpatterns += patterns('',
+    (r'^add/piece$', 'views.add_piece'),
+)
 
+#Edit pages
+urlpatterns += patterns('',
+    (r'^edit$','views.edit_index'),
+    (r'^edit/$','views.edit_index'),
+    (r'^edit/contact$','views.edit_contact'),
+    (r'^edit/(?P<series>.*)/(?P<slg>.*)$', 'views.edit_piece'),
+    (r'^edit/(?P<series>.*)$', 'views.edit_gallery'),
+)
+
+#Refresh individual elements
+urlpatterns += patterns('',
+    (r'^get/header$','views.get_header'),
+)
+#Series pages
 urlpatterns += patterns('',
     (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
     (r'^(?P<series>.*)$', 'views.gallery'),

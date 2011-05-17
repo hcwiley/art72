@@ -1,0 +1,54 @@
+#add-new-piece div{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+	display: inline-block;
+}
+
+#add-new-piece h1{
+    padding: 3px 25px;
+}
+
+#add-piece{
+    position: absolute;
+    color: #000;
+    background: #FFF;
+    opacity: 0;
+    z-index: -1;
+    top: 50px;
+    left: 0px;
+    width: 600px;
+    height: 250px;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+#add-piece-form{
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
+#submit-piece{
+    position: relative;
+    top: -45px;
+    left: 505px;
+    z-index: 3;
+}
+
+#close-add-piece{
+	position: relative;
+    top: -15px;
+    left: 445px;
+    z-index: 3;
+}
+
+#add-piece-form p{
+    width: 100px;
+    height: 20px;
+    margin: 10px 5px 50px 5px;
+    display: inline-block;
+}

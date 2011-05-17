@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 #from django.core.files import ContentFile 
 from django.contrib import admin
 from django.template.defaultfilters import slugify
@@ -46,3 +47,9 @@ class Piece(models.Model):
             series.append(s.name)
         return sers
     
+class PieceForm(forms.Form):
+    title = forms.CharField(max_length=400)
+    default_image = forms.ImageField(widget=forms.FileInput(), required=False) 
+    date = forms.DateField(required=False)
+    price = forms.IntegerField(required=False)
+    series = forms.CharField(max_length=400)

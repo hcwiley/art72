@@ -58,6 +58,7 @@ body {
 	width: 450px;
 	height: 250px;
 	opacity: 0;
+	margin: 10px 10px 10px 10px;
 }
 
 .default_image img{
@@ -139,7 +140,7 @@ body {
 	width: 100px;
 }
 
-#other-images img{
+#other-images a, img{
 	height: auto;
 	width: 90px;
 	margin: 5px 10px 5px 10px; 
@@ -249,6 +250,13 @@ body {
     border-width: 0px;
     border: none;
     border-color: #FFF;
+}
+
+.rounded-corners {
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -khtml-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 
 strong {
