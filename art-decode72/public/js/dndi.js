@@ -4,7 +4,7 @@ jQuery.event.add(window, 'unload', leave);
 var date = new Date();
 var aEnterTimer;
 var inFocus = false;
-var hoverTime = 1000;
+var hoverTime = 1500;
 
 function moveAddDiv(){
     $('#add-new-piece').attr('href', '#');
@@ -86,31 +86,42 @@ function leave(){
 }
 
 function overA(obj){
-    console.log(obj + '  over');
+    console.log($(obj).attr('id') + '  over');
     date = new Date();
-    if (aEnterTimer + hoverTime < date.getTime() && inFocus) {
+    if (aEnterTimer + hoverTime < date.getTime() && inFocus && $('.editting').length == 0) {
         console.log('good to go');
-        $(obj).css('border', '1px solid #F00');
-        $(obj).unbind('click');
+        $(obj).addClass('editting');
+        var helpText = document.createElement('h4');
+        helpText.innerHTML = 'press enter to start placing';
+        $(helpText).attr('id', 'help-text');
+        $(obj).prepend(helpText);
+        $(obj).children('img').css('z-index', '0');
+        lastHref = $(obj).attr('href');
+        $(obj).attr('href', '#');
         $(document).bind('keydown', function(event){
             var key = event.which;
             if (key == null) 
                 key = event.keyCode;
             if (key == 27) {
-                $(document).unbind('mousemove');
-                $(obj).css('border', 'none');
+                $(document).unbind('');
+                $(obj).removeClass('editting');
+                $(obj).attr('href', lastHref);
+                $('#help-text').remove();
+				inFocus = false;
             }
-        });
-        $(document).bind('mousemove', function(e){
-            console.log('down');
-            $(obj).css('position', 'relative');
-            $(obj).css('width', $(obj).width());
-            $(obj).css('height', $(obj).height());
-            console.log('mouseX: ' + e.pageX + ', objX: ' + $(obj).position().top);
-            $(obj).offset({
-                top: e.pageY - $(obj).height() / 2,
-                left: e.pageX - $(obj).width()
-            });
+            else if (key == 13) {
+                $(document).bind('mousemove', function(e){
+                    console.log('down');
+					$(helpText).text('press esc to stop placing');
+                    $(obj).css('width', $(obj).width());
+                    $(obj).css('height', $(obj).height());
+                    console.log('mouseX: ' + e.pageX + ', objX: ' + $(obj).position().top);
+                    $(obj).offset({
+                        top: e.pageY - $(obj).height() / 2,
+                        left: e.pageX - $(obj).width() / 2
+                    });
+                });
+            }
         });
     }
     else if (inFocus) {
@@ -125,7 +136,7 @@ function dndiHeader(){
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).attr('href', '/edit' + $(as[i]).attr('href'));
     }
-    //    as = $('#header').children('a').add('#nav');
+    as = $('#header').add('#nav').add('#contact').add('#logo').add('#container');
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).hover(function(){
             console.log('entered...');

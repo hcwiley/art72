@@ -1,6 +1,6 @@
 <div id='medium' class='medium content'>
 {% for piece in pieces %}
-	<a href='/{{ piece.series.all.0.slug }}/{{ piece.slug }}' class='default_image'><img src='{{ piece.default_image }}'/>{% csrf_token %}</a>
+	<a href='/{{ piece.series.all.0.slug }}/{{ piece.slug }}' class='default_image'><img src='{{ piece.default_image }}'/></a>
 	<p>{{ piece }}</p>
 {% endfor %}
 </div>

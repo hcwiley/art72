@@ -52,3 +52,15 @@
     margin: 10px 5px 50px 5px;
     display: inline-block;
 }
+
+.editting{
+	border: 1px dashed #F00;
+}
+.editting h4{
+	color: #f00;
+    z-index: 2;
+	position: absolute;
+	left: 30px;
+	height: 20px;
+	width: 100px;
+}

@@ -15,6 +15,17 @@ body {
     position: absolute;
     top: -10px;
     left: 20px;
+	height: 0px;
+	width: 0px;
+}
+
+#contact{
+	position: absolute;
+	top: 150px;
+}
+
+#logo{
+	position: absolute;
 }
 
 #nav{

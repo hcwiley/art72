@@ -1,18 +1,15 @@
 jQuery.event.add(window, 'load', initGallery);
 
 function initImgs(){
-    piece = $('#medium').children('a');
+    piece = $('.content').children('a');
     window.setTimeout(function(){
             $(piece).animate({
                 opacity: 1
             }, 300);
     }, 400);
     for (var i = 0; i < $(piece).length; i++) {
-//        $(piece[i]).bind('click', function(){
-//            //console.log('bound');
-//            var toAjax = $(this).attr('datasrc');
-//            window.location = toAjax;
-//        });
+		$(piece[i]).width($(piece[i]).children('img').width()+20);
+		$(piece[i]).height($(piece[i]).children('img').height()+20);
     }
 }
 
