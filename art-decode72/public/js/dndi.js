@@ -9,11 +9,12 @@ function moveAddDiv(){
 }
 
 function showRequest(){
-	alert('requesting..');
+	console.log('requesting...');
 
 }
 
 function handlePostSuccess(){
+	console.log('handling success');
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
@@ -46,6 +47,7 @@ function initAddNew(){
         url: '/add/piece'
     };
     $('#submit-piece').bind('click', function(){
+		console.log('sending...');
         $('#add-piece-form').ajaxSubmit(function(options){
 			return false;
         });

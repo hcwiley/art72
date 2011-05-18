@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from django.core.context_processors import csrf
 from django.template.defaultfilters import slugify
+from django.core.files.uploadedfile import SimpleUploadedFile
 from piece.models import *
 
 #mediums = (
@@ -60,7 +61,8 @@ def get_header(request):
 
 def edit_index(request):
     args = {
-           'serieses': listSeries()
+           'serieses': listSeries(),
+           'piece_form': PieceForm(auto_id='piece_%s'),
     }
     args.update(csrf(request))
     return render_to_response('edit_index.html', args)
@@ -93,13 +95,13 @@ def add_piece(request):
     if request.method != "POST":
         raise Http404
     form = PieceForm(request.POST, request.FILES)
+    print "files", request.FILES
     if form.is_valid():
         title = form.cleaned_data['title']
-        print title
-        print request.POST
-        print request.FILES
-        handle_uploaded_file(request.FILES['default_image'])
-#        image = request.cleaned_data['default_image']
+#        handle_uploaded_file(request.FILES['default_image'])
+        img = request.FILES['default_image']
+        img = Image.objects.get_or_create(image=img)[0]
+        print 'image %s' % img
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']
@@ -109,7 +111,7 @@ def add_piece(request):
         
         obj = Piece.objects.get_or_create(slug=slugify(title))[0]
         obj.title = title
-        obj.default_image = img_obj
+        obj.default_image = img
         obj.date = date
         obj.price = price
         obj.series = [series]
@@ -124,10 +126,9 @@ def add_piece(request):
 def handle_uploaded_file(f):
     # DRY violation, I've already specified the upload path in the image model
     print 'yes?'
-    upload_suffix = join('gallery/', f.name)
-    upload_path = join(settings.MEDIA_ROOT, upload_suffix)
-    destination = open(upload_path, 'wb+')
+    path = 'gallery/%s' % f.name
+    print path
+    destination = open(path, 'wb+')
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
-    return upload_suffix
