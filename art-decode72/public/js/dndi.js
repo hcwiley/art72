@@ -3,8 +3,8 @@ jQuery.event.add(window, 'unload', leave);
 
 function moveAddDiv(){
     $('#add-new-piece').attr('href', '#');
-    $('#medium').prepend(document.getElementById('add-new-piece'));
-    $('#other-images').prepend(document.getElementById('add-new-piece'));
+//    $('#medium').prepend(document.getElementById('add-new-piece'));
+//    $('#other-images').prepend(document.getElementById('add-new-piece'));
     //	$('#add-new-piece').remove();
 }
 
@@ -20,8 +20,14 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
         $.get(ajax, function(data){
             $('#header').html(data);
         });
+		ajax = '/get/'+loc;
+		$.get(ajax, function(data){
+            $('.content').remove();
+            $('#container').html($('#container').html()+data);
+        });
     }, 1500);
     window.setTimeout("dndiHeader();", 1550);
+	$('#close-add-piece').trigger('click');
 }
 
 function handlePostFail(){

@@ -18,7 +18,7 @@ def contact(request):
     return render_to_response('contact.html', {'serieses': listSeries()})
 
 def getSeries(ser):
-    series = Series.objects.filter(slug=ser)[0]
+    series = Series.objects.filter(slug = ser)[0]
     pieces = series.piece_piece_series.all()
     return pieces
 
@@ -39,11 +39,11 @@ def index(request):
 def piece(request, series, slg):
     pieces = getSeries(series)
     args = {
-            'piece': Piece.objects.filter(slug=slg)[0],
+            'piece': Piece.objects.filter(slug = slg)[0],
             'pieces': pieces,
             'serieses': listSeries()
             }
-    return render_to_response('piece.html', args) 
+    return render_to_response('piece.html', args)
 
 def gallery(request, series):
     pieces = getSeries(series)
@@ -52,6 +52,30 @@ def gallery(request, series):
             'serieses': listSeries()
     }
     return render_to_response('gallery.html', args)
+
+def get_page(request, page):
+    print 'getting page: %s' %page
+    if len(Piece.objects.filter(slug=page)) != 0:
+        print 'its piece page'
+        pieces = getSeries(Piece.objects.filter(slug=page)[0].series.all()[0].slug)
+        print pieces
+        args = {
+                'piece': Piece.objects.filter(slug=page)[0],
+                'pieces': pieces,
+                'serieses': listSeries()
+                }
+        return render_to_response('piece_base.html', args)
+    elif len(Series.objects.filter(slug=page)) != 0:
+        print 'its gallery page'
+        pieces = getSeries(page)
+        args = {
+                'pieces': pieces,
+                'serieses': listSeries()
+        }
+        return render_to_response('gallery_base.html', args)
+    else:
+        print 'well fuck...'
+        return HttpResponseNotFound("couldn't find it")
 
 def get_header(request):
     args = {
@@ -62,7 +86,7 @@ def get_header(request):
 def edit_index(request):
     args = {
            'serieses': listSeries(),
-           'piece_form': PieceForm(auto_id='piece_%s'),
+           'piece_form': PieceForm(auto_id = 'piece_%s'),
     }
     args.update(csrf(request))
     return render_to_response('edit_index.html', args)
@@ -73,20 +97,20 @@ def edit_contact(request):
 def edit_piece(request, series, slg):
     pieces = getSeries(series)
     args = {
-            'piece': Piece.objects.filter(slug=slg)[0],
+            'piece': Piece.objects.filter(slug = slg)[0],
             'pieces': pieces,
             'serieses': listSeries(),
-            'piece_form': PieceForm(auto_id='piece_%s'),
+            'piece_form': PieceForm(auto_id = 'piece_%s'),
             }
     args.update(csrf(request))
-    return render_to_response('edit_piece.html', args) 
+    return render_to_response('edit_piece.html', args)
 
 def edit_gallery(request, series):
     pieces = getSeries(series)
     args = {
             'pieces': pieces,
             'serieses': listSeries(),
-            'piece_form': PieceForm(auto_id='piece_%s'),
+            'piece_form': PieceForm(auto_id = 'piece_%s'),
     }
     args.update(csrf(request))
     return render_to_response('edit_gallery.html', args)
@@ -98,21 +122,21 @@ def add_piece(request):
     if form.is_valid():
         title = form.cleaned_data['title']
         img = request.FILES['default_image']
-        img = Image.objects.get_or_create(image=img)[0]
+        img = Image.objects.get_or_create(image = img)[0]
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']
-        series = Series.objects.get_or_create(slug=slugify(ser))[0]
+        series = Series.objects.get_or_create(slug = slugify(ser))[0]
         series.name = ser
         series.save()
-        
-        obj = Piece.objects.get_or_create(slug=slugify(title))[0]
+
+        obj = Piece.objects.get_or_create(slug = slugify(title))[0]
         obj.title = title
         obj.default_image = img
         obj.date = date
         obj.price = price
         obj.series = [series]
-        
+
         obj.save()
 
         return HttpResponse("success")

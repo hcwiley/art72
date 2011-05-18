@@ -53,6 +53,7 @@ urlpatterns += patterns('',
 #Refresh individual elements
 urlpatterns += patterns('',
     (r'^get/header$','views.get_header'),
+    (r'^get/(?P<page>.*)$','views.get_page'),
 )
 #Series pages
 urlpatterns += patterns('',
