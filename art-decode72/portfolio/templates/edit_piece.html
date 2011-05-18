@@ -6,36 +6,7 @@
         {% include 'header.html' %}
     </div>
     <div id="container">
-    	<a href='#' id='add-new-piece'>
-            <div><h1>(+)</h1></div>
-        </a>
-        <div id='add-piece' class='rounded-corners'>
-            <form name='{{ piece }}' id='add-piece-form'>
-                {%  csrf_token %}
-                <p>
-                    Name of piece: 
-                </p>{{  piece_form.title }}
-                <p>
-                    Image: 
-                </p>{{ piece_form.default_image }}
-                <p>
-                    Date: 
-                </p>{{ piece_form.date }}
-                <p>
-                    Price: 
-                </p>{{ piece_form.price }}
-                <br/>
-                <p>
-                    Series: 
-                </p>{{ piece_form.series }}
-            </form>
-            <button id='submit-piece'>
-                submit
-            </button>
-            <button id='close-add-piece'>
-                close
-            </button>
-        </div>
+    	{% include 'add-piece.html' %}
         {% if piece.medium == 'installation' %}
         {% include 'installation.html' %}
         {% endif %}

@@ -8,19 +8,20 @@ function moveAddDiv(){
     //	$('#add-new-piece').remove();
 }
 
-function showRequest(){
-	console.log('requesting...');
-
+function showRequest(formData, jqForm, options){
+    console.log('requesting...');
+    
 }
 
-function handlePostSuccess(){
-	console.log('handling success');
+function handlePostSuccess(responseText, statusText, xhr, $form){
+    console.log('handling success');
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
             $('#header').html(data);
         });
     }, 1500);
+    window.setTimeout("dndiHeader();", 1550);
 }
 
 function handlePostFail(){
@@ -41,16 +42,31 @@ function initAddNew(){
         $('#add-piece').css('z-index', 2);
     });
     var options = {
-//        target: '#header', // target element(s) to be updated with server response 
+        //        target: '#header', // target element(s) to be updated with server response 
         beforeSubmit: showRequest, // pre-submit callback 
         success: handlePostSuccess, // post-submit callback
-        url: '/add/piece'
+        url: '/add/piece',
+        clearForm: true
     };
-    $('#submit-piece').bind('click', function(){
-		console.log('sending...');
-        $('#add-piece-form').ajaxSubmit(function(options){
-			return false;
-        });
+    $('#add-piece-form').submit(function(){
+        if ($('#piece_title').val() == '') {
+			console.log('title');
+			$('#piece_title').css('background-color', '#900');
+		}
+		else if ($('#piece_default_image').val() == "") {
+			console.log('image');
+			$('#piece_default_image').css('background-color', '#F00');
+		}
+		else if ($('#piece_series').val() == '') {
+			console.log('series');
+			$('#piece_series').css('background-color', '#F00');
+		}
+		else {
+			console.log('sending...');
+			$('#add-piece-form').ajaxSubmit(options);
+		}
+        
+        return false;
     });
 }
 
@@ -58,11 +74,15 @@ function leave(){
     //	alert('epace');
 }
 
-function initDndi(){
+function dndiHeader(){
     as = $('a');
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).attr('href', '/edit' + $(as[i]).attr('href'));
     }
+}
+
+function initDndi(){
+    dndiHeader();
     moveAddDiv();
     initAddNew();
 }

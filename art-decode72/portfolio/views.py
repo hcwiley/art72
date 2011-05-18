@@ -95,13 +95,10 @@ def add_piece(request):
     if request.method != "POST":
         raise Http404
     form = PieceForm(request.POST, request.FILES)
-    print "files", request.FILES
     if form.is_valid():
         title = form.cleaned_data['title']
-#        handle_uploaded_file(request.FILES['default_image'])
         img = request.FILES['default_image']
         img = Image.objects.get_or_create(image=img)[0]
-        print 'image %s' % img
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']
@@ -123,12 +120,3 @@ def add_piece(request):
         print 'bad form'
         return HttpResponseNotFound("invalid form")
 
-def handle_uploaded_file(f):
-    # DRY violation, I've already specified the upload path in the image model
-    print 'yes?'
-    path = 'gallery/%s' % f.name
-    print path
-    destination = open(path, 'wb+')
-    for chunk in f.chunks():
-        destination.write(chunk)
-    destination.close()
