@@ -1,4 +1,4 @@
-<h1><a id='logo' href='/'>your name/logo here</a></h1>
+<a id='logo' href='/'><h1>your name/logo here</h1></a>
 <div id='nav'>
 	{% for series in serieses %}
 	   <a href='/{{ series.slug }}' id='{{ series }}' class='{% if pieces.0.series == series or piece.series == series %}currentPage{% else %} notCur {% endif %}'><p>{{ series }}</p></a>
