@@ -7,10 +7,10 @@ var inFocus = false;
 var hoverTime = 1500;
 
 function moveAddDiv(){
-    $('#add-new-piece').attr('href', '#');
-    //    $('#medium').prepend(document.getElementById('add-new-piece'));
-    //    $('#other-images').prepend(document.getElementById('add-new-piece'));
-    //	$('#add-new-piece').remove();
+    $('.content').prepend(document.getElementById('add-new-piece'));
+    $('#add-new-piece').animate({
+        opacity: 1
+    }, 800);
 }
 
 function showRequest(formData, jqForm, options){
@@ -32,19 +32,23 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
         });
     }, 1500);
     window.setTimeout("dndiHeader();", 1550);
-    $('#close-add-piece').trigger('click');
+    closeAddPieceForm();
 }
 
 function handlePostFail(){
     alert('sorry something went wrong...');
 }
 
+function closeAddPieceForm(){
+    $('#add-piece').animate({
+        opacity: 0
+    }, 100);
+    $('#add-piece').css('z-index', -1);
+}
+
 function initAddNew(){
     $('#close-add-piece').bind('click', function(){
-        $('#add-piece').animate({
-            opacity: 0
-        }, 100);
-        $('#add-piece').css('z-index', -1);
+        closeAddPieceForm();
     });
     $('#add-new-piece').bind('click', function(){
         $('#add-piece').animate({
@@ -59,6 +63,14 @@ function initAddNew(){
         url: '/add/piece',
         clearForm: true
     };
+    $('#add-piece-form').bind('keypress', function(event){
+        if (event.keyCode == 13 || event.which == 13) {
+            $(this).trigger('submit');
+        }
+        else if (event.keyCode == 27 || event.which == 27) {
+            closeAddPieceForm();
+        }
+    });
     $('#add-piece-form').submit(function(){
         if ($('#piece_title').val() == '') {
             console.log('title');
@@ -107,12 +119,12 @@ function overA(obj){
                 $(obj).removeClass('editting');
                 $(obj).attr('href', lastHref);
                 $('#help-text').remove();
-				inFocus = false;
+                inFocus = false;
             }
             else if (key == 13) {
                 $(document).bind('mousemove', function(e){
                     console.log('down');
-					$(helpText).text('press esc to stop placing');
+                    $(helpText).text('press esc to stop placing');
                     $(obj).css('width', $(obj).width());
                     $(obj).css('height', $(obj).height());
                     console.log('mouseX: ' + e.pageX + ', objX: ' + $(obj).position().top);
@@ -152,8 +164,37 @@ function dndiHeader(){
     }
 }
 
+function saveMenu(){
+    $('#save').bind('click', function(){
+        var header = 'width=' + $('#header').width() + 'px&height=' + $('#header').height() + 'px&';
+        header += 'left=' + $('#header').position().left + 'px&top=' + $('#header').position().top + 'px&'&
+        var nav = 'nav@width=' + $('#nav').width() + 'px&height=' + $('#nav').height() + 'px&'&
+        nav += 'left=' + $('#nav').position().left + 'px&top=' + $('#nav').position().top + 'px&'&
+        var contact = 'contact@width=' + $('#contact').width() + 'px&height=' + $('#contact').height() + 'px&'&
+        contact += 'left=' + $('#contact').position().left + 'px&top=' + $('#contact').position().top + 'px&'&
+        var logo = 'logo@width=' + $('#logo').width() + 'px&height=' + $('#logo').height() + 'px&'&
+        logo += 'left=' + $('#logo').position().left + 'px&top=' + $('#logo').position().top + 'px&'&
+        var container = 'container@width=' + $('#container').width() + 'px&height=' + $('#container').height() + 'px&'&
+        container += 'left=' + $('#container').position().left + 'px&top=' + $('#container').position().top + 'px&'&
+        console.log('header css\n' + header);
+        console.log('nav css\n' + nav);
+        console.log('logo css\n' + logo);
+        console.log('contact css\n' + contact);
+        console.log('container css\n' + container);
+        $.ajax({
+            type: 'POST',
+            url: '/save/css',
+            data: header,
+            success: function(data){
+                console.log(data);
+            },
+        });
+    });
+}
+
 function initDndi(){
     dndiHeader();
     moveAddDiv();
     initAddNew();
+    saveMenu();
 }

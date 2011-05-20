@@ -41,6 +41,11 @@ urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
 )
 
+#save users css changes
+urlpatterns += patterns('',
+    (r'^save/css$', 'views.save_css'),
+)
+
 #Edit pages
 urlpatterns += patterns('',
     (r'^edit$','views.edit_index'),

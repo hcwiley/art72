@@ -1,8 +1,6 @@
-<a href='#' id='add-new-piece'>
-    <div>
-        <h1>(+)</h1>
-    </div>
-</a>
+<div class='gallery_thumb' id='add-new-piece'>
+    <img src='/media/images/add-new-piece.png' alt='add new piece' />
+</div>
 <div id='add-piece' class='rounded-corners'>
     <form name='{{ piece }}' action='/add/piece' method='post' id='add-piece-form'>
         {%  csrf_token %}
@@ -21,8 +19,7 @@
         <br/>
         <p>
             Series: 
-        </p>{{ piece_form.series }}
-    <input type='submit' id='submit-piece' value='Submit' />
+        </p>{{ piece_form.series }}<input type='submit' id='submit-piece' value='Submit' />
     </form>
     <button id='close-add-piece'>
         close

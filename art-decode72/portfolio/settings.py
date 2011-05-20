@@ -23,7 +23,7 @@ DEBUG =  IS_DEV
 #print host
 ### DEV ################################################################ DEV ###
 if IS_DEV:
-    if host == 'hwiley2-2.lsu.edu' or host == 'hwiley2-1.lsu.edu' or host == 'hwiley2-3.lsu.edu' or host == 'blu-Mac.local':
+    if 'hwiley2' in host or 'blu-Mac' in host:
         MEDIA_ROOT = '/Users/hcwiley/wd40too/artist-sites/art-decode72'
         DATABASE_ENGINE = 'django.db.backends.mysql'
         DATABASE_NAME = 'wd40too_artist'

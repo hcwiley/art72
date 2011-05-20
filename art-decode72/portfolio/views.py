@@ -144,3 +144,5 @@ def add_piece(request):
         print 'bad form'
         return HttpResponseNotFound("invalid form")
 
+def save_css(request):
+    print request.POST

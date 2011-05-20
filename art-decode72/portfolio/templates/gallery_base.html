@@ -1,7 +1,6 @@
-<div id='medium' class='medium content'>
+<div id='gallery' class='content'>
 {% for piece in pieces %}
-	<a href='/{{ piece.series.all.0.slug }}/{{ piece.slug }}' class='default_image'><img src='{{ piece.default_image }}'/></a>
-	<p>{{ piece }}</p>
+	<div class='gallery_thumb'><a href='/{{ piece.series.all.0.slug }}/{{ piece.slug }}'><img src='{{ piece.default_image }}'/></a></div>
 {% endfor %}
 </div>
 

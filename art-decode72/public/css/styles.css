@@ -71,14 +71,14 @@ body {
     
 }
 
-.default_image{
+.gallery_thumb{
 	width: 450px;
 	height: 250px;
 	opacity: 0;
 	margin: 10px 10px 10px 10px;
 }
 
-.default_image img{
+.gallery_thumb img{
 	position: absolute;
 	top: 0px;
 	width: auto;
@@ -86,20 +86,20 @@ body {
 	
 }
 
-#medium{
+#gallery{
 	position: absolute;
 	left: -30px;
 	width: 1100px;
 	height: auto;
 }
 
-#medium a{
+#gallery a{
 	position: relative;
 	opacity: 0;
 	display: inline-block;
 }
 
-#medium p{
+#gallery p{
 	position: relative;
 	left: -200px;
 	display: inline;

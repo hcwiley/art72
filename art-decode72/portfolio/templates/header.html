@@ -1,8 +1,9 @@
-<a id='logo' href='/'><h1>your name/logo here</h1></a>
+<a id='logo' href='/'><h2>your name</h2><h4>your work</h4></a>
 <div id='nav'>
+	<h2>Work</h2>
 	{% for series in serieses %}
 	   <a href='/{{ series.slug }}' id='{{ series }}' class='{% if pieces.0.series == series or piece.series == series %}currentPage{% else %} notCur {% endif %}'><p>{{ series }}</p></a>
    {% endfor %}
    {% csrf_token %}
 </div>
-   <a id='contact' href='/contact'>link to contact page</a>
+   <a id='contact' href='/contact'><p>contact</p></a>

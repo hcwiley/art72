@@ -34,9 +34,9 @@ function init(){
 function resize(){
     var height = $(window).height();
     var width = $(window).width();
-    bg(width, height);
-    $("#container").width(width - 300);
-    $("#container").css("left", (width - $("#container").width()) / 2);
+//    bg(width, height);
+    $("#container").width(width - 400);
+//    $("#container").css("left", (width - $("#container").width()) / 2);
     $("#footer").css("top", $("#container").height() + 10);
 }
 
