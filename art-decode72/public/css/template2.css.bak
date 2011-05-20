@@ -68,9 +68,9 @@ body {
 
 #container {
     position: absolute;
-    width: 859px;
-    top: 158px;
-    left: 172px;
+    width: 874px;
+    top: -14px;
+    left: 195px;
     padding: 20px;
     display: inline-block;    
 }
@@ -153,7 +153,7 @@ body {
     width: 100px;
 }
 
-#other-images a img{
+#other-images img{
     height: auto;
     width: 90px;
     margin: 5px 10px 5px 10px; 

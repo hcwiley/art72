@@ -8,7 +8,7 @@ var hoverTime = 1500;
 
 function moveAddDiv(){
     $('#gallery').prepend(document.getElementById('add-new-piece'));
-	$('#other-images').prepend(document.getElementById('add-new-piece'));
+    $('#other-images').prepend(document.getElementById('add-new-piece'));
     $('#add-new-piece').animate({
         opacity: 1
     }, 800);
@@ -168,7 +168,7 @@ function dndiHeader(){
 
 function saveMenu(){
     $('#save').bind('click', function(){
-		console.log('saving...');
+        console.log('saving...');
         var css = ""
         var dndi = $('.css-changed');
         for (var i = 0; i < $(dndi).length; i++) {
@@ -184,6 +184,28 @@ function saveMenu(){
                 },
             });
         }
+    });
+    $('#draft').bind('click', function(){
+        console.log('saving...');
+        var css = ""
+        var dndi = $('.css-changed');
+        for (var i = 0; i < $(dndi).length; i++) {
+            css = 'width=' + $(dndi[i]).width() + '&height=' + $(dndi[i]).height() + '&';
+            css += 'left=' + $(dndi[i]).position().left + '&top=' + $(dndi[i]).position().top + '&';
+            console.log($(dndi[i]).attr('id') + ' css\n' + css);
+            $.ajax({
+                type: 'POST',
+                url: '/draft/' + $(dndi[i]).attr('id'),
+                data: css,
+                success: function(data){
+                    console.log(data);
+                },
+            });
+        }
+    });
+    $('#reset').bind('click', function(){
+        console.log('reseting..');
+        window.location = window.location;
     });
 }
 
