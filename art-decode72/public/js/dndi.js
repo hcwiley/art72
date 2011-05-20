@@ -7,7 +7,8 @@ var inFocus = false;
 var hoverTime = 1500;
 
 function moveAddDiv(){
-    $('.content').prepend(document.getElementById('add-new-piece'));
+    $('#gallery').prepend(document.getElementById('add-new-piece'));
+	$('#other-images').prepend(document.getElementById('add-new-piece'));
     $('#add-new-piece').animate({
         opacity: 1
     }, 800);
@@ -127,6 +128,7 @@ function overA(obj){
                     $(helpText).text('press esc to stop placing');
                     $(obj).css('width', $(obj).width());
                     $(obj).css('height', $(obj).height());
+                    $(obj).addClass('css-changed');
                     console.log('mouseX: ' + e.pageX + ', objX: ' + $(obj).position().top);
                     $(obj).offset({
                         top: e.pageY - $(obj).height() / 2,
@@ -148,7 +150,7 @@ function dndiHeader(){
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).attr('href', '/edit' + $(as[i]).attr('href'));
     }
-    as = $('#header').add('#nav').add('#contact').add('#logo').add('#container');
+    as = $('#nav').add('#contact').add('#logo').add('#container');
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).hover(function(){
             console.log('entered...');
@@ -166,29 +168,22 @@ function dndiHeader(){
 
 function saveMenu(){
     $('#save').bind('click', function(){
-        var header = 'width=' + $('#header').width() + 'px&height=' + $('#header').height() + 'px&';
-        header += 'left=' + $('#header').position().left + 'px&top=' + $('#header').position().top + 'px&'&
-        var nav = 'nav@width=' + $('#nav').width() + 'px&height=' + $('#nav').height() + 'px&'&
-        nav += 'left=' + $('#nav').position().left + 'px&top=' + $('#nav').position().top + 'px&'&
-        var contact = 'contact@width=' + $('#contact').width() + 'px&height=' + $('#contact').height() + 'px&'&
-        contact += 'left=' + $('#contact').position().left + 'px&top=' + $('#contact').position().top + 'px&'&
-        var logo = 'logo@width=' + $('#logo').width() + 'px&height=' + $('#logo').height() + 'px&'&
-        logo += 'left=' + $('#logo').position().left + 'px&top=' + $('#logo').position().top + 'px&'&
-        var container = 'container@width=' + $('#container').width() + 'px&height=' + $('#container').height() + 'px&'&
-        container += 'left=' + $('#container').position().left + 'px&top=' + $('#container').position().top + 'px&'&
-        console.log('header css\n' + header);
-        console.log('nav css\n' + nav);
-        console.log('logo css\n' + logo);
-        console.log('contact css\n' + contact);
-        console.log('container css\n' + container);
-        $.ajax({
-            type: 'POST',
-            url: '/save/css',
-            data: header,
-            success: function(data){
-                console.log(data);
-            },
-        });
+		console.log('saving...');
+        var css = ""
+        var dndi = $('.css-changed');
+        for (var i = 0; i < $(dndi).length; i++) {
+            css = 'width=' + $(dndi[i]).width() + '&height=' + $(dndi[i]).height() + '&';
+            css += 'left=' + $(dndi[i]).position().left + '&top=' + $(dndi[i]).position().top + '&';
+            console.log($(dndi[i]).attr('id') + ' css\n' + css);
+            $.ajax({
+                type: 'POST',
+                url: '/save/' + $(dndi[i]).attr('id'),
+                data: css,
+                success: function(data){
+                    console.log(data);
+                },
+            });
+        }
     });
 }
 

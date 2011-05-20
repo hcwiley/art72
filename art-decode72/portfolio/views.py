@@ -4,7 +4,9 @@ from django.conf import settings
 from django.core.context_processors import csrf
 from django.template.defaultfilters import slugify
 from django.core.files.uploadedfile import SimpleUploadedFile
+from apps.forms import *
 from piece.models import *
+import os
 
 #mediums = (
 #           'painting',
@@ -144,5 +146,43 @@ def add_piece(request):
         print 'bad form'
         return HttpResponseNotFound("invalid form")
 
-def save_css(request):
-    print request.POST
+def save_css(request, id):
+    if request.method != "POST":
+        raise Http404
+#    print request.POST
+    form = CssForm(request.POST)
+    print form
+    if form.is_valid():
+        os.system('cp ../public/css/template2.css ../public/css/template2.css.bak')
+        cssNew = open('../public/css/template2.css.new', 'w+')
+        cssOrig = open('../public/css/template2.css', 'r')
+        add = False
+        section = []
+        print id
+        for line in cssOrig:
+            if '#%s {' % id in line or '#%s{' % id in line:
+                add = True
+            if add:
+                if 'width' in line and id != 'nav':
+                    line = '    width: %dpx;\n' % form.cleaned_data['width']
+                    print 'fixed width'
+                if 'height' in line and id != 'nav':
+                    line = '    height: %dpx;\n' % form.cleaned_data['height']
+                    print 'fixed height'
+                if 'top' in line:
+                    line = '    top: %dpx;\n' % form.cleaned_data['top']
+                    print 'fixed top'
+                if 'left' in line:
+                    line = '    left: %dpx;\n' % form.cleaned_data['left']
+                    print 'fixed left'
+            if '}' in line:
+                add = False
+            cssNew.write(line)
+        cssNew.flush()
+        cssNew.close()
+        cssOrig.close()
+        os.system('cp ../public/css/template2.css.new ../public/css/template2.css')
+        return HttpResponse("success")
+    else:
+        print 'bad css form'
+        return HttpResponseNotFound("invalid form")

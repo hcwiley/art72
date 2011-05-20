@@ -43,7 +43,7 @@ urlpatterns += patterns('',
 
 #save users css changes
 urlpatterns += patterns('',
-    (r'^save/css$', 'views.save_css'),
+    (r'^save/(?P<id>.*)$', 'views.save_css'),
 )
 
 #Edit pages

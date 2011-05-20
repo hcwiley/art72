@@ -153,7 +153,7 @@ body {
     width: 100px;
 }
 
-#other-images img{
+#other-images a img{
     height: auto;
     width: 90px;
     margin: 5px 10px 5px 10px; 
