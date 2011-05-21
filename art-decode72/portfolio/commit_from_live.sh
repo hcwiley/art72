@@ -1,7 +1,7 @@
 #ssh hcwiley@hcwiley.com
-cp -r ~/webapps/hcw_dj/portfolio/* /home/hcwiley/hg/hcwiley-django/portfolio/
-cp -r ~/webapps/hcw_dj_static/* /home/hcwiley/hg/hcwiley-django/public/
-cd  /home/hcwiley/hg/hcwiley-django/
+cp -r /home/wd40too/webapps/artist_sites/portfolio/ /home/hcwiley/hg/artist-sites/art-decode72/portfolio/
+cp -r /home/wd40too/webapps/artist_sites_static/* /home/hcwiley/hg/artist-sites/art-decode72/public/
+cd  /home/hcwiley/hg/artist-sites/
 hg ci -m 'commit from live'
 hg push
 
