@@ -54,44 +54,43 @@ if IS_DEV:
 ### LIVE ############################################################## LIVE ###
 else:
     DATABASE_ENGINE = 'django.db.backends.mysql'
-    DATABASE_NAME = 'decode_art'
-    DATABASE_USER = 'decode_art'
-    DATABASE_PASSWORD = 'geauxgeaux'
+    DATABASE_NAME = 'wd40too_art'
+    DATABASE_USER = 'wd40too_art'
+    DATABASE_PASSWORD = 'geaux44'
     #FORCE_SCRIPT_NAME = '/graphic_design'
     # Absolute path to the directory that holds media.
     # Example: "/home/media/media.lawrence.com/"
-    MEDIA_ROOT = '/home/digital825p/webapps/port'
+    MEDIA_ROOT = '/home/wd40too/webapps/artist_sites'
 
     # URL that handles the media served from MEDIA_ROOT. Make sure to use a
     # trailing slash if there is a path component (optional in other cases).
     # Examples: "http://media.lawrence.com", "http://example.com/media/"
-    STATIC_DOC_ROOT = '/home/digital825p/webapps/port_static'
-    GALLERY_ROOT = '/home/digital825p/webapps/port/gallery/'
-    MEDIA_URL = 'http://patrickmelon.com/media/'
+    STATIC_DOC_ROOT = '/home/wd40too/webapps/artist_sites_static'
+    GALLERY_ROOT = '/home/wd40too/webapps/artist_sites_static/gallery/'
+    MEDIA_URL = 'http://art.decode72.com/media/'
 
     # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
     # trailing slash.
     # Examples: "http://foo.com/media/", "/media/".
-    ADMIN_MEDIA_PREFIX = 'http://patrickmelon.com/media/admin/'
+    ADMIN_MEDIA_PREFIX = 'http://art.decode72.com/media/admin'
 
     TEMPLATE_DIRS = (
         # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
-        '/home/digital825p/webapps/port/portfolio/templates'
+        '/home/wd40too/webapps/artist_sites/portfolio/templates'
     )
 
 #    sys.path.append("/home/hcwiley/webapps/django_gdhit_dev/gdhit/shared-apps")
-    sys.path.append("/home/digital825p/webapps/port/portfolio/apps")
-    sys.path.append("/home/digital825p/webapps/port/portfolio")
-    sys.path.append("/home/digital825p/webapps/port")
+    sys.path.append("/home/wd40too/webapps/artist_sites")
+    sys.path.append("/home/wd40too/webapps/artist_sites/portfolio")
+    sys.path.append("/home/wd40too/webapps/artist_sites/portfolio/apps")
 ### COMMON ########################################################## COMMON ###
 
 FORCE_LOWERCASE_TAGS = True #for django-tagging
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('Cole Wiley', 'hcwiley@gmail.com'),
-    ('Patrick Melon','digital825p@yahoo.com')
 )
 
 MANAGERS = ADMINS
