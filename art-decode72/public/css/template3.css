@@ -11,29 +11,32 @@ body {
 }
 
 #header {
-    z-index: 1;
+    z-index: 100;
     position: absolute;
+    top: -10px;
+    left: 20px;
     height: 0px;
     width: 0px;
 }
 
 #contact{
     position: absolute;
-    top: 63px;
-    left: 0px;
+    top: 80px;
+    left: 20px;
 }
 
 #logo{
     position: absolute;
-    top: -26px;
+    top: 0px;
     width: 165px;
     height: 100px;
+    line-height: .9em;
 }
 
 #nav{
     position: fixed;
-    top: 108px;
-    left: 7px;
+    top: 120px;
+    left: 30px;
     width: 165px;
     height: auto;
     display: inline-block;
@@ -68,9 +71,9 @@ body {
 
 #container {
     position: absolute;
-    width: 863px;
-    top: 79px;
-    left: 196px;
+    width: 874px;
+    top: 16px;
+    left: 206px;
     padding: 20px;
     display: inline-block;    
 }
@@ -153,7 +156,7 @@ body {
     width: 100px;
 }
 
-#other-images img{
+#other-images a img{
     height: auto;
     width: 90px;
     margin: 5px 10px 5px 10px; 

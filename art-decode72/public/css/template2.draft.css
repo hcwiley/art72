@@ -19,21 +19,21 @@ body {
 
 #contact{
     position: absolute;
-    top: 63px;
-    left: 0px;
+    top: -12px;
+    left: 135px;
 }
 
 #logo{
     position: absolute;
-    top: -26px;
+    top: -25px;
     width: 165px;
     height: 100px;
 }
 
 #nav{
     position: fixed;
-    top: 108px;
-    left: 7px;
+    top: 74px;
+    left: 8px;
     width: 165px;
     height: auto;
     display: inline-block;
@@ -68,9 +68,9 @@ body {
 
 #container {
     position: absolute;
-    width: 863px;
-    top: 79px;
-    left: 196px;
+    width: 874px;
+    top: 211px;
+    left: 258px;
     padding: 20px;
     display: inline-block;    
 }

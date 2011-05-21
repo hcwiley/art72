@@ -54,9 +54,9 @@ if IS_DEV:
 ### LIVE ############################################################## LIVE ###
 else:
     DATABASE_ENGINE = 'django.db.backends.mysql'
-    DATABASE_NAME = 'digital825p_site'
-    DATABASE_USER = 'digital825p_site'
-    DATABASE_PASSWORD = 'photo'
+    DATABASE_NAME = 'decode_art'
+    DATABASE_USER = 'decode_art'
+    DATABASE_PASSWORD = 'geauxgeaux'
     #FORCE_SCRIPT_NAME = '/graphic_design'
     # Absolute path to the directory that holds media.
     # Example: "/home/media/media.lawrence.com/"
