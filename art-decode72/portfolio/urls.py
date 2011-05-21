@@ -41,6 +41,12 @@ urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
 )
 
+#save users css changes
+urlpatterns += patterns('',
+    (r'^save/(?P<id>.*)$', 'views.save_css'),
+    (r'^draft/(?P<id>.*)$', 'views.draft_css'),
+)
+
 #Edit pages
 urlpatterns += patterns('',
     (r'^edit$','views.edit_index'),
@@ -53,6 +59,7 @@ urlpatterns += patterns('',
 #Refresh individual elements
 urlpatterns += patterns('',
     (r'^get/header$','views.get_header'),
+    (r'^get/(?P<page>.*)$','views.get_page'),
 )
 #Series pages
 urlpatterns += patterns('',

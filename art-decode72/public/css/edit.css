@@ -1,15 +1,16 @@
-#add-new-piece div{
-    position: relative;
-    top: 0px;
-    left: 0px;
-    width: 90px;
-    height: 90px;
+#add-new-piece{
     border: 1px solid black;
-	display: inline-block;
+	opacity: 0;
+}
+
+#add-new-piece:hover{
+	cursor: pointer;
 }
 
 #add-new-piece h1{
-    padding: 3px 25px;
+    position: relative;
+	top: 5px;
+	left: 40px;
 }
 
 #add-piece{
@@ -34,8 +35,8 @@
 
 #submit-piece{
     position: relative;
-    top: -45px;
-    left: 505px;
+    top: 25px;
+    left: 205px;
     z-index: 3;
 }
 
@@ -51,4 +52,22 @@
     height: 20px;
     margin: 10px 5px 50px 5px;
     display: inline-block;
+}
+
+.editting{
+	border: 1px dashed #F00;
+}
+.editting h4{
+	color: #f00;
+    z-index: 2;
+	position: absolute;
+	left: 30px;
+	height: 20px;
+	width: 100px;
+}
+
+#save-menu{
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
 }

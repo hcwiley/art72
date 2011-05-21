@@ -20,16 +20,21 @@ dev_boxes = (
 
 IS_DEV = host in dev_boxes
 DEBUG =  IS_DEV
-
+#print host
 ### DEV ################################################################ DEV ###
 if IS_DEV:
-    #if host == 'hwiley2-2.lsu.edu' or host == 'hwiley2-1.lsu.edu' or host == 'hwiley2-3.lsu.edu' or host == 'blu-Mac.local':
-    MEDIA_ROOT = '/Users/hcwiley/wd40too/artist-sites/art-decode72'
-    DATABASE_ENGINE = 'django.db.backends.mysql'
-    DATABASE_NAME = 'wd40too_artist'
-    DATABASE_USER = 'wd40too_artist'
-    DATABASE_PASSWORD = 'geaux44'
-
+    if 'hwiley2' in host or 'blu-Mac' in host:
+        MEDIA_ROOT = '/Users/hcwiley/wd40too/artist-sites/art-decode72'
+        DATABASE_ENGINE = 'django.db.backends.mysql'
+        DATABASE_NAME = 'wd40too_artist'
+        DATABASE_USER = 'wd40too_artist'
+        DATABASE_PASSWORD = 'geaux44'
+    elif host == '0-1c-b3-c2-a0-5c.lsu.edu':
+        MEDIA_ROOT = '/Users/philwinfield/Documents/1.Summer_2011/Decode 72/artist-sites/art-decode72'
+        DATABASE_ENGINE = 'django.db.backends.sqlite3'
+        DATABASE_NAME = 'database.sql'
+        DATABASE_USER = ''
+        DATABASE_PASSWORD = ''
     MEDIA_URL = '/media/'
     ADMIN_MEDIA_PREFIX = '/media/admin/'
 
@@ -49,9 +54,9 @@ if IS_DEV:
 ### LIVE ############################################################## LIVE ###
 else:
     DATABASE_ENGINE = 'django.db.backends.mysql'
-    DATABASE_NAME = 'digital825p_site'
-    DATABASE_USER = 'digital825p_site'
-    DATABASE_PASSWORD = 'photo'
+    DATABASE_NAME = 'decode_art'
+    DATABASE_USER = 'decode_art'
+    DATABASE_PASSWORD = 'geauxgeaux'
     #FORCE_SCRIPT_NAME = '/graphic_design'
     # Absolute path to the directory that holds media.
     # Example: "/home/media/media.lawrence.com/"

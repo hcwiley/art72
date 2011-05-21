@@ -1,40 +1,13 @@
 {% include 'edit_head.html' %}
 <script type='text/javascript' src='/media/js/gallery.js'>
 </script>
-<body>
+<body id='body'>
     <div class="link" id="header">
         {% include 'header.html' %}
     </div>
     <div id="container">
-    	<a href='#' id='add-new-piece'>
-            <div><h1>(+)</h1></div>
-        </a>
-        <div id='add-piece' class='rounded-corners'>
-            <form name='{{ piece }}' action='/add/piece' method='post' id='add-piece-form'>
-                {%  csrf_token %}
-                <p>
-                    Name of piece: 
-                </p>{{  piece_form.title }}
-                <p>
-                    Image: 
-                </p>{{ piece_form.default_image }}
-                <p>
-                    Date: 
-                </p>{{ piece_form.date }}
-                <p>
-                    Price: 
-                </p>{{ piece_form.price }}
-                <br/>
-                <p>
-                    Series: 
-                </p>{{ piece_form.series }}
-            </form>
-            <input type='submit' id='submit-piece' value='Submit' />
-			<button id='close-add-piece'>
-                close
-            </button>
-        </div>
-        {% include 'medium_base.html' %}
+        {% include 'gallery_base.html' %}
+    	{% include 'add-piece.html' %}
     </div>
     <div id="footer" class="link">
     </div>
