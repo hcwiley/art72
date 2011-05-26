@@ -1,3 +1,12 @@
+#login{
+	border: 1px solid #000;
+	width: 200px;
+	height: 150px;
+	position: absolute;
+	top: 30px;
+	left: 100px;
+}
+
 #add-new-piece{
     border: 1px solid black;
 	opacity: 0;

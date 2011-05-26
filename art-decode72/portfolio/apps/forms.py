@@ -5,3 +5,7 @@ class CssForm(forms.Form):
     height = forms.IntegerField(required=False)
     left = forms.IntegerField(required=False)
     top = forms.IntegerField(required=False)
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()

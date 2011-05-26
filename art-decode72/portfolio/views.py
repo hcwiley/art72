@@ -7,6 +7,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from apps.forms import *
 from piece.models import *
 import os
+from django.contrib.auth import *
 
 #mediums = (
 #           'painting',
@@ -56,18 +57,18 @@ def gallery(request, series):
     return render_to_response('gallery.html', args)
 
 def get_page(request, page):
-    print 'getting page: %s' %page
-    if len(Piece.objects.filter(slug=page)) != 0:
+    print 'getting page: %s' % page
+    if len(Piece.objects.filter(slug = page)) != 0:
         print 'its piece page'
-        pieces = getSeries(Piece.objects.filter(slug=page)[0].series.all()[0].slug)
+        pieces = getSeries(Piece.objects.filter(slug = page)[0].series.all()[0].slug)
         print pieces
         args = {
-                'piece': Piece.objects.filter(slug=page)[0],
+                'piece': Piece.objects.filter(slug = page)[0],
                 'pieces': pieces,
                 'serieses': listSeries()
                 }
         return render_to_response('piece_base.html', args)
-    elif len(Series.objects.filter(slug=page)) != 0:
+    elif len(Series.objects.filter(slug = page)) != 0:
         print 'its gallery page'
         pieces = getSeries(page)
         args = {
@@ -223,6 +224,33 @@ def draft_css(request, id):
         cssNew.close()
         cssOrig.close()
         return HttpResponse("success")
+    else:
+        print 'bad css form'
+        return HttpResponseNotFound("invalid form")
+
+def login(request):
+    if request.method != "POST":
+        raise Http404
+#    print request.POST
+    form = LoginForm(request.POST)
+    print form
+    if form.is_valid():
+        handle = form.cleaned_data['username']
+        pw = form.cleaned_data['password']
+        print handle
+        print pw
+        user = models.User.objects.filter(username=handle)
+        if len(user) == 1:
+            user = user[0]
+            if user.check_password(pw):
+                print 'all good'
+                return HttpResponse("success")
+            else:
+                print 'password did not match'
+                return HttpResponseNotFound("password did not match")
+        else:
+            print 'could not find username'
+            return HttpResponseNotFound("could not find username")
     else:
         print 'bad css form'
         return HttpResponseNotFound("invalid form")

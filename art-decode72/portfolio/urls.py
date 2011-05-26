@@ -47,6 +47,11 @@ urlpatterns += patterns('',
     (r'^draft/(?P<id>.*)$', 'views.draft_css'),
 )
 
+#Login
+urlpatterns += patterns('',
+    (r'^login$', 'views.login'),
+)
+
 #Edit pages
 urlpatterns += patterns('',
     (r'^edit$','views.edit_index'),
