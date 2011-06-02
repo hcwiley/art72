@@ -1,13 +1,14 @@
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
-from django.core.context_processors import csrf
+from django.core.context_processors import *
 from django.template.defaultfilters import slugify
 from django.core.files.uploadedfile import SimpleUploadedFile
 from apps.forms import *
 from piece.models import *
 import os
 from django.contrib.auth import *
+from django.contrib import auth
 
 #mediums = (
 #           'painting',
@@ -34,7 +35,7 @@ def listSeries():
 
 def index(request):
     args = {
-           'serieses': listSeries()
+           'serieses': listSeries(),
     }
     args.update(csrf(request))
     return render_to_response('index.html', args)
@@ -90,6 +91,7 @@ def edit_index(request):
     args = {
            'serieses': listSeries(),
            'piece_form': PieceForm(auto_id = 'piece_%s'),
+           'user': request.user,
     }
     args.update(csrf(request))
     return render_to_response('edit_index.html', args)
@@ -229,28 +231,22 @@ def draft_css(request, id):
         return HttpResponseNotFound("invalid form")
 
 def login(request):
-    if request.method != "POST":
-        raise Http404
-#    print request.POST
-    form = LoginForm(request.POST)
-    print form
-    if form.is_valid():
-        handle = form.cleaned_data['username']
-        pw = form.cleaned_data['password']
-        print handle
-        print pw
-        user = models.User.objects.filter(username=handle)
-        if len(user) == 1:
-            user = user[0]
-            if user.check_password(pw):
-                print 'all good'
-                return HttpResponse("success")
-            else:
-                print 'password did not match'
-                return HttpResponseNotFound("password did not match")
-        else:
-            print 'could not find username'
-            return HttpResponseNotFound("could not find username")
+    usern = request.POST['username']
+    passw = request.POST['password']
+    print usern
+    print passw
+    user = auth.authenticate(username=usern, password=passw)
+    print user
+    if user is not None and user.is_active:
+        # Correct password, and the user is marked "active"
+        auth.login(request, user)
+        # Redirect to a success page.
+        return HttpResponse("success")
     else:
-        print 'bad css form'
-        return HttpResponseNotFound("invalid form")
+        # Show an error page
+        print 'nope'
+        return HttpResponseNotFound("no good")
+def logout(request):
+    auth.logout(request)
+    # Redirect to a success page.
+    return HttpResponse("success")

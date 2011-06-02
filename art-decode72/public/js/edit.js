@@ -9,7 +9,6 @@ function moveAddDiv(){
 
 function showRequest(formData, jqForm, options){
     console.log('requesting...');
-    
 }
 
 function handlePostSuccess(responseText, statusText, xhr, $form){
@@ -94,14 +93,28 @@ function initAddNew(){
     });
 }
 
+function handleLogoutSuccess(){
+	window.location = window.location;
+}
+function handleLogoutFail(){
+	
+}
+
+function handleLoginSuccess(){
+    window.location = window.location;
+}
+
+function handleLoginFail(response, statusText, xhr){
+    console.log(response.responseText);
+    if (response.responseText == 'password') {
+        $('#login').html($('#login').html() + 'password did not match');
+    }
+    else if (response.responseText == 'username') {
+        $('#login').html($('#login').html() + 'username not found');
+    }
+}
+
 function initLogin(){
-    var options = {
-        //        target: '#header', // target element(s) to be updated with server response 
-        beforeSubmit: showRequest, // pre-submit callback 
-        success: handlePostSuccess, // post-submit callback
-        url: '/login',
-        clearForm: true
-    };
     $('#login-form').bind('keypress', function(event){
         if (event.keyCode == 13 || event.which == 13) {
             $(this).trigger('submit');
@@ -119,15 +132,38 @@ function initLogin(){
         }
         else {
             console.log('sending...');
-            $('#login-form').ajaxSubmit(options);
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                data: $('#login-form').serialize(),
+                success: handleLoginSuccess,
+                error: handleLoginFail
+            });
         }
         
         return false;
     });
+	$('#logout').click(function(){
+		$.ajax({
+                url: '/logout',
+                type: 'POST',
+                success: handleLogoutSuccess,
+                error: handleLogoutFail
+            });
+	})
+}
+
+function checkAs(){
+    as = $('a');
+    for (var i = 0; i < $(as).length; i++) {
+        if (($(as[i]).attr('href') + '').substring(0, 5) != '/edit') 
+            $(as[i]).attr('href', '/edit' + $(as[i]).attr('href'));
+    }
 }
 
 function initEdit(){
     moveAddDiv();
+    checkAs();
     initAddNew();
     initLogin();
 }

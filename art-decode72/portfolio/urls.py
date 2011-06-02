@@ -50,6 +50,7 @@ urlpatterns += patterns('',
 #Login
 urlpatterns += patterns('',
     (r'^login$', 'views.login'),
+    (r'^logout$', 'views.logout'),
 )
 
 #Edit pages
