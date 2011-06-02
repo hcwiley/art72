@@ -97,28 +97,57 @@ def edit_index(request):
     return render_to_response('edit_index.html', args)
 
 def edit_contact(request):
-    return render_to_response('edit_contact.html', {'serieses': listSeries()})
-
-def edit_piece(request, series, slg):
-    pieces = getSeries(series)
-    args = {
-            'piece': Piece.objects.filter(slug = slg)[0],
-            'pieces': pieces,
-            'serieses': listSeries(),
-            'piece_form': PieceForm(auto_id = 'piece_%s'),
-            }
-    args.update(csrf(request))
-    return render_to_response('edit_piece.html', args)
-
-def edit_gallery(request, series):
-    pieces = getSeries(series)
-    args = {
-            'pieces': pieces,
-            'serieses': listSeries(),
-            'piece_form': PieceForm(auto_id = 'piece_%s'),
+    if request.user.is_authenticated():
+        return render_to_response('edit_contact.html', {'serieses': listSeries(), 'user': request.user})
+    else:
+        args = {
+           'serieses': listSeries(),
+           'piece_form': PieceForm(auto_id = 'piece_%s'),
+           'user': request.user,
     }
     args.update(csrf(request))
-    return render_to_response('edit_gallery.html', args)
+    return render_to_response('edit_index.html', args)
+
+def edit_piece(request, series, slg):
+    if request.user.is_authenticated():
+        pieces = getSeries(series)
+        args = {
+                'piece': Piece.objects.filter(slug = slg)[0],
+                'pieces': pieces,
+                'serieses': listSeries(),
+                'piece_form': PieceForm(auto_id = 'piece_%s'),
+                'user': request.user,
+                }
+        args.update(csrf(request))
+        return render_to_response('edit_piece.html', args)
+    else:
+        args = {
+           'serieses': listSeries(),
+           'piece_form': PieceForm(auto_id = 'piece_%s'),
+           'user': request.user,
+    }
+    args.update(csrf(request))
+    return render_to_response('edit_index.html', args)
+
+def edit_gallery(request, series):
+    if request.user.is_authenticated():
+        pieces = getSeries(series)
+        args = {
+                'pieces': pieces,
+                'serieses': listSeries(),
+                'piece_form': PieceForm(auto_id = 'piece_%s'),
+                'user': request.user,
+        }
+        args.update(csrf(request))
+        return render_to_response('edit_gallery.html', args)
+    else:
+        args = {
+           'serieses': listSeries(),
+           'piece_form': PieceForm(auto_id = 'piece_%s'),
+           'user': request.user,
+    }
+    args.update(csrf(request))
+    return render_to_response('edit_index.html', args)
 
 def add_piece(request):
     if request.method != "POST":
