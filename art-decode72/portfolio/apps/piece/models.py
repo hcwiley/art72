@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
-#from django.core.files import ContentFile 
+#from django.core.files import ContentFile
+from django.contrib.admin import widgets 
 from django.contrib import admin
 from django.template.defaultfilters import slugify
 
@@ -24,7 +25,11 @@ class Series(models.Model):
     
     def __unicode__(self):
         return self.slug
-    
+
+class SeriesForm(forms.Form):
+    name = forms.CharField(max_length=400)
+    description = forms.CharField(widget=forms.Textarea(), required=False)
+
 class Piece(models.Model):
     title = models.CharField(max_length=400)
     default_image = models.ForeignKey(Image, related_name='%(app_label)s_%(class)s_default_image', null=True, blank=True) 
@@ -50,6 +55,6 @@ class Piece(models.Model):
 class PieceForm(forms.Form):
     title = forms.CharField(max_length=400)
     default_image = forms.ImageField(widget=forms.FileInput(), required=False) 
-    date = forms.DateField(required=False)
+    date = forms.DateField(widget=widgets.AdminDateWidget(), required=False)
     price = forms.IntegerField(required=False)
     series = forms.CharField(max_length=400)

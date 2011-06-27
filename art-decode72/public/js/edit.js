@@ -1,6 +1,33 @@
 jQuery.event.add(window, 'load', initEdit);
+//jQuery.event.add(window, 'unload', leavingPage);
+var changesMade = false;
+
+function unloadPage(){
+    if (changesMade) {
+        return "Leave page without saving changes?";
+    }
+}
+
+window.onbeforeunload = unloadPage;
+
+function leavingPage(){
+    if (changesMade) {
+        if (confirm('Leave page without saving changes?')) {
+            alert('you hit ok');
+        }
+        else {
+            saveChanges();
+        }
+    }
+}
+
+function saveChanges(){
+    console.log('saving changes');
+}
+
 function moveAddDiv(){
     $('#gallery').prepend(document.getElementById('add-new-piece'));
+    $('#series').prepend(document.getElementById('add-new-piece'));
     $('#other-images').prepend(document.getElementById('add-new-piece'));
     $('#add-new-piece').animate({
         opacity: 1
@@ -8,11 +35,11 @@ function moveAddDiv(){
 }
 
 function showRequest(formData, jqForm, options){
-    console.log('requesting...');
+    //console.log('requesting...');
 }
 
 function handlePostSuccess(responseText, statusText, xhr, $form){
-    console.log('handling success');
+    //console.log('handling success');
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
@@ -20,16 +47,26 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
         });
         ajax = '/get/' + loc;
         $.get(ajax, function(data){
+            $('#container').prepend($('#add-new-piece'));
             $('.content').remove();
             $('#container').html($('#container').html() + data);
+            moveAddDiv();
+            if (loc != 'edit') 
+                initPieceGallery();
         });
     }, 1500);
-    window.setTimeout("dndiDivs();", 1550);
     closeAddPieceForm();
 }
 
 function handlePostFail(){
     alert('sorry something went wrong...');
+}
+
+function closeAddSeriesForm(){
+    $('#add-series').animate({
+        opacity: 0
+    }, 100);
+    $('#add-series').css('z-index', -1);
 }
 
 function closeAddPieceForm(){
@@ -50,17 +87,26 @@ function initAddNew(){
     $('#close-add-piece').bind('click', function(){
         closeAddPieceForm();
     });
+    $('#close-add-series').bind('click', function(){
+        closeAddSeriesForm();
+    });
+    $('#add-new-series').bind('click', function(){
+        $('#add-series').animate({
+            opacity: 1
+        }, 100);
+        $('#add-series').css('z-index', 3);
+    });
     $('#add-new-piece').bind('click', function(){
         $('#add-piece').animate({
             opacity: 1
         }, 100);
-        $('#add-piece').css('z-index', 2);
+        $('#add-piece').css('z-index', 3);
     });
     var options = {
         //        target: '#header', // target element(s) to be updated with server response 
         beforeSubmit: showRequest, // pre-submit callback 
         success: handlePostSuccess, // post-submit callback
-        url: '/add/piece',
+        //        url: '/add/piece',
         clearForm: true
     };
     $('#add-piece-form').bind('keypress', function(event){
@@ -73,20 +119,47 @@ function initAddNew(){
     });
     $('#add-piece-form').submit(function(){
         if ($('#piece_title').val() == '') {
-            console.log('title');
+            //console.log('title');
             $('#piece_title').css('background-color', '#900');
         }
         else if ($('#piece_default_image').val() == "") {
-            console.log('image');
+            //console.log('image');
             $('#piece_default_image').css('background-color', '#F00');
         }
         else if ($('#piece_series').val() == '') {
-            console.log('series');
+            //console.log('series');
             $('#piece_series').css('background-color', '#F00');
         }
         else {
-            console.log('sending...');
+            //console.log('sending...');
             $('#add-piece-form').ajaxSubmit(options);
+        }
+        
+        return false;
+    });
+    var options = {
+        //        target: '#header', // target element(s) to be updated with server response 
+        beforeSubmit: showRequest, // pre-submit callback 
+        success: handlePostSuccess, // post-submit callback
+        //        url: '/add/series',
+        clearForm: true
+    };
+    $('#add-series-form').bind('keypress', function(event){
+        if (event.keyCode == 13 || event.which == 13) {
+            $(this).trigger('submit');
+        }
+        else if (event.keyCode == 27 || event.which == 27) {
+            closeAddPieceForm();
+        }
+    });
+    $('#add-series-form').submit(function(){
+        if ($('#series_name').val() == '') {
+            //console.log('title');
+            $('#series_name').css('background-color', '#900');
+        }
+        else {
+            //console.log('sending...');
+            $('#add-series-form').ajaxSubmit(options);
         }
         
         return false;
@@ -94,10 +167,11 @@ function initAddNew(){
 }
 
 function handleLogoutSuccess(){
-	window.location = window.location;
+    window.location = window.location;
 }
+
 function handleLogoutFail(){
-	
+
 }
 
 function handleLoginSuccess(){
@@ -105,7 +179,7 @@ function handleLoginSuccess(){
 }
 
 function handleLoginFail(response, statusText, xhr){
-    console.log(response.responseText);
+    //console.log(response.responseText);
     if (response.responseText == 'password') {
         $('#login').html($('#login').html() + 'password did not match');
     }
@@ -131,7 +205,7 @@ function initLogin(){
             $('#password').css('background-color', '#F00');
         }
         else {
-            console.log('sending...');
+            //console.log('sending...');
             $.ajax({
                 url: '/login',
                 type: 'POST',
@@ -143,27 +217,167 @@ function initLogin(){
         
         return false;
     });
-	$('#logout').click(function(){
-		$.ajax({
-                url: '/logout',
-                type: 'POST',
-                success: handleLogoutSuccess,
-                error: handleLogoutFail
-            });
-	})
+    $('#logout').click(function(){
+        $.ajax({
+            url: '/logout',
+            type: 'POST',
+            success: handleLogoutSuccess,
+            error: handleLogoutFail
+        });
+    })
 }
 
 function checkAs(){
-    as = $('a');
+    as = $('.content > * > a');
     for (var i = 0; i < $(as).length; i++) {
         if (($(as[i]).attr('href') + '').substring(0, 5) != '/edit') 
             $(as[i]).attr('href', '/edit' + $(as[i]).attr('href'));
     }
 }
 
+function initEditable(){
+    $('#logo>h2').mousedown(function(event){
+        if (event.which == 3) {
+            var p = prompt('What should be display here:', $(this).text());
+            if ($(this).text() !== p) {
+                changesMade = true;
+                $('#save-menu').show();
+                $(this).text(p);
+                $('#logo').addClass('edited');
+            }
+        }
+    });
+    $('#email').mousedown(function(event){
+        if (event.which == 1) {
+            $('#shown').val($('#email').text());
+            $('#linked').val($('#email').attr('title'));
+            //            $('#email').hide();
+            $('#email < div').append($('#add-contact-info').show());
+            $('#shown').focus();
+            $('#add-contact-info> .submit').click(function(){
+                console.log('saved');
+                $('#email').text($('#shown').val());
+                $('#email').attr('title', $('#linked').val());
+                $('#email').attr('href', 'mailto:' + $('#linked').val());
+                changesMade = true;
+                $('#save-menu').show();
+                $('#email').addClass('edited');
+                //                $('#email').children('a').show();
+                $('#container').prepend($('#add-contact-info').hide());
+                $('#add-contact-info> *').unbind('click');
+            });
+            $('#add-contact-info> .cancel').click(function(){
+                //                $('#email').children('a').show();
+                $('#container').prepend($('#add-contact-info').hide());
+                $('#add-contact-info> *').unbind('click');
+            });
+        }
+    });
+    $('#add-new-contact>*').bind('click', function(){
+        $('#add-new-contact>*').hide();
+        $('#shown').val('');
+        $('#linked').val('');
+        $('#add-new-contact').append($('#add-contact-info').show());
+        $('#shown').focus();
+        $('#add-contact-info> .submit').click(function(){
+            console.log('saved');
+            var a = document.createElement('A');
+            var link = $('#linked').val() + '';
+            if (link.search('@') !== -1) {
+                if (confirm('Is that an email address?')) 
+                    link = 'mailto:' + link;
+                else 
+                    link = link;
+            }
+            else if (link.search('www') !== -1 || link.search('http') !== -1) {
+                link = link;
+            }
+            else if (link.search(/\d{3}\W{1}\d{3}\W{1}\d{4}/g) !== -1 || link.search(/\d{10}/g) !== -1 || $('#shown').val().toLowerCase().search('phone') !== -1) {
+                if (confirm('Is that a phone number?')) 
+                    link = 'callto://' + link;
+                else 
+                    link = link;
+            }
+            else {
+                if (confirm('Is that a webpage?')) 
+                    link = 'http://' + link;
+                else 
+                    link = link;
+            }
+            a.setAttribute('href', link);
+            a.setAttribute('target', '_blank');
+            a.setAttribute('class', 'edited');
+            a.innerText = $('#shown').val();
+            document.getElementById('contact-links').appendChild(a);
+            changesMade = true;
+            $('#save-menu').show();
+            $('#add-new-contact>p').show();
+            $('#container').prepend($('#add-contact-info').hide());
+            $('#add-contact-info> *').unbind('click');
+        });
+        $('#add-contact-info> .cancel').click(function(){
+            $('#add-new-contact>p').show();
+            $('#container').prepend($('#add-contact-info').hide());
+            $('#add-contact-info> *').unbind('click');
+        });
+    });
+}
+
+
+function saveMenu(){
+    $('#save').bind('click', function(){
+        console.log('saving...');
+        var edited = $('.edited');
+        for (var i = 0; i < $(edited).length; i++) {
+            if ($(edited[i]).attr('id') == 'logo') {
+				$(edited[i]).removeClass('edited');
+				$.ajax({
+					type: 'POST',
+					url: '/save/logo',
+					data: {
+						logo: $('#logo > h2').text()
+					},
+					success: function(data){
+						console.log(data);
+					},
+				});
+			}
+			else if(loc == 'contact' && $(edited[i]).parent('div').attr('id') == 'contact-links'){
+				$("#contact-links> .edited").removeClass('edited');
+				console.log($("#contact-links").html());
+				$.ajax({
+					type: 'POST',
+					url: '/save/contact',
+					dataType: 'HTML',
+					data: {
+						contact: $("#contact-links").html()
+					},
+					success: function(data){
+						console.log(data);
+					},
+				});
+			}
+        }
+		changesMade = false;
+		$('#save-menu').hide();
+    });
+    $('#reset').bind('click', function(){
+        changesMade = false;
+        window.location = window.location;
+    });
+}
+
+
 function initEdit(){
     moveAddDiv();
     checkAs();
     initAddNew();
     initLogin();
+    initEditable();
+    saveMenu();
+    if (loc != 'edit') 
+        $('#piece_series').val(loc)
+    else {
+        $('.gallery_thumb').removeClass('gallery_thumb');
+    }
 }

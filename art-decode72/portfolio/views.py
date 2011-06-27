@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
@@ -10,13 +11,11 @@ import os
 from django.contrib.auth import *
 from django.contrib import auth
 
-#mediums = (
-#           'painting',
-#           'sculpture',
-#           'photography',
-#           'installation',
-#           'visualizations',
-#           )
+def four_oh_four(request):
+    return render_to_response('404.html')
+
+def five_oh_oh(request):
+    return render_to_response('500.html')
 
 def contact(request):
     return render_to_response('contact.html', {'serieses': listSeries()})
@@ -40,10 +39,17 @@ def index(request):
     args.update(csrf(request))
     return render_to_response('index.html', args)
 
-def piece(request, series, slg):
+def piece(request, series, slg = None):
     pieces = getSeries(series)
+    if slg == None:
+        if len(pieces) != 0:
+            piece = pieces[0]
+        else:
+            raise Http404
+    else:
+        piece = Piece.objects.filter(slug = slg)[0]
     args = {
-            'piece': Piece.objects.filter(slug = slg)[0],
+            'piece': piece,
             'pieces': pieces,
             'serieses': listSeries()
             }
@@ -58,39 +64,49 @@ def gallery(request, series):
     return render_to_response('gallery.html', args)
 
 def get_page(request, page):
-    print 'getting page: %s' % page
-    if len(Piece.objects.filter(slug = page)) != 0:
-        print 'its piece page'
-        pieces = getSeries(Piece.objects.filter(slug = page)[0].series.all()[0].slug)
-        print pieces
+    print page
+    if page == 'edit':
+        print 'its the home page'
         args = {
-                'piece': Piece.objects.filter(slug = page)[0],
-                'pieces': pieces,
-                'serieses': listSeries()
-                }
-        return render_to_response('piece_base.html', args)
-    elif len(Series.objects.filter(slug = page)) != 0:
-        print 'its gallery page'
-        pieces = getSeries(page)
-        args = {
-                'pieces': pieces,
                 'serieses': listSeries()
         }
-        return render_to_response('gallery_base.html', args)
+        args.update(csrf(request))
+        return render_to_response('index_base.html', args)
+    elif len(Piece.objects.filter(slug = page)) != 0:
+        print 'its a piece page some how'
+        piece = Piece.objects.filter(slug = page)[0]
+        pieces = getSeries(Piece.objects.filter(slug = page)[0].series.all()[0].slug)
     else:
-        print 'well fuck...'
-        return HttpResponseNotFound("couldn't find it")
+        print 'its a gallery'
+        pieces = getSeries(page)
+        piece = pieces[0]
+    print piece
+    print pieces
+    args = {
+            'piece': piece,
+            'pieces': pieces,
+    }
+    return render_to_response('piece_base.html', args)
 
 def get_header(request):
     args = {
             'serieses': listSeries()
             }
-    return render_to_response('header.html', args)
+    return render_to_response('edit_header.html', args)
 
 def edit_index(request):
-    args = {
+    if request.user.is_authenticated():
+        args = {
            'serieses': listSeries(),
            'piece_form': PieceForm(auto_id = 'piece_%s'),
+           'series_form': SeriesForm(auto_id = 'series_%s'),
+           'user': request.user,
+        }
+        args.update(csrf(request))
+        return render_to_response('edit_index.html', args)
+    else:
+        args = {
+           'serieses': listSeries(),
            'user': request.user,
     }
     args.update(csrf(request))
@@ -102,20 +118,27 @@ def edit_contact(request):
     else:
         args = {
            'serieses': listSeries(),
-           'piece_form': PieceForm(auto_id = 'piece_%s'),
            'user': request.user,
     }
     args.update(csrf(request))
     return render_to_response('edit_index.html', args)
 
-def edit_piece(request, series, slg):
+def edit_piece(request, series, slg=None):
     if request.user.is_authenticated():
         pieces = getSeries(series)
+        if slg == None:
+            if len(pieces) != 0:
+                piece = pieces[0]
+            else:
+                piece = None
+        else:
+            piece = Piece.objects.filter(slug = slg)[0]
         args = {
-                'piece': Piece.objects.filter(slug = slg)[0],
+                'piece': piece,
                 'pieces': pieces,
                 'serieses': listSeries(),
                 'piece_form': PieceForm(auto_id = 'piece_%s'),
+                'series_form': SeriesForm(auto_id = 'series_%s'),
                 'user': request.user,
                 }
         args.update(csrf(request))
@@ -123,7 +146,6 @@ def edit_piece(request, series, slg):
     else:
         args = {
            'serieses': listSeries(),
-           'piece_form': PieceForm(auto_id = 'piece_%s'),
            'user': request.user,
     }
     args.update(csrf(request))
@@ -136,6 +158,7 @@ def edit_gallery(request, series):
                 'pieces': pieces,
                 'serieses': listSeries(),
                 'piece_form': PieceForm(auto_id = 'piece_%s'),
+                'series_form': SeriesForm(auto_id = 'series_%s'),
                 'user': request.user,
         }
         args.update(csrf(request))
@@ -143,7 +166,6 @@ def edit_gallery(request, series):
     else:
         args = {
            'serieses': listSeries(),
-           'piece_form': PieceForm(auto_id = 'piece_%s'),
            'user': request.user,
     }
     args.update(csrf(request))
@@ -174,6 +196,27 @@ def add_piece(request):
         obj.save()
 
         return HttpResponse("success")
+    else:
+        print 'bad form'
+        return HttpResponseNotFound("invalid form")
+
+def add_series(request):
+    if request.method != "POST":
+        raise Http404
+    form = SeriesForm(request.POST, request.FILES)
+    if form.is_valid():
+        name = form.cleaned_data['name']
+        des = form.cleaned_data['description']
+
+        if len(Series.objects.filter(slug = slugify(name))) == 0:
+            ser = Series.objects.create()
+            ser.name = name
+            ser.description = des
+            ser.save()
+            return HttpResponse("success")
+        else:
+            print 'series already exist'
+            return HttpResponse("series already exist")
     else:
         print 'bad form'
         return HttpResponseNotFound("invalid form")
@@ -259,12 +302,45 @@ def draft_css(request, id):
         print 'bad css form'
         return HttpResponseNotFound("invalid form")
 
+def save_logo(request):
+    if request.method != "POST":
+        raise Http404
+    logo =request.POST['logo']
+    os.system('mv templates/header.html templates/header.bak')
+    reader = open('templates/header.bak', 'r')
+    writer = open('templates/header.html', 'a+')
+    lines = reader.readlines()
+    reader.close()
+    line = lines[0]
+    start = line.find('<h2>')+4
+    end = line.find('</h2>')
+    line = line.replace(line[start:end],logo)
+    lines[0] = line
+    writer.writelines(lines)
+    writer.flush()
+    writer.close()
+    return HttpResponse("success")
+
+def update_contact(request):
+    if request.method != "POST":
+        raise Http404
+    contact = request.POST['contact']
+    print contact
+    os.system('mv templates/contact_base.html templates/contact_base.bak')
+    writer = open('templates/contact_base.html', 'a+')
+    writer.write('<div id="contact-links">\n')
+    writer.write(contact)
+    writer.write('\n</div>')
+    writer.flush()
+    writer.close()
+    return HttpResponse("success")
+
 def login(request):
     usern = request.POST['username']
     passw = request.POST['password']
     print usern
     print passw
-    user = auth.authenticate(username=usern, password=passw)
+    user = auth.authenticate(username = usern, password = passw)
     print user
     if user is not None and user.is_active:
         # Correct password, and the user is marked "active"
@@ -279,3 +355,4 @@ def logout(request):
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponse("success")
+

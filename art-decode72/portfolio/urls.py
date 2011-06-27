@@ -11,6 +11,8 @@ urlpatterns = patterns('',
     (r'^index.html$', 'views.index'),
     (r'^contact$', 'views.contact'),
     (r'^contact.html$', 'views.contact'),
+    (r'^404$', 'views.four_oh_four'),
+    (r'^500$', 'views.four_oh_four'),
     (r'^robots.txt$', direct_to_template, {'template':'robots.txt', 'mimetype':'text/plain'})
 )
 
@@ -39,12 +41,15 @@ if settings.IS_DEV:
 #add content
 urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
+    (r'^add/series$', 'views.add_series'),
 )
 
 #save users css changes
 urlpatterns += patterns('',
-    (r'^save/(?P<id>.*)$', 'views.save_css'),
-    (r'^draft/(?P<id>.*)$', 'views.draft_css'),
+    (r'^save/contact$', 'views.update_contact'),
+    (r'^save/logo$', 'views.save_logo'),
+#    (r'^save/(?P<id>.*)$', 'views.save_css'),
+#    (r'^draft/(?P<id>.*)$', 'views.draft_css'),
 )
 
 #Login
@@ -59,7 +64,7 @@ urlpatterns += patterns('',
     (r'^edit/$','views.edit_index'),
     (r'^edit/contact$','views.edit_contact'),
     (r'^edit/(?P<series>.*)/(?P<slg>.*)$', 'views.edit_piece'),
-    (r'^edit/(?P<series>.*)$', 'views.edit_gallery'),
+    (r'^edit/(?P<series>.*)$', 'views.edit_piece'),
 )
 
 #Refresh individual elements
@@ -70,5 +75,5 @@ urlpatterns += patterns('',
 #Series pages
 urlpatterns += patterns('',
     (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
-    (r'^(?P<series>.*)$', 'views.gallery'),
+    (r'^(?P<series>.*)$', 'views.piece'),
 )

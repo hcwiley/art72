@@ -25,28 +25,23 @@ function init(){
         img_ratio = img_width / img_height;
     }
     resize();
-    imgs = $('img');
-    for (var i = 0; i < imgs.length; i++) {
-        $(imgs[i]).attr('src', ($(imgs[i]).attr('src') + '').split('.com')[1]);
+    allImgs = $('img');
+    for (var i = 0; i < allImgs.length; i++) {
+        $(allImgs[i]).attr('src', ($(allImgs[i]).attr('src') + '').split('.com')[1]);
     }
 }
 
 function resize(){
     var height = $(window).height();
     var width = $(window).width();
+	$('#decode72-logo').css('top',height -50);
 //    bg(width, height);
-    $("#container").width(width - 400);
+//    $("#container").width(width - 400);
 //    $("#container").css("left", (width - $("#container").width()) / 2);
-    $("#footer").css("top", $("#container").height() + 10);
+//    $("#footer").css("top", $("#container").height() + 10);
+    if($('#other-images').height() > $('#current-image').height())
+	   $('#piece').height($('#other-images').height());
+   else
+    $('#piece').height($('#current-image').height());
 }
 
-function bg(width, height){
-    $("#bg-img").width(width);
-    $("#bg-img").height(height);
-    $("#bg-img").css("top", "-10px");
-    $("#bg-img").css("left", "-10px");
-    var img = $("#bg-img").children("img");
-    var ratio = height / width;
-    img.css("width", width + 20);
-    img.css("height", (width / img_ratio) + 20);
-}

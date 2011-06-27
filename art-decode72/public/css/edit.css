@@ -4,7 +4,7 @@
 	height: 150px;
 	position: absolute;
 	top: 30px;
-	left: 100px;
+	left: 900px;
 }
 
 #user-menu{
@@ -12,6 +12,33 @@
 	top: 0px;
 	left: 900px;
 	width: 200px;
+}
+
+#add-new-series{
+	color: #00afdb;
+}
+#add-new-series:hover{
+	cursor: pointer;
+}
+
+#add-series{
+    position: absolute;
+    color: #000;
+    background: #FFF;
+    opacity: 0;
+    z-index: -1;
+    top: 150px;
+    left: 0px;
+    width: 320px;
+    height: 270px;
+    display: inline-block;
+    border: 1px solid black;
+}
+
+#add-series-form{
+    position: relative;
+    top: 0px;
+    left: 0px;
 }
 
 #add-new-piece{
@@ -49,25 +76,18 @@
     left: 0px;
 }
 
-#submit-piece{
-    position: relative;
-    top: 25px;
-    left: 205px;
-    z-index: 3;
-}
-
-#close-add-piece{
-	position: relative;
-    top: -15px;
-    left: 445px;
-    z-index: 3;
-}
-
 #add-piece-form p{
     width: 100px;
     height: 20px;
     margin: 10px 5px 50px 5px;
     display: inline-block;
+}
+
+#add-contact-info{
+	display: none;
+}
+#add-new-contact{
+	color: #00AFDB;
 }
 
 .editting{
@@ -83,6 +103,7 @@
 }
 
 #save-menu{
+	display: none;
 	position: fixed;
 	bottom: 5px;
 	right: 5px;

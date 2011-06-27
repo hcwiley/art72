@@ -2,6 +2,7 @@
 
 import socket
 import sys
+import os
 
 host = socket.gethostname()
 dev_boxes = (
@@ -24,7 +25,7 @@ DEBUG =  IS_DEV
 ### DEV ################################################################ DEV ###
 if IS_DEV:
     if 'hwiley2' in host or 'blu-Mac' in host:
-        MEDIA_ROOT = '/Users/hcwiley/wd40too/artist-sites/art-decode72'
+        MEDIA_ROOT = os.getcwd().strip('portfolio')
         DATABASE_ENGINE = 'django.db.backends.mysql'
         DATABASE_NAME = 'wd40too_artist'
         DATABASE_USER = 'wd40too_artist'
