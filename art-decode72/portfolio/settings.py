@@ -7,13 +7,18 @@ import posixpath
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
-IS_DEV = False
-DEBUG = False
+IS_DEV = True
+DEBUG = True
 
-MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','public/')
+DATABASE_ENGINE = 'django.db.backends.mysql'
+DATABASE_NAME = 'wd40too_artist'
+DATABASE_USER = 'wd40too_artist'
+DATABASE_PASSWORD = 'geaux44'
+
+MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
 print MEDIA_ROOT
 STATIC_DOC_ROOT = MEDIA_ROOT
-GALLERY_ROOT = MEDIA_ROOT + '/gallery'
+GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
 MEDIA_URL = '/media/'
 STATIC_URL = "/static/"
 ADMIN_MEDIA_PREFIX = posixpath.join(MEDIA_URL, "admin/")
