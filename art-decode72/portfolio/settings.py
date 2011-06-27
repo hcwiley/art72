@@ -7,8 +7,8 @@ import posixpath
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
-IS_DEV = True
-DEBUG = True
+IS_DEV = False
+DEBUG = False
 
 DATABASE_ENGINE = 'django.db.backends.mysql'
 DATABASE_NAME = 'wd40too_artist'
