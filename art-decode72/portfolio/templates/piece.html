@@ -6,14 +6,7 @@
         	{% include 'header.html' %}
         </div>
         <div id="container">
-        	{% if piece.medium == 'installation' %}
-                {% include 'installation.html' %}
-			{% endif %}
-			{% if piece.medium == 'visualizations' %}
-                {% include 'visualizations.html' %}
-            {% else %}
-        	   {% include 'piece_base.html' %}
-		   {% endif %}
+    	   {% include 'piece_base.html' %}
         </div>
         <div id="footer" class="link">
         </div>
