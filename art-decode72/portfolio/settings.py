@@ -1,92 +1,30 @@
 # Django settings for portfolio project.
 
-import socket
 import sys
 import os
+import posixpath
 
-host = socket.gethostname()
-dev_boxes = (
-             'hcwiley-dev-italy',
-             'pwinfi2-1.lsu.edu',
-             'pwinfi2-3.lsu.edu',
-             'pwinfi2-4.lsu.edu',
-             '0-1c-b3-c2-a0-5c.lsu.edu',
-             'hwiley2-1.lsu.edu',
-             'hwiley2-2.lsu.edu',
-             'hwiley2-3.lsu.edu',
-             'hwiley2-2.lsu.edu/~hcwiley',
-             'blu-Mac.local',
-             'd8-30-62-64-2d-49.lsu.edu',
-             )
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
-IS_DEV = host in dev_boxes
-DEBUG =  IS_DEV
-#print host
-### DEV ################################################################ DEV ###
-if IS_DEV:
-    if 'hwiley2' in host or 'blu-Mac' in host:
-        MEDIA_ROOT = os.getcwd().strip('portfolio')
-        DATABASE_ENGINE = 'django.db.backends.mysql'
-        DATABASE_NAME = 'wd40too_artist'
-        DATABASE_USER = 'wd40too_artist'
-        DATABASE_PASSWORD = 'geaux44'
-    elif host == '0-1c-b3-c2-a0-5c.lsu.edu':
-        MEDIA_ROOT = '/Users/philwinfield/Documents/1.Summer_2011/Decode 72/artist-sites/art-decode72'
-        DATABASE_ENGINE = 'django.db.backends.sqlite3'
-        DATABASE_NAME = 'database.sql'
-        DATABASE_USER = ''
-        DATABASE_PASSWORD = ''
-    MEDIA_URL = '/media/'
-    ADMIN_MEDIA_PREFIX = '/media/admin/'
+IS_DEV = False
+DEBUG = False
 
-    TEMPLATE_DIRS = (
-        MEDIA_ROOT + '/portfolio/templates',
-    )
+MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','public/')
+print MEDIA_ROOT
+STATIC_DOC_ROOT = MEDIA_ROOT
+GALLERY_ROOT = MEDIA_ROOT + '/gallery'
+MEDIA_URL = '/media/'
+STATIC_URL = "/static/"
+ADMIN_MEDIA_PREFIX = posixpath.join(MEDIA_URL, "admin/")
 
-#    sys.path.append(MEDIA_ROOT + "/django/shared-apps")
-#    sys.path.append(MEDIA_ROOT + "/django/shared-apps")
-    sys.path.append(MEDIA_ROOT + "/portfolio/apps/")
-    sys.path.append(MEDIA_ROOT + "/portfolio/")
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-    # when serving static media with django
-    STATIC_DOC_ROOT = MEDIA_ROOT + '/public'
-    GALLERY_ROOT = MEDIA_ROOT + '/gallery'
+TEMPLATE_DIRS = [
+    os.path.join(PROJECT_ROOT, "templates"),
+]
 
-### LIVE ############################################################## LIVE ###
-else:
-    DATABASE_ENGINE = 'django.db.backends.mysql'
-    DATABASE_NAME = 'wd40too_art'
-    DATABASE_USER = 'wd40too_art'
-    DATABASE_PASSWORD = 'geaux44'
-    #FORCE_SCRIPT_NAME = '/graphic_design'
-    # Absolute path to the directory that holds media.
-    # Example: "/home/media/media.lawrence.com/"
-    MEDIA_ROOT = '/home/wd40too/webapps/artist_sites'
-
-    # URL that handles the media served from MEDIA_ROOT. Make sure to use a
-    # trailing slash if there is a path component (optional in other cases).
-    # Examples: "http://media.lawrence.com", "http://example.com/media/"
-    STATIC_DOC_ROOT = '/home/wd40too/webapps/artist_sites_static'
-    GALLERY_ROOT = '/home/wd40too/webapps/artist_sites_static/gallery/'
-    MEDIA_URL = 'http://art.decode72.com/media/'
-
-    # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-    # trailing slash.
-    # Examples: "http://foo.com/media/", "/media/".
-    ADMIN_MEDIA_PREFIX = 'http://art.decode72.com/media/admin'
-
-    TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-        # Always use forward slashes, even on Windows.
-        # Don't forget to use absolute paths, not relative paths.
-        '/home/wd40too/webapps/artist_sites/portfolio/templates'
-    )
-
-#    sys.path.append("/home/hcwiley/webapps/django_gdhit_dev/gdhit/shared-apps")
-    sys.path.append("/home/wd40too/webapps/artist_sites")
-    sys.path.append("/home/wd40too/webapps/artist_sites/portfolio")
-    sys.path.append("/home/wd40too/webapps/artist_sites/portfolio/apps")
-### COMMON ########################################################## COMMON ###
+sys.path.append('./apps/')
 
 FORCE_LOWERCASE_TAGS = True #for django-tagging
 TEMPLATE_DEBUG = DEBUG
@@ -150,3 +88,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'piece',
 )
+try:
+    from local_settings import *
+except ImportError:
+    pass
