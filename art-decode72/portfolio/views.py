@@ -64,24 +64,24 @@ def gallery(request, series):
     return render_to_response('gallery.html', args)
 
 def get_page(request, page):
-    print page
+    #print page
     if page == 'edit':
-        print 'its the home page'
+        #print 'its the home page'
         args = {
                 'serieses': listSeries()
         }
         args.update(csrf(request))
         return render_to_response('index_base.html', args)
     elif len(Piece.objects.filter(slug = page)) != 0:
-        print 'its a piece page some how'
+        #print 'its a piece page some how'
         piece = Piece.objects.filter(slug = page)[0]
         pieces = getSeries(Piece.objects.filter(slug = page)[0].series.all()[0].slug)
     else:
-        print 'its a gallery'
+        #print 'its a gallery'
         pieces = getSeries(page)
         piece = pieces[0]
-    print piece
-    print pieces
+    #print piece
+    #print pieces
     args = {
             'piece': piece,
             'pieces': pieces,
@@ -197,7 +197,7 @@ def add_piece(request):
 
         return HttpResponse("success")
     else:
-        print 'bad form'
+        #print 'bad form'
         return HttpResponseNotFound("invalid form")
 
 def add_series(request):
@@ -215,41 +215,41 @@ def add_series(request):
             ser.save()
             return HttpResponse("success")
         else:
-            print 'series already exist'
+            #print 'series already exist'
             return HttpResponse("series already exist")
     else:
-        print 'bad form'
+        #print 'bad form'
         return HttpResponseNotFound("invalid form")
 
 def save_css(request, id):
     if request.method != "POST":
         raise Http404
-#    print request.POST
+#    #print request.POST
     form = CssForm(request.POST)
-    print form
+    #print form
     if form.is_valid():
         os.system('cp ../public/css/template2.css ../public/css/template2.css.bak')
         cssNew = open('../public/css/template2.css.new', 'w+')
         cssOrig = open('../public/css/template2.css', 'r')
         add = False
         section = []
-        print id
+        #print id
         for line in cssOrig:
             if '#%s {' % id in line or '#%s{' % id in line:
                 add = True
             if add:
                 if 'width' in line and id != 'nav':
                     line = '    width: %dpx;\n' % form.cleaned_data['width']
-                    print 'fixed width'
+                    #print 'fixed width'
                 if 'height' in line and id != 'nav':
                     line = '    height: %dpx;\n' % form.cleaned_data['height']
-                    print 'fixed height'
+                    #print 'fixed height'
                 if 'top' in line:
                     line = '    top: %dpx;\n' % form.cleaned_data['top']
-                    print 'fixed top'
+                    #print 'fixed top'
                 if 'left' in line:
                     line = '    left: %dpx;\n' % form.cleaned_data['left']
-                    print 'fixed left'
+                    #print 'fixed left'
             if '}' in line:
                 add = False
             cssNew.write(line)
@@ -259,38 +259,38 @@ def save_css(request, id):
         os.system('cp ../public/css/template2.css.new ../public/css/template2.css')
         return HttpResponse("success")
     else:
-        print 'bad css form'
+        #print 'bad css form'
         return HttpResponseNotFound("invalid form")
 
 def draft_css(request, id):
     if request.method != "POST":
         raise Http404
-#    print request.POST
+#    #print request.POST
     form = CssForm(request.POST)
-    print form
+    #print form
     if form.is_valid():
         os.system('cp ../public/css/template2.css ../public/css/template2.css.bak')
         cssNew = open('../public/css/template2.draft.css', 'w+')
         cssOrig = open('../public/css/template2.css', 'r')
         add = False
         section = []
-        print id
+        #print id
         for line in cssOrig:
             if '#%s {' % id in line or '#%s{' % id in line:
                 add = True
             if add:
                 if 'width' in line and id != 'nav':
                     line = '    width: %dpx;\n' % form.cleaned_data['width']
-                    print 'fixed width'
+                    #print 'fixed width'
                 if 'height' in line and id != 'nav':
                     line = '    height: %dpx;\n' % form.cleaned_data['height']
-                    print 'fixed height'
+                    #print 'fixed height'
                 if 'top' in line:
                     line = '    top: %dpx;\n' % form.cleaned_data['top']
-                    print 'fixed top'
+                    #print 'fixed top'
                 if 'left' in line:
                     line = '    left: %dpx;\n' % form.cleaned_data['left']
-                    print 'fixed left'
+                    #print 'fixed left'
             if '}' in line:
                 add = False
             cssNew.write(line)
@@ -299,7 +299,7 @@ def draft_css(request, id):
         cssOrig.close()
         return HttpResponse("success")
     else:
-        print 'bad css form'
+        #print 'bad css form'
         return HttpResponseNotFound("invalid form")
 
 def save_logo(request):
@@ -325,7 +325,7 @@ def update_contact(request):
     if request.method != "POST":
         raise Http404
     contact = request.POST['contact']
-    print contact
+    #print contact
     os.system('mv templates/contact_base.html templates/contact_base.bak')
     writer = open('templates/contact_base.html', 'a+')
     writer.write('<div id="contact-links">\n')
@@ -338,10 +338,10 @@ def update_contact(request):
 def login(request):
     usern = request.POST['username']
     passw = request.POST['password']
-    print usern
-    print passw
+    #print usern
+    #print passw
     user = auth.authenticate(username = usern, password = passw)
-    print user
+    #print user
     if user is not None and user.is_active:
         # Correct password, and the user is marked "active"
         auth.login(request, user)
@@ -349,7 +349,7 @@ def login(request):
         return HttpResponse("success")
     else:
         # Show an error page
-        print 'nope'
+        #print 'nope'
         return HttpResponseNotFound("no good")
 def logout(request):
     auth.logout(request)

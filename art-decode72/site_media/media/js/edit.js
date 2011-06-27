@@ -22,7 +22,7 @@ function leavingPage(){
 }
 
 function saveChanges(){
-    console.log('saving changes');
+    //console.log('saving changes');
 }
 
 function moveAddDiv(){
@@ -35,11 +35,11 @@ function moveAddDiv(){
 }
 
 function showRequest(formData, jqForm, options){
-    //console.log('requesting...');
+    ////console.log('requesting...');
 }
 
 function handlePostSuccess(responseText, statusText, xhr, $form){
-    //console.log('handling success');
+    ////console.log('handling success');
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
@@ -119,19 +119,19 @@ function initAddNew(){
     });
     $('#add-piece-form').submit(function(){
         if ($('#piece_title').val() == '') {
-            //console.log('title');
+            ////console.log('title');
             $('#piece_title').css('background-color', '#900');
         }
         else if ($('#piece_default_image').val() == "") {
-            //console.log('image');
+            ////console.log('image');
             $('#piece_default_image').css('background-color', '#F00');
         }
         else if ($('#piece_series').val() == '') {
-            //console.log('series');
+            ////console.log('series');
             $('#piece_series').css('background-color', '#F00');
         }
         else {
-            //console.log('sending...');
+            ////console.log('sending...');
             $('#add-piece-form').ajaxSubmit(options);
         }
         
@@ -154,11 +154,11 @@ function initAddNew(){
     });
     $('#add-series-form').submit(function(){
         if ($('#series_name').val() == '') {
-            //console.log('title');
+            ////console.log('title');
             $('#series_name').css('background-color', '#900');
         }
         else {
-            //console.log('sending...');
+            ////console.log('sending...');
             $('#add-series-form').ajaxSubmit(options);
         }
         
@@ -179,7 +179,7 @@ function handleLoginSuccess(){
 }
 
 function handleLoginFail(response, statusText, xhr){
-    //console.log(response.responseText);
+    ////console.log(response.responseText);
     if (response.responseText == 'password') {
         $('#login').html($('#login').html() + 'password did not match');
     }
@@ -205,7 +205,7 @@ function initLogin(){
             $('#password').css('background-color', '#F00');
         }
         else {
-            //console.log('sending...');
+            ////console.log('sending...');
             $.ajax({
                 url: '/login',
                 type: 'POST',
@@ -255,7 +255,7 @@ function initEditable(){
             $('#email < div').append($('#add-contact-info').show());
             $('#shown').focus();
             $('#add-contact-info> .submit').click(function(){
-                console.log('saved');
+                //console.log('saved');
                 $('#email').text($('#shown').val());
                 $('#email').attr('title', $('#linked').val());
                 $('#email').attr('href', 'mailto:' + $('#linked').val());
@@ -280,7 +280,7 @@ function initEditable(){
         $('#add-new-contact').append($('#add-contact-info').show());
         $('#shown').focus();
         $('#add-contact-info> .submit').click(function(){
-            console.log('saved');
+            //console.log('saved');
             var a = document.createElement('A');
             var link = $('#linked').val() + '';
             if (link.search('@') !== -1) {
@@ -326,7 +326,7 @@ function initEditable(){
 
 function saveMenu(){
     $('#save').bind('click', function(){
-        console.log('saving...');
+        //console.log('saving...');
         var edited = $('.edited');
         for (var i = 0; i < $(edited).length; i++) {
             if ($(edited[i]).attr('id') == 'logo') {
@@ -338,13 +338,13 @@ function saveMenu(){
 						logo: $('#logo > h2').text()
 					},
 					success: function(data){
-						console.log(data);
+						//console.log(data);
 					},
 				});
 			}
 			else if(loc == 'contact' && $(edited[i]).parent('div').attr('id') == 'contact-links'){
 				$("#contact-links> .edited").removeClass('edited');
-				console.log($("#contact-links").html());
+				//console.log($("#contact-links").html());
 				$.ajax({
 					type: 'POST',
 					url: '/save/contact',
@@ -353,7 +353,7 @@ function saveMenu(){
 						contact: $("#contact-links").html()
 					},
 					success: function(data){
-						console.log(data);
+						//console.log(data);
 					},
 				});
 			}

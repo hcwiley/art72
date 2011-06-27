@@ -16,7 +16,7 @@ DATABASE_USER = 'wd40too_artist'
 DATABASE_PASSWORD = 'geaux44'
 
 MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
-print MEDIA_ROOT
+#print MEDIA_ROOT
 STATIC_DOC_ROOT = MEDIA_ROOT
 GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
 MEDIA_URL = '/media/'
