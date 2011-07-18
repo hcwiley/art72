@@ -1,4 +1,4 @@
 import os;
 
-os.system("mysql -u wd40too_hcw_dj -p wd40too_hcw_dj < hcw_dump.sql")
+os.system("mysql -u wd40too_artist -p wd40too_artist < patrick.sql")
 

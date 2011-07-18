@@ -1,3 +1,6 @@
 <div id='contact-links'>
-    <a target='_blank' id='email' title=''  href="mailto:">email</a>
+    {% autoescape off %}{% for element in elements %}
+	{{ element.html }}
+	{% endfor %}
+	{% endautoescape %}
 </div>

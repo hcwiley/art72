@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
 IS_DEV = True
-DEBUG = False
+DEBUG = True
 
 DATABASE_ENGINE = 'django.db.backends.mysql'
 DATABASE_NAME = 'wd40too_artist'
@@ -92,6 +92,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'piece',
+    'artist',
+    'contact_element',
 )
 try:
     from local_settings import *

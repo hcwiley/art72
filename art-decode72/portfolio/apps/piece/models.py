@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.admin import widgets 
 from django.contrib import admin
 from django.template.defaultfilters import slugify
+from artist.models import *
 
 class Image(models.Model):
     image = models.ImageField(upload_to='gallery/')
@@ -18,6 +19,11 @@ class Series(models.Model):
     name = models.CharField(max_length=400)
     description = models.TextField(null=True, blank=True)
     slug=models.SlugField(max_length=160,blank=True,editable=False)
+    artist = models.ForeignKey(Artist)
+    
+    def update(self):
+        if(self.artist == None):
+            self.artist = Users.objects.filter(pk='2')
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -37,11 +43,20 @@ class Piece(models.Model):
     price = models.PositiveIntegerField(null=True, blank=True)
     series = models.ManyToManyField(Series, related_name='%(app_label)s_%(class)s_series', null=True, blank=True)
     slug=models.SlugField(max_length=160,blank=True,editable=False)
+    description = models.TextField(null=True, blank=True)
+    artist = models.ForeignKey(Artist)
+    
+    def update(self):
+        if(self.artist == None):
+            self.artist = Users.objects.filter(pk='2')
     
     def __unicode__(self):
         return self.title
 
     def save(self, *args, **kwargs):
+        if self.artist == None and len(Artist.objects.all()) > 0:
+            self.artist = Artist.objects.all()[0]
+            print artist
         self.slug = slugify(self.title)
         super(Piece, self).save(*args, **kwargs)
 
