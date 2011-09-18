@@ -43,6 +43,7 @@ if settings.IS_DEV:
 urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
     (r'^add/series$', 'views.add_series'),
+    (r'^add/video$', 'views.add_video'),
 )
 
 #save users css changes

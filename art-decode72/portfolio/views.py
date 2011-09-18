@@ -374,6 +374,17 @@ def logout(request):
     # Redirect to a success page.
     return HttpResponse("success")
 
+def add_video(request):
+    if request.method != "POST":
+        raise Http404
+    title = request.POST['title']
+    url = request.POST['url']
+    print '%s: %s' % (title, url)
+    if title and url:
+        return HttpResponse('successfully added: %s' % title)
+    else:
+        return HttpResponse('failed to add: %s @ %s' % (title, url)) 
+
 def video(request):
     args = getBaseArgs()
     args.update(csrf(request))
