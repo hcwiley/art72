@@ -1,4 +1,11 @@
 <div id='save-menu' class='dndi-postedit'>
-	<button id='save'>save</button>
-	<button id='reset'>reset</button>
+    <form id='save-menu-form'>
+        {%  csrf_token %}
+    </form>
+    <button id='save'>
+        save
+    </button>
+    <button id='reset'>
+        reset
+    </button>
 </div>

@@ -9,6 +9,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', 'views.index'),
     (r'^index.html$', 'views.index'),
+    (r'^video$', 'views.video'),
     (r'^contact$', 'views.contact'),
     (r'^contact.html$', 'views.contact'),
     (r'^404$', 'views.four_oh_four'),

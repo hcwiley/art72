@@ -179,13 +179,11 @@ function handleLoginSuccess(){
 }
 
 function handleLoginFail(response, statusText, xhr){
-    ////console.log(response.responseText);
-    if (response.responseText == 'password') {
-        $('#login').html($('#login').html() + 'password did not match');
-    }
-    else if (response.responseText == 'username') {
-        $('#login').html($('#login').html() + 'username not found');
-    }
+	console.log(response);
+//    var html = $('#login').html();
+//	if(!html.match ('failed')){
+//		$('#login').html(response+"<h5>login failed</h5>");
+//	}
 }
 
 function initLogin(){
@@ -205,7 +203,7 @@ function initLogin(){
             $('#password').css('background-color', '#F00');
         }
         else {
-            ////console.log('sending...');
+            console.log('sending...');
             $.ajax({
                 url: '/login',
                 type: 'POST',
@@ -371,6 +369,7 @@ function saveMenu(){
                     type: 'POST',
                     url: '/save/logo',
                     data: {
+						security : $('#save-menu-form').serialize(),
                         logo: $('#logo > h2').text(),
                         user: $('#user-menu>p>strong').text()
                     },
@@ -387,6 +386,7 @@ function saveMenu(){
                     url: '/save/contact',
                     dataType: 'HTML',
                     data: {
+						security : $('#save-menu-form').serialize(),
                         displayed: $(edited[i]).text(),
                         type: $(edited[i]).data('type'),
                         link: $(edited[i]).attr('href'),

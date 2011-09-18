@@ -367,10 +367,14 @@ def login(request):
         return HttpResponse("success")
     else:
         # Show an error page
-        #print 'nope'
-        return HttpResponseNotFound("no good")
+        print 'nope'
+        return HttpResponse('failed')
 def logout(request):
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponse("success")
 
+def video(request):
+    args = getBaseArgs()
+    args.update(csrf(request))
+    return render_to_response('video.html', args)

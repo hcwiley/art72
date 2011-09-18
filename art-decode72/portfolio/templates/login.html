@@ -3,13 +3,13 @@
     <p>
         logged in as: <strong>{{ user }}</strong>
         <button id='logout'>
-            logout
+            <p>logout</p>
         </button>
     </p>
 </div>
 {% else %}
 <div id='login'>
-    <form name='login' method='POST' id='login-form' action='/login'>
+    <form name='login' method='POST' id='login-form' action=''>
         {%  csrf_token %}
         <p>
             handle:
@@ -19,6 +19,6 @@
         <p>
             password:
         </p>
-        <input type='password' name='password' id='password' value='' /><input type='submit' />
+        <input type='password' name='password' id='password' value='' /><input type='submit' class='submit'/>
     </form>
 </div>{% endif %}
