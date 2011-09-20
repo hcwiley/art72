@@ -28,12 +28,8 @@ THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs")
 MEDIA_URL = 'site_media/media/'
 STATIC_URL = "site_media/static/"
 GALLERY_URL = "site_media/media/gallery/"
-THUMB_URL = "site_media/media/gallery/"
+THUMB_URL = "site_media/media/gallery/thumbs/"
 ADMIN_MEDIA_PREFIX = "%s/admin/" % MEDIA_URL
-
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "site_media")
-]
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
