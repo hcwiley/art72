@@ -30,10 +30,6 @@ urlpatterns += patterns('',
 )
 
 if settings.IS_DEV:
-    urlpatterns += patterns('',
-        (r'^$', 'views.index'),
-    )
-
     # let django serve static media
     urlpatterns += patterns('',
         (r'media/gallery/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
