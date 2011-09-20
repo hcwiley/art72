@@ -29,8 +29,8 @@ else:
     STATIC_DOC_ROOT = "<generated>"
     GALLERY_ROOT = "<generated>" 
     THUMB_ROOT = '<generated>'
-MEDIA_URL = '/media/'
-STATIC_URL = "/static/"
+MEDIA_URL = '/site_media/media/'
+STATIC_URL = "/site_media/static/"
 ADMIN_MEDIA_PREFIX = "%s/admin/" % MEDIA_URL
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
