@@ -41,10 +41,13 @@ base_args = {
 }
 
 def getBaseArgs():
+    artist = Artist.objects.all()
+    if len(artist) > 0:
+        artist = artist[0]
     return {
            'serieses': listSeries(),
            'elements': ContactElement.objects.all(),
-           'artist': Artist.objects.all()[0]
+           'artist': artist
     }    
 
 def index(request):
