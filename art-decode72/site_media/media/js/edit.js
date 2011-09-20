@@ -22,7 +22,7 @@ function leavingPage(){
 }
 
 function saveChanges(){
-    //console.log('saving changes');
+	$('#feedback > *').text('saving changes....');
 }
 
 function moveAddDiv(){
@@ -39,12 +39,14 @@ function showRequest(formData, jqForm, options){
 }
 
 function handlePostSuccess(responseText, statusText, xhr, $form){
-    console.log(responseText);
+    $('#feedback > *').text(responseText);
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
             $('#header').html(data);
         });
+		if (loc == '')
+		  loc='edit' 
         ajax = '/get/' + loc;
         $.get(ajax, function(data){
             $('#container').prepend($('#add-new-piece'));
@@ -58,15 +60,15 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
     closeAddPieceForm();
 }
 
-function handlePostFail(){
-    alert('sorry something went wrong...');
+function handlePostFail(response, statusText, xhr){
+    $('#feedback > *').text(response)
 }
 
 function closeAddSeriesForm(){
-    $('#add-series').animate({
+    $('#add-series').add($('#add-series > *')).animate({
         opacity: 0
     }, 100);
-    $('#add-series').css('z-index', -1);
+    $('#add-series').add($('#add-series > *')).css('z-index', -1);
 }
 
 function closeAddPieceForm(){
@@ -91,10 +93,10 @@ function initAddNew(){
         closeAddSeriesForm();
     });
     $('#add-new-series').bind('click', function(){
-        $('#add-series').animate({
+        $('#add-series').add($('#add-series > *')).animate({
             opacity: 1
         }, 100);
-        $('#add-series').css('z-index', 3);
+        $('#add-series').add($('#add-series > *')).css('z-index', 3);
     });
     $('#add-new-piece').bind('click', function(){
         $('#add-piece').animate({
@@ -141,6 +143,7 @@ function initAddNew(){
         //        target: '#header', // target element(s) to be updated with server response 
         beforeSubmit: showRequest, // pre-submit callback 
         success: handlePostSuccess, // post-submit callback
+        failed: handlePostFail,
         //        url: '/add/series',
         clearForm: true
     };
@@ -174,16 +177,19 @@ function handleLogoutFail(){
 
 }
 
-function handleLoginSuccess(){
+function handleLoginSuccess(response, statusText, xhr){
+    if(response == 'failed'){
+		handleLoginFail(response, statusText, xhr);
+	}
     window.location = window.location;
 }
 
 function handleLoginFail(response, statusText, xhr){
-	console.log(response);
-//    var html = $('#login').html();
-//	if(!html.match ('failed')){
-//		$('#login').html(response+"<h5>login failed</h5>");
-//	}
+    $('#login').html($('#login').html() + '<h4 style="margin-top: 5px;">login failed...</h4>').addClass('login-fail');
+    //    var html = $('#login').html();
+    //	if(!html.match ('failed')){
+    //		$('#login').html(response+"<h5>login failed</h5>");
+    //	}
 }
 
 function initLogin(){
@@ -203,13 +209,9 @@ function initLogin(){
             $('#password').css('background-color', '#F00');
         }
         else {
-            console.log('sending...');
-            $.ajax({
-                url: '/login',
-                type: 'POST',
-                data: $('#login-form').serialize(),
-                success: handleLoginSuccess,
-                error: handleLoginFail
+            //console.log('sending...');
+            $.post('/login', $('#login-form').serialize(), function(data){
+                handleLoginSuccess(data);
             });
         }
         
@@ -285,8 +287,8 @@ function initEditable(){
                     $(links[i]).attr('href', link);
                     changesMade = true;
                     $('#save-menu').show();
-					$(links[i]).data('type', type);
-					$(links[i]).data('link', link);
+                    $(links[i]).data('type', type);
+                    $(links[i]).data('link', link);
                     $(links[i]).addClass('edited');
                     $('#container').prepend($('#add-contact-info').hide());
                     $('#add-contact-info> *').unbind('click');
@@ -343,7 +345,7 @@ function initEditable(){
             document.getElementById('contact-links').appendChild(a);
             changesMade = true;
             $(a).data('type', type);
-			$(a).data('link', link);
+            $(a).data('link', link);
             $('#save-menu').show();
             $('#add-new-contact>p').show();
             $('#container').prepend($('#add-contact-info').hide());
@@ -369,11 +371,12 @@ function saveMenu(){
                     type: 'POST',
                     url: '/save/logo',
                     data: {
-						security : $('#save-menu-form').serialize(),
+                        security: $('#save-menu-form').serialize(),
                         logo: $('#logo > h2').text(),
                         user: $('#user-menu>p>strong').text()
                     },
                     success: function(data){
+						$('#feedback > *').text(data);
                         //console.log(data);
                     },
                 });
@@ -386,18 +389,15 @@ function saveMenu(){
                     url: '/save/contact',
                     dataType: 'HTML',
                     data: {
-						security : $('#save-menu-form').serialize(),
+                        security: $('#save-menu-form').serialize(),
                         displayed: $(edited[i]).text(),
                         type: $(edited[i]).data('type'),
                         link: $(edited[i]).attr('href'),
                         user: $('#user-menu>p>strong').text()
                     },
                     success: function(data){
-                        console.log(data);
-                    },
-					failed: function(response, status, xhr){
-                        console.log(response);
-                    },
+                        $('#feedback > *').text(data);
+                    }
                 });
             }
         }

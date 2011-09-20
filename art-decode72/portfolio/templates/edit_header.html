@@ -2,7 +2,7 @@
 
 {% block logo %}
 href='/edit/' title='right click to edit'>
-<h2>{% if artist.site_name == '' %}Your name here?{% else %}{{ artist.site_name }}{% endif %}{% endblock %}
+<h2>{% if artist.site_name == "" %}Your name here?{% else %}{{ artist.site_name }}{% endif %}{% endblock %}
     {% block series %}
     {% for series in serieses %}
        <a href='/edit/{{ series.slug }}' id='{{ series }}' class='{% if pieces.0.series == series or pieces.all.0.series.all.0 == series %}currentPage{% else %} notCur {% endif %}'><p>{{ series }}</p></a>

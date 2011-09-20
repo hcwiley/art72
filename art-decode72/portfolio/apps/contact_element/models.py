@@ -10,7 +10,7 @@ LINK_TYPES = (('http://', 'webpage'), ('callto://', 'phone'), ('mailto://', 'ema
 class ContactElement(models.Model):
     displayed = models.CharField(max_length=400)
     links_to = models.CharField(max_length=500)
-    file = models.FileField(upload_to='uploaded')
+    file = models.FileField(upload_to='uploaded', null=True, blank=True)
     type = models.CharField(max_length = 30, choices=LINK_TYPES)
     
     def __unicode__(self):

@@ -23,8 +23,8 @@ def contact(request):
     return render_to_response('contact.html', getBaseArgs())
 
 def getSeries(ser):
-    series = Series.objects.filter(slug = ser)[0]
-    pieces = series.piece_piece_series.all()
+    series = Series.objects.filter(slug=ser)[0] if len(Series.objects.filter(slug=ser)) > 0 else None
+    pieces = series.piece_piece_series.all() if series is not None else None
     return pieces
 
 def listSeries():
@@ -96,7 +96,7 @@ def get_page(request, page):
     else:
         #print 'its a gallery'
         pieces = getSeries(page)
-        piece = pieces[0]
+        piece = pieces[0] if len(pieces) > 0 else None
     #print piece
     #print pieces
     args = {
@@ -199,7 +199,7 @@ def add_piece(request):
         print 'good form'
         title = form.cleaned_data['title']
         img = request.FILES['default_image']
-        img = Image.objects.get_or_create(image=img)[0]
+        img = MyImage.objects.get_or_create(image=img)[0]
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']

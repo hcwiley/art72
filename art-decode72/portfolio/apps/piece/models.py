@@ -1,13 +1,18 @@
 from django.db import models
 from django import forms
+from django.conf import settings
 #from django.core.files import ContentFile
 from django.contrib.admin import widgets 
 from django.contrib import admin
 from django.template.defaultfilters import slugify
 from artist.models import *
 
-class Image(models.Model):
+import Image
+
+class MyImage(models.Model):
     image = models.ImageField(upload_to='gallery/')
+    thumb = models.ImageField(upload_to='gallery/thumbs', blank=True, null=True, editable=False)
+    thumbsize = (300,300)
     
     class Meta:
         ordering = ['image']
@@ -15,11 +20,23 @@ class Image(models.Model):
     def __unicode__(self):
         return self.image.url
     
+    def saveThumb(self):
+        path = '%s/%s' % (settings.MEDIA_ROOT, self.image)
+        img = Image.open(path)
+        img = img.resize(self.thumbsize, Image.ANTIALIAS)
+        path = path.replace('gallery', 'gallery/thumbs')
+        img.save(path)
+        self.thumb = path
+    
+    def save(self, *args, **kwargs):
+        super(MyImage, self).save(*args, **kwargs)
+        self.saveThumb()
+    
 class Series(models.Model):
     name = models.CharField(max_length=400)
     description = models.TextField(null=True, blank=True)
     slug=models.SlugField(max_length=160,blank=True,editable=False)
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist,blank=True,editable=False)
     
     def update(self):
         if(self.artist == None):
@@ -39,7 +56,7 @@ class SeriesForm(forms.Form):
 
 class Piece(models.Model):
     title = models.CharField(max_length=400)
-    default_image = models.ForeignKey(Image, related_name='%(app_label)s_%(class)s_default_image', null=True, blank=True) 
+    default_image = models.ForeignKey(MyImage, related_name='%(app_label)s_%(class)s_default_image', null=True, blank=True) 
     date = models.DateField(null=True, blank=True)
     price = models.PositiveIntegerField(null=True, blank=True)
     series = models.ManyToManyField(Series, related_name='%(app_label)s_%(class)s_series', null=True, blank=True)
