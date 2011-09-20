@@ -187,6 +187,12 @@ html {
     width: 90px;
     margin: 5px 10px 5px 10px;
 }
+#big-img h2{
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    color: #FFF;
+}
 
 #big-img {
     opacity: 0;
@@ -194,9 +200,9 @@ html {
     height: 0px;
     background-color: #000;
     /*display: none;*/
-    position: absolute;
-    top: -200px;
-    left: -100px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     overflow: hidden;
     text-align: center;
 }
@@ -205,19 +211,23 @@ html {
     left: 8%;
 }
 
+#big-img > img{
+	position: fixed;
+}
+
 #big-img h1 {
     position: absolute;
     color: #FFF;
-    top: 300px;
-	padding-top: 100px;
-	height: 200px;
-	width: 50px;
+    top: 30%;
+    padding-top: 100px;
+    height: 200px;
+    width: 50px;
     font-size: 1.9em;
 }
 
 #next {
     position: absolute;
-    left: 90%;
+    right: 5px;
 }
 
 #big-img {
@@ -233,8 +243,7 @@ html {
 }
 
 #big-img img {
-    position: relative;
-    top: 20%;
+    position: fixed;
 }
 
 #contact-links {

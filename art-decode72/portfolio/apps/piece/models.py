@@ -17,6 +17,9 @@ class MyImage(models.Model):
     class Meta:
         ordering = ['image']
         
+    def thumb(self):
+        return '%s' % self.image.url.replace('gallery', 'gallery/thumbs')
+    
     def __unicode__(self):
         return self.image.url
     

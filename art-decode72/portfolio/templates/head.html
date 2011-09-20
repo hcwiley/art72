@@ -5,21 +5,21 @@
         <title>.</title>
         <!-- analytics !-->
         <script type="text/javascript">
-            
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', 'UA-24196336-1']);
-            _gaq.push(['_setDomainName', '.art72.org']);
-            _gaq.push(['_trackPageview']);
-            
-            (function(){
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
-            })();
-            
+            if (window.location.host !== '127.0.0.1:8000') {
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-24196336-1']);
+				_gaq.push(['_setDomainName', '.art72.org']);
+				_gaq.push(['_trackPageview']);
+				
+				(function(){
+					var ga = document.createElement('script');
+					ga.type = 'text/javascript';
+					ga.async = true;
+					ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0];
+					s.parentNode.insertBefore(ga, s);
+				})();
+			}
         </script>
         <link href="/media/css/template2.css" rel="stylesheet" type="text/css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript">

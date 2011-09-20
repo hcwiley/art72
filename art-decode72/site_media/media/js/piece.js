@@ -75,7 +75,7 @@ function justSize(){
         }
     }
     else {
-        $('#big-img > img').width('auto');
+        $('#big-img > img').width($(window).width() - 100);
         $('#big-img > img').height('auto');
     }
     $('#big-img > div:not(#close-big)').height($(window).height());
@@ -121,8 +121,8 @@ function changeImage(dir){
         }
         $.get(newSrc, function(){
             $('#big-img > img').attr('src', newSrc);
-            fitBig();
             window.setTimeout(function(){
+	            fitBig();
                 $('#big-img > img').stop(true, true).animate({
                     opacity: 1
                 }, showTime);
