@@ -1,8 +1,10 @@
 <div id='series' class='content'>
     {% for series in serieses %}
+	{% if series.piece_piece_series.all.count > 0 %}
     <div class='series_thumb'>
         <a href='/{{ series }}'><img src='{{ series.piece_piece_series.all.0.default_image }}'/>
         </a>
     </div>
+	{% endif %}
     {% endfor %}
 </div>

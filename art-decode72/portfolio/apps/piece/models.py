@@ -27,6 +27,7 @@ class Series(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        self.artist = Artist.objects.all()[0] if len(Artist.objects.all()) > 0 else Artist.objects.get_or_create(user=User.objects.all()[0])
         super(Series, self).save(*args, **kwargs)
     
     def __unicode__(self):
@@ -44,7 +45,7 @@ class Piece(models.Model):
     series = models.ManyToManyField(Series, related_name='%(app_label)s_%(class)s_series', null=True, blank=True)
     slug=models.SlugField(max_length=160,blank=True,editable=False)
     description = models.TextField(null=True, blank=True)
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist, null=True, blank=True)
     
     def update(self):
         if(self.artist == None):
@@ -56,7 +57,6 @@ class Piece(models.Model):
     def save(self, *args, **kwargs):
         if self.artist == None and len(Artist.objects.all()) > 0:
             self.artist = Artist.objects.all()[0]
-            print artist
         self.slug = slugify(self.title)
         super(Piece, self).save(*args, **kwargs)
 

@@ -97,8 +97,8 @@ html {
 
 .series_thumb img {
     position: relative;
-    top: -20px;
-    left: -30px;
+    top: 0px;
+    left: 0px;
     display: block;
     width: 180px;
     height: auto;

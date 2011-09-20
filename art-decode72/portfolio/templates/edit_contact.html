@@ -10,10 +10,8 @@
     		{{ csrf.token }}
         <h5>what should it say?</h5><input id='shown' type='text' value=''/>
 		<h5>where should it go to?</h5><input id='linked' type='text' value=''/>
-		<h5>what kind of link is it?</h5> {{ ce_form.type }}
-		{{ ce_form.file }}
-		<input class='submit' type='button' value='save'/>
-		<input class='cancel' type='button' value='cancel'/>
+		<input id='submit-contact' class='submit' type='button' value='save'/>
+		<input id='cancel-contact' class='cancel' type='button' value='cancel'/>
 		</form>
     </div>{% include 'contact_base.html' %}
 	<div class='link' id='add-new-contact'>

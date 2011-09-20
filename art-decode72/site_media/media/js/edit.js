@@ -29,9 +29,9 @@ function moveAddDiv(){
     $('#gallery').prepend(document.getElementById('add-new-piece'));
     $('#series').prepend(document.getElementById('add-new-piece'));
     $('#other-images').prepend(document.getElementById('add-new-piece'));
-    $('#add-new-piece').animate({
+    $('#add-new-piece').add($('#add-new-piece > *')).show().animate({
         opacity: 1
-    }, 800);
+    }, 300);
 }
 
 function showRequest(formData, jqForm, options){
@@ -39,7 +39,7 @@ function showRequest(formData, jqForm, options){
 }
 
 function handlePostSuccess(responseText, statusText, xhr, $form){
-    ////console.log('handling success');
+    console.log(responseText);
     var ajax = '/get/header';
     window.setTimeout(function(){
         $.get(ajax, function(data){
@@ -259,7 +259,7 @@ function initEditable(){
                 $('#shown').val($(this).text());
                 $('#linked').val($(this).attr('title'));
                 $(this).parent('div').append($('#add-contact-info').show());
-                $('#add-contact-info> .submit').click(function(){
+                $('#submit-contact').click(function(){
                     //console.log('saved');
                     var link = $('#linked').val() + '';
                     if (link.search('@') !== -1) {
@@ -304,7 +304,7 @@ function initEditable(){
         $('#linked').val('');
         $('#add-new-contact').append($('#add-contact-info').show());
         $('#shown').focus();
-        $('#add-contact-info> .submit').click(function(){
+        $('#add-contact-info > form > input.submit').click(function(){
             //console.log('saved');
             var a = document.createElement('A');
             var link = $('#linked').val() + '';
@@ -349,7 +349,7 @@ function initEditable(){
             $('#container').prepend($('#add-contact-info').hide());
             $('#add-contact-info> *').unbind('click');
         });
-        $('#add-contact-info> .cancel').click(function(){
+        $('#add-contact-info > form > input.cancel').click(function(){
             $('#add-new-contact>p').show();
             $('#container').prepend($('#add-contact-info').hide());
             $('#add-contact-info> *').unbind('click');
@@ -393,7 +393,10 @@ function saveMenu(){
                         user: $('#user-menu>p>strong').text()
                     },
                     success: function(data){
-                        //console.log(data);
+                        console.log(data);
+                    },
+					failed: function(response, status, xhr){
+                        console.log(response);
                     },
                 });
             }

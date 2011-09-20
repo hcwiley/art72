@@ -196,41 +196,43 @@ def add_piece(request):
         raise Http404
     form = PieceForm(request.POST, request.FILES)
     if form.is_valid():
+        print 'good form'
         title = form.cleaned_data['title']
         img = request.FILES['default_image']
-        img = Image.objects.get_or_create(image = img)[0]
+        img = Image.objects.get_or_create(image=img)[0]
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']
-        series = Series.objects.get_or_create(slug = slugify(ser))[0]
+        print 'got all the form data'
+        series = Series.objects.get_or_create(slug=slugify(ser))[0]
         series.name = ser
         series.save()
-
-        obj = Piece.objects.get_or_create(slug = slugify(title))[0]
+        print 'series is good'
+        obj = Piece.objects.get_or_create(slug=slugify(title))[0]
+        print 'made an object?'
         obj.title = title
         obj.default_image = img
         obj.date = date
         obj.price = price
         obj.series = [series]
-
         obj.save()
-
+        print 'you rule!'
         return HttpResponse("success")
     else:
         #print 'bad form'
-        return HttpResponseNotFound("invalid form")
+        return HttpResponse("invalid form")
 
 def add_series(request):
     if request.method != "POST":
         raise Http404
-    form = SeriesForm(request.POST, request.FILES)
+    form = SeriesForm(request.POST)
     if form.is_valid():
         name = form.cleaned_data['name']
         des = form.cleaned_data['description']
-
-        if len(Series.objects.filter(slug = slugify(name))) == 0:
+        if len(Series.objects.filter(slug=slugify(name))) == 0:
             ser = Series.objects.create()
             ser.name = name
+            print ser
             ser.description = des
             ser.save()
             return HttpResponse("success")
@@ -341,7 +343,7 @@ def save_logo(request):
 def update_contact(request):
     if request.method != "POST":
         raise Http404
-    displayed = request.POST['displayed']
+    dis = request.POST['displayed']
     type = request.POST['type']
     link = request.POST['link']
     artist = request.POST['user']
@@ -350,10 +352,9 @@ def update_contact(request):
 #    if request.FILES['file'] != None:
 #        file = request.FILES['file']
     if artist != None:
-        contact = ContactElement.objects.get_or_create(displayed = displayed)
+        contact = ContactElement.objects.get_or_create(displayed=dis)[0]
         contact.type = type
         contact.links_to = link
-        print contact
         contact.save()
         return HttpResponse("success")
     else:
