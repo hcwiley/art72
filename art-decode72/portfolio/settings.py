@@ -10,10 +10,10 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 IS_DEV = True
 DEBUG = True
 
-DATABASE_ENGINE = 'django.db.backends.mysql'
-DATABASE_NAME = 'wd40too_artist'
-DATABASE_USER = 'wd40too_artist'
-DATABASE_PASSWORD = 'geaux44'
+DATABASE_ENGINE = 'django.db.backends.sqlite3'
+DATABASE_NAME = 'art72.db'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
 
 MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
 #print MEDIA_ROOT

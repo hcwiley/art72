@@ -29,15 +29,18 @@ def getSeries(ser):
 
 def listSeries():
     sers = Series.objects.all()
-    series = []
-    for s in sers:
-        series.append(s.name)
-    return sers
+    if len(sers) > 0:
+        series = []
+        for s in sers:
+            series.append(s.name)
+        return sers
+    else:
+        return None
 
 base_args = {
            'serieses': listSeries(),
            'elements': ContactElement.objects.all(),
-           'artist': Artist.objects.all()[0]
+           'artist': Artist.objects.all()[0] if len(Artist.objects.all()) > 0 else Artist.objects.get_or_create(user=User.objects.all()[0]) 
 }
 
 def getBaseArgs():
