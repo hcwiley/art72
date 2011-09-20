@@ -18,12 +18,15 @@ DATABASE_ENGINE = 'django.db.backends.sqlite3'
 DATABASE_NAME = 'art72.db'
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
-
-MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
+if IS_DEV:
+    MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
+    STATIC_DOC_ROOT = MEDIA_ROOT
 #print MEDIA_ROOT
-STATIC_DOC_ROOT = MEDIA_ROOT
-GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
-THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
+    GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
+    THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
+else:
+    GALLERY_ROOT = '%sgallery/' % MEDIA_ROOT
+    THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
 if 'thumbs' not in os.listdir(GALLERY_ROOT):
  os.mkdir('%s' % THUMB_ROOT)
 MEDIA_URL = '/media/'
