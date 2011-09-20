@@ -25,12 +25,10 @@ if IS_DEV:
     GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
     THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
 else:
-    MEDIA_ROOT = ""
-    STATIC_DOC_ROOT = ""
-    GALLERY_ROOT = '%sgallery/' % MEDIA_ROOT
-    THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
-if 'thumbs' not in os.listdir(GALLERY_ROOT):
- os.mkdir('%s' % THUMB_ROOT)
+    MEDIA_ROOT = "<generated>"
+    STATIC_DOC_ROOT = "<generated>"
+    GALLERY_ROOT = "<generated>" 
+    THUMB_ROOT = '<generated>'
 MEDIA_URL = '/media/'
 STATIC_URL = "/static/"
 ADMIN_MEDIA_PREFIX = "%s/admin/" % MEDIA_URL
