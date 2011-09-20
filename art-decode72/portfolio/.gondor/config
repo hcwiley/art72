@@ -5,7 +5,7 @@ vcs = hg
 [app]
 ; this path is relative to your project root (the directory .gondor is in)
 requirements_file = requirements/project.txt
-staticfiles = on
+staticfiles = off
 
 ; this is a Python path and the default value maps to deploy/wsgi.py on disk
 wsgi_entry_point = deploy.wsgi

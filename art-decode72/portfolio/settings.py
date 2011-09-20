@@ -10,30 +10,28 @@ import socket
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
 host = socket.gethostname()
 IS_DEV = host in ('blu-wired', 'lil-italy') 
 DEBUG = True
 
-DATABASE_ENGINE = 'django.db.backends.sqlite3'
-DATABASE_NAME = 'art72.db'
-DATABASE_USER = ''
-DATABASE_PASSWORD = ''
 if IS_DEV:
-    MEDIA_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/')
-    STATIC_DOC_ROOT = MEDIA_ROOT
-#print MEDIA_ROOT
-    GALLERY_ROOT = (os.getcwd()+'').replace('portfolio','site_media/media/gallery/')
-    THUMB_ROOT = '%sthumbs/' % GALLERY_ROOT
-else:
-    MEDIA_ROOT = "<generated>"
-    STATIC_DOC_ROOT = "<generated>"
-    GALLERY_ROOT = "<generated>" 
-    THUMB_ROOT = '<generated>'
-MEDIA_URL = '/site_media/media/'
-STATIC_URL = "/site_media/static/"
+    DATABASE_ENGINE = 'django.db.backends.sqlite3'
+    DATABASE_NAME = 'art72.db'
+    DATABASE_USER = ''
+    DATABASE_PASSWORD = ''
+MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','media')
+STATIC_DOC_ROOT = MEDIA_ROOT
+GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery')
+THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs")
+MEDIA_URL = '/media/'
+STATIC_URL = "/static/"
 ADMIN_MEDIA_PREFIX = "%s/admin/" % MEDIA_URL
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "site_media")
+]
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),

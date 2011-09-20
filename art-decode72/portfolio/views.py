@@ -196,27 +196,27 @@ def add_piece(request):
         raise Http404
     form = PieceForm(request.POST, request.FILES)
     if form.is_valid():
-        print 'good form'
+        #print 'good form'
         title = form.cleaned_data['title']
         img = request.FILES['default_image']
         img = MyImage.objects.get_or_create(image=img)[0]
         date = form.cleaned_data['date']
         price = form.cleaned_data['price']
         ser = form.cleaned_data['series']
-        print 'got all the form data'
+        #print 'got all the form data'
         series = Series.objects.get_or_create(slug=slugify(ser))[0]
         series.name = ser
         series.save()
-        print 'series is good'
+        #print 'series is good'
         obj = Piece.objects.get_or_create(slug=slugify(title))[0]
-        print 'made an object?'
+        #print 'made an object?'
         obj.title = title
         obj.default_image = img
         obj.date = date
         obj.price = price
         obj.series = [series]
         obj.save()
-        print 'you rule!'
+        #print 'you rule!'
         return HttpResponse("success")
     else:
         #print 'bad form'
@@ -232,7 +232,7 @@ def add_series(request):
         if len(Series.objects.filter(slug=slugify(name))) == 0:
             ser = Series.objects.create()
             ser.name = name
-            print ser
+            #print ser
             ser.description = des
             ser.save()
             return HttpResponse("success")
@@ -332,9 +332,9 @@ def save_logo(request):
     artist = User.objects.filter(username=artist)[0]
     artist = Artist.objects.filter(user=artist)[0]
     if artist != None:
-        print artist.site_name
+        #print artist.site_name
         artist.site_name = logo
-        print artist.site_name
+        #print artist.site_name
         artist.save()
         return HttpResponse("success")
     else:
@@ -374,7 +374,7 @@ def login(request):
         return HttpResponse("success")
     else:
         # Show an error page
-        print 'nope'
+        #print 'nope'
         return HttpResponse('failed')
 def logout(request):
     auth.logout(request)
@@ -386,7 +386,7 @@ def add_video(request):
         raise Http404
     title = request.POST['title']
     url = request.POST['url']
-    print '%s: %s' % (title, url)
+    #print '%s: %s' % (title, url)
     if title and url:
         return HttpResponse('successfully added: %s' % title)
     else:
