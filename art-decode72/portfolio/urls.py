@@ -32,8 +32,8 @@ urlpatterns += patterns('',
 if settings.IS_DEV:
     # let django serve static media
     urlpatterns += patterns('',
-        (r'media/gallery/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
-        (r'^media/*/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
+        (r'%s/(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
+        (r'^%s*(?P<path>.*)$'  % settings.MEDIA_URL, 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
 #add content
 urlpatterns += patterns('',
@@ -72,6 +72,6 @@ urlpatterns += patterns('',
 )
 #Series pages
 urlpatterns += patterns('',
-    (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
-    (r'^(?P<series>.*)$', 'views.piece'),
+#    (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
+#    (r'^(?P<series>.*)$', 'views.piece'),
 )

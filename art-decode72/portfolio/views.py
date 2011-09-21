@@ -59,14 +59,13 @@ def index(request):
     return render_to_response('index.html', args)
 
 def piece(request, series, slg = None):
+    print 'peace bitch'
     pieces = getSeries(series)
-    if slg == None:
-        if len(pieces) != 0:
-            piece = pieces[0]
-        else:
-            raise Http404
+    if slg == None and pieces is not None:
+        piece = pieces[0]
     else:
-        piece = Piece.objects.filter(slug = slg)[0]
+        raise Http404
+    piece = Piece.objects.filter(slug = slg)[0] if len(Piece.objects.filter(slug = slg)) > 0 else None
     args = {
             'piece': piece,
             'pieces': pieces,
@@ -96,7 +95,7 @@ def get_page(request, page):
     else:
         #print 'its a gallery'
         pieces = getSeries(page)
-        piece = pieces[0] if len(pieces) > 0 else None
+        piece = pieces[0] if pieces is not None else None
     #print piece
     #print pieces
     args = {
@@ -152,7 +151,7 @@ def edit_piece(request, series, slg = None):
             else:
                 piece = None
         else:
-            piece = Piece.objects.filter(slug = slg)[0]
+            piece = Piece.objects.filter(slug = slg)[0] if len(Piece.objects.filter(slug=slg)) > 0 else None
         args = {
                 'piece': piece,
                 'pieces': pieces,
