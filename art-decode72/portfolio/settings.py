@@ -17,6 +17,14 @@ IS_DEV = host in ('blu-wired', 'lil-italy')
 DEBUG = True
 
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
+STATIC_DOC_ROOT = MEDIA_ROOT
+GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
+THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
+MEDIA_URL = 'site_media/media/'
+STATIC_URL = "/site_media/static/"
+GALLERY_URL = "site_media/media/gallery/"
+THUMB_URL = "site_media/media/gallery/thumbs/"
+
 
 if IS_DEV:
     DATABASE_ENGINE = 'django.db.backends.sqlite3'
@@ -25,13 +33,6 @@ if IS_DEV:
     DATABASE_PASSWORD = ''
 else:
     ADMIN_MEDIA_PREFIX = "%sadmin/" % MEDIA_URL
-STATIC_DOC_ROOT = MEDIA_ROOT
-GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
-THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
-MEDIA_URL = 'site_media/media/'
-STATIC_URL = "/site_media/static/"
-GALLERY_URL = "site_media/media/gallery/"
-THUMB_URL = "site_media/media/gallery/thumbs/"
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
