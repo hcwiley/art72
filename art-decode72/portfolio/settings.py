@@ -16,6 +16,8 @@ host = socket.gethostname()
 IS_DEV = host in ('blu-wired', 'lil-italy') 
 DEBUG = True
 
+MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
+
 if IS_DEV:
     DATABASE_ENGINE = 'django.db.backends.sqlite3'
     DATABASE_NAME = 'art72.db'
@@ -23,9 +25,6 @@ if IS_DEV:
     DATABASE_PASSWORD = ''
 else:
     ADMIN_MEDIA_PREFIX = "%sadmin/" % MEDIA_URL
-MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
-print PROJECT_ROOT
-print MEDIA_ROOT
 STATIC_DOC_ROOT = MEDIA_ROOT
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
