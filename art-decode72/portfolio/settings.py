@@ -39,7 +39,7 @@ TEMPLATE_DIRS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "site_media/media"),
+    MEDIA_ROOT,
 ]
 sys.path.append('./apps/')
 
