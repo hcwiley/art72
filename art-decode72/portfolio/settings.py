@@ -38,6 +38,9 @@ TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "site_media/media"),
+]
 sys.path.append('./apps/')
 
 FORCE_LOWERCASE_TAGS = True #for django-tagging
