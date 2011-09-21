@@ -14,8 +14,10 @@
     margin-right: 5px;
     margin-top: 0px;
     display: inline;
-    color: #FFF;
     font-weight: 900;
+}
+#login p {
+	color: #FFF;
 }
 #login-form > input.submit{
 	color: #000;

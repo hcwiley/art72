@@ -53,6 +53,7 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
             $('.content').remove();
             $('#container').html($('#container').html() + data);
             moveAddDiv();
+			checkAs();
             if (loc != 'edit') 
                 initPieceGallery();
         });
@@ -194,6 +195,7 @@ function handleLoginFail(response, statusText, xhr){
 
 function initLogin(){
     $('#login-form').bind('keypress', function(event){
+		console.log(event.which);
         if (event.keyCode == 13 || event.which == 13) {
             $(this).trigger('submit');
         }

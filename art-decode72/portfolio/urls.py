@@ -32,7 +32,7 @@ urlpatterns += patterns('',
 if settings.IS_DEV:
     # let django serve static media
     urlpatterns += patterns('',
-        (r'%s/(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
+        (r'%s(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
         (r'^%s*(?P<path>.*)$'  % settings.MEDIA_URL, 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
 #add content
@@ -40,6 +40,7 @@ urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
     (r'^add/series$', 'views.add_series'),
     (r'^add/video$', 'views.add_video'),
+    (r'^add/video/user$', 'views.add_video_user'),
 )
 
 #save users css changes
@@ -72,6 +73,6 @@ urlpatterns += patterns('',
 )
 #Series pages
 urlpatterns += patterns('',
-#    (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
-#    (r'^(?P<series>.*)$', 'views.piece'),
+    (r'^(?P<series>.*)/(?P<slg>.*)$', 'views.piece'),
+    (r'^(?P<series>.*)$', 'views.piece'),
 )

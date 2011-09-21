@@ -5,11 +5,13 @@ from django.contrib import admin
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from contact_element.models import *
-    
+
 class Artist(models.Model):
     user = models.ForeignKey(User, unique=True)
     nickname = models.CharField(max_length=400)
     site_name = models.CharField(max_length=400)
+    video_user = models.ForeignKey(VideoUser, verbose_name='class to keep track of various video user information',null=True, blank=True)
+    videos = models.ForeignKey(VideoLink, verbose_name='video url wrapper class',null=True, blank=True)
     contact_elements = models.ManyToManyField(ContactElement, related_name='%(app_label)s_%(class)s_contact_elements', null=True, blank=True)
     #css = models.File ?
     #template = models.Choice?

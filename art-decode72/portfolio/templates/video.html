@@ -1,123 +1,163 @@
-{% include 'head.html' %}
+{% include 'edit_head.html' %}
 <body>
-<script type='text/javascript' src='/media/js/video.js'>
-</script>
-<style>
-    #header {
-        position: fixed;
-    }
-    
-    #container {
-        left: 200px;
-    }
-    
-    div.profile {
-        position: relative;
-		/*border: 1px solid black;*/
-		width: 900px;
-		margin: 10px;
-		padding: 0px;
-		float: right;
-		display: block;
-		border-bottom: 1px dashed #888;
-    }
-    
-    div.info {
-        position: absolute;
-        top: 20px;
-        right: -80px;
-    }
-    
-    div.video-div {
-    	/*border: 1px solid black;*/
-        width: 300px;
-		height: 300px;
-        margin: 20px 40px;
-        display: inline-block;
-		float: left;
-		padding: 0;
-		overflow: hidden;
-    }
-    
-    div.video-div p {
-        display: inline;
-    }
-	
-	div.video-div > * {
-		position: relative;
-		top: 0px;
-	}
-    
-    div.video-div p.description {
-        display: block;
-    }
-    
-    div.video-div iframe {
-        width: inherit;
-        height: auto;
-    }
-    
-    #container > div.original.profile {
-        display: none;
-        height: 0px;
-        width: 0px;
-    }
-    
-    div.original {
-        display: none;
-        height: 0px;
-        width: 0px;
-    }
-	#video-menu{
-		position: fixed;
-		left: 20px;
-		top: 100px;
-		display: block;
-	}
-	#add-video-form{
-		display: none;
-	}
-</style>
-<div class="link" id="header">
-    {% include 'header.html' %}
-</div>
-</div>
-<div id="container">
-	<div id='video-menu'>
-		<label>What's your vimeo or<br/>youtube username?</label>
-		<br/>
-		<input id='video-username' type='text'/>
-		<br/>
-		<br/>
-		<button id='select-all'><p>Select all videos</p></button><br/>
-		<button id='deselect-all'><p>Deselect all videos</p></button><br/><br/>
-		<button id='add-to-profile'><p>Add these videos now!</p></button>
-		<form id='add-video-form' name='add-video-form' method='POST'>
-			{% csrf_token %}
-			<input name='title' type='text' />
-			<input name='url' type='text'/>
-		</form>
-	</div>
-    <div class='profile original'>
-        <div class='info'>
-            <a href='' target='_blank'><img src='' /><h4></h4></a>
-        </div>
-        <div class="video-div original">
-            <a href="" target="_blank"></a>
-            <br/>
-            <input type='checkbox' title='Add to my Art72 profile?' />
-            <p>
-                Add to my Art72 profile?
-            </p>
-            <br/>
-            <iframe src="">
-            </iframe>
-            <p class='description'>
-            </p>
-        </div>
+    <script type='text/javascript' src='/site_media/media/js/video.js'>
+    </script>
+    <style>
+        #header {
+            position: fixed;
+        }
+        
+        #container {
+            left: 200px;
+        }
+        
+        div.profile {
+            position: relative;
+            /*border: 1px solid black;*/
+            width: 900px;
+            margin: 10px;
+            padding: 0px;
+            float: right;
+            display: block;
+            border-bottom: 1px dashed #888;
+        }
+        
+        div.info {
+            position: absolute;
+            top: 20px;
+            right: -80px;
+        }
+        
+        div.video-div {
+            /*border: 1px solid black;*/
+            width: 300px;
+            height: 300px;
+            margin: 20px 40px;
+            display: inline-block;
+            float: left;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        div.video-div p {
+            display: inline;
+        }
+        
+        div.video-div > * {
+            position: relative;
+            top: 0px;
+        }
+        
+        div.video-div p.description {
+            display: none;
+        }
+        
+        div.video-div iframe {
+            width: inherit;
+            height: auto;
+        }
+        
+        #container > div.original.profile {
+            display: none;
+            height: 0px;
+            width: 0px;
+        }
+        
+        div.original {
+            display: none;
+            height: 0px;
+            width: 0px;
+        }
+        
+        #video-menu {
+            position: fixed;
+            left: 20px;
+            top: 100px;
+            display: block;
+        }
+        
+        #add-video-form, #add-video-user-form {
+            display: none;
+        }
+    </style>
+    <div class="link" id="header">
+        {% include 'header.html' %}
     </div>
-</div>
-<div id="footer" class="link">
-</div>
+    {% if user.is_authenticated %}
+    <div id="container">
+        <div id='video-menu'>
+            <label>
+                What's your vimeo or
+                <br/>
+                youtube username?
+            </label>
+            <br/>
+            <input id='video-username' type='text'/>
+			<button id='video-username-button'><p>-></p></button>
+            <br/>
+            <br/>
+            <button id='select-all'>
+                <p>
+                    Select all videos
+                </p>
+            </button>
+            <br/>
+            <button id='deselect-all'>
+                <p>
+                    Deselect all videos
+                </p>
+            </button>
+            <br/>
+            <br/>
+            <button id='add-to-profile'>
+                <p>
+                    Add these videos now!
+                </p>
+            </button>
+            <form id='add-video-form' name='add-video-form' method='POST'>
+                {% csrf_token %}<input name='title' type='text' /><input name='url' type='text'/>
+            </form>
+            <form id='add-video-user-form' name='add-video-user-form' method='POST'>
+                {% csrf_token %}
+                {{ video_user_form }}
+            </form>
+        </div>
+        <div class='profile original'>
+            <div class='info'>
+                <a href='' target='_blank'><img src='' /><h4></h4></a>
+            </div>
+            <div class="video-div original">
+                <a href="" target="_blank"></a>
+                <br/>
+                <input type='checkbox' title='Add to my Art72 profile?' />
+                <p>
+                    Add to my Art72 profile?
+                </p>
+                <br/>
+                <iframe src="">
+                </iframe>
+                <p class='description'>
+                </p>
+            </div>
+        </div>
+        {% for video in videos %}
+            <div class="video-div">
+                <a href='{{ video.url }}' target='_blank'><h4>{{ video.title }}</h4></a>
+                <br/>
+                <input type='checkbox' class='remove' title='Add to my Art72 profile?' />
+                <p>
+                    Remove from my Art72 profile?
+                </p>
+                <br/>
+                <iframe src="{{ video.url }}">
+                </iframe>
+                <p class='description'>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div id="footer" class="link">
+    </div>
 </body
 </html>

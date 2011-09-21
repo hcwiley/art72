@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.forms import ModelForm
 #from django.core.files import ContentFile
 from django.contrib import admin
 from django.template.defaultfilters import slugify
@@ -23,3 +24,58 @@ class ContactElementForm(forms.Form):
     links_to = forms.CharField(max_length=400)
     file = forms.FileField()
     type = forms.ChoiceField(choices=LINK_TYPES)
+    
+class VideoUser(models.Model):
+    username = models.CharField(max_length=400)
+    url = models.URLField(unique=False)
+    type = models.CharField(max_length=400)
+    slug = models.SlugField(max_length=160,blank=True,editable=False)
+    
+    class Meta:
+        ordering = ['url']
+
+    def with_http(self):
+        if self.url.startswith('http://'):
+            return self.url
+        else:
+            return 'http://' + self.url
+
+    def __unicode__(self):
+        return '%s: %s' % (self.username, self.type)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.username)
+        super(VideoUser, self).save(*args, **kwargs)
+        
+class VideoUserForm(ModelForm):
+    class Meta:
+        model = VideoUser
+        
+class VideoLink(models.Model):
+    title = models.CharField(max_length=400)
+    url = models.URLField(unique=False)
+    account = models.ForeignKey(VideoUser, verbose_name='video user its linked to', null=True, blank=True)
+    slug=models.SlugField(max_length=160,blank=True, null=True, editable=False)
+    
+    class Meta:
+        ordering = ['url']
+
+    def with_http(self):
+        if self.url.startswith('http://'):
+            return self.url
+        else:
+            return 'http://' + self.url
+
+    def __unicode__(self):
+        if self.url.startswith('http://'):
+            return self.url[7:]
+        else:
+            return self.url
+        
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(VideoLink, self).save(*args, **kwargs)
+        
+class VideoLinkForm(ModelForm):
+    class Meta:
+        model = VideoLink

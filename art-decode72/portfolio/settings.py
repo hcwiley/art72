@@ -21,17 +21,18 @@ if IS_DEV:
     DATABASE_NAME = 'art72.db'
     DATABASE_USER = ''
     DATABASE_PASSWORD = ''
+else:
+    ADMIN_MEDIA_PREFIX = "%sadmin/" % MEDIA_URL
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
 print PROJECT_ROOT
 print MEDIA_ROOT
 STATIC_DOC_ROOT = MEDIA_ROOT
-GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery')
-THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs")
+GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
+THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
 MEDIA_URL = 'site_media/media/'
 STATIC_URL = "/site_media/static/"
 GALLERY_URL = "site_media/media/gallery/"
 THUMB_URL = "site_media/media/gallery/thumbs/"
-ADMIN_MEDIA_PREFIX = "%s/admin/" % MEDIA_URL
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),

@@ -69,7 +69,7 @@ class Piece(models.Model):
     
     def update(self):
         if(self.artist == None):
-            self.artist = Users.objects.filter(pk='2')
+            self.artist = Users.objects.filter(pk='1')
     
     def __unicode__(self):
         return self.title

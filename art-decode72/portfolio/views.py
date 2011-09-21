@@ -59,7 +59,6 @@ def index(request):
     return render_to_response('index.html', args)
 
 def piece(request, series, slg = None):
-    print 'peace bitch'
     pieces = getSeries(series)
     if slg == None and pieces is not None:
         piece = pieces[0]
@@ -383,15 +382,48 @@ def logout(request):
 def add_video(request):
     if request.method != "POST":
         raise Http404
-    title = request.POST['title']
-    url = request.POST['url']
-    #print '%s: %s' % (title, url)
-    if title and url:
-        return HttpResponse('successfully added: %s' % title)
+    form = VideoLinkForm(request.POST)
+    if form.is_valid():
+        return_text = 'added'
+        title = form.cleaned_data['title']
+        url = form.cleaned_data['url']
+        obj = VideoLink.objects.get_or_create(slug=slugify(title))
+        if obj[1] == 1:
+            return_text = 'updated'
+        obj = obj[0]
+        obj.title= title
+        obj.url = url
+        obj.save()
+        return HttpResponse('successfully %: %s' % (return_text, title))
+    else:
+        return HttpResponse('failed to add: %s @ %s' % (title, url)) 
+
+def add_video_user(request):
+    if request.method != "POST":
+        raise Http404
+    form = VideoUserForm(request.POST)
+    if form.is_valid():
+        return_text = 'added'
+        username = form.cleaned_data['username']
+        url = form.cleaned_data['url']
+        typ = form.cleaned_data['type']
+        obj = VideoUser.objects.get_or_create(slug=slugify(username),type=typ)
+        print obj
+        if obj[1] == 1:
+            return_text = 'updated'
+        obj = obj[0]
+        obj.username= username
+        obj.url = url
+        obj.type = typ
+        obj.save()
+        return HttpResponse('successfully %: %s' % (return_text, title))
     else:
         return HttpResponse('failed to add: %s @ %s' % (title, url)) 
 
 def video(request):
     args = getBaseArgs()
+    args['user']= request.user
+    args['videos'] = VideoLink.objects.all()
+    args['video_user_form'] = VideoUserForm(auto_id = 'video_user_%s')
     args.update(csrf(request))
     return render_to_response('video.html', args)
