@@ -63,7 +63,6 @@ def piece(request, series, slg = None):
     if slg == None and pieces is not None:
         piece = pieces[0]
     else:
-        afds
         raise Http404
     piece = Piece.objects.filter(slug = slg)[0] if len(Piece.objects.filter(slug = slg)) > 0 else None
     args = {
