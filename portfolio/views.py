@@ -56,6 +56,7 @@ def getBaseArgs():
 def index(request):
     args = getBaseArgs()
     args.update(csrf(request))
+    args['mediaurl'] = settings.MEDIA_URL
     return render_to_response('index.html', args)
 
 def piece(request, series, slg = None):

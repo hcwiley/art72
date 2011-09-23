@@ -6,14 +6,13 @@ import posixpath
 
 import socket
 
-
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 host = socket.gethostname()
-IS_DEV = host in ('blu-wired', 'lil-italy') 
+IS_DEV = host in ('blu-wired', 'blu-Ubuntu',) # RIP 'lil-italy') 
 DEBUG = True
 
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
@@ -47,6 +46,7 @@ FORCE_LOWERCASE_TAGS = True #for django-tagging
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('Cole Wiley', 'hcwiley@gmail.com'),
+    ('Zack Dever', 'zack@decode72.com'),
 )
 
 MANAGERS = ADMINS
