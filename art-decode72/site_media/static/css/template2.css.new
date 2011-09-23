@@ -1,0 +1,18 @@
+html {
+    background: #FFF;
+    color: #000;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    z-index: 1;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    height: 0px;
+    width: 0px;
+}
+
+#contact {
+    position: relative;

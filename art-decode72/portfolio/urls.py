@@ -29,7 +29,7 @@ urlpatterns += patterns('',
     (r'^admin/', include(admin.site.urls)),
 )
 
-if settings.IS_DEV or True:
+if settings.IS_DEV:
     # let django serve static media
     urlpatterns += patterns('',
         (r'%s(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),

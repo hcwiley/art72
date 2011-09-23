@@ -13,7 +13,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 host = socket.gethostname()
-IS_DEV = host in ('blu-wired', 'lil-italy') 
+IS_DEV = host in ('blu-wirz', 'lil-italy')
+IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
