@@ -17,8 +17,10 @@ IS_DEV = host in ('blu-wirz', 'lil-italy')
 IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
-MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','media')
-STATIC_DOC_ROOT = PROJECT_ROOT.replace('portfolio','static')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
+STATIC_DOC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+if 'gallery' not in os.listdir(MEDIA_ROOT):
+    os.mkdir('%sgallery' % MEDIA_ROOT)
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
 if 'thumbs' not in os.listdir(GALLERY_ROOT):
     os.mkdir('%sthumbs' % GALLERY_ROOT)
