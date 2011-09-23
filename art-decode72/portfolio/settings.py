@@ -17,7 +17,7 @@ IS_DEV = host in ('blu-wired', 'lil-italy')
 DEBUG = True
 
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
-STATIC_DOC_ROOT = MEDIA_ROOT
+STATIC_DOC_ROOT = PROJECT_ROOT.replace('portfolio','site_media/static')
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
 MEDIA_URL = 'site_media/media/'
