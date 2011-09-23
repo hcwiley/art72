@@ -18,7 +18,7 @@ IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
-STATIC_DOC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 if 'gallery' not in os.listdir(MEDIA_ROOT):
     os.mkdir('%sgallery' % MEDIA_ROOT)
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
