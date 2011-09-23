@@ -20,6 +20,8 @@ DEBUG = True
 MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','media')
 STATIC_DOC_ROOT = PROJECT_ROOT.replace('portfolio','static')
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
+if 'thumbs' not in os.listdir(GALLERY_ROOT):
+    os.mkdir('%sthumbs' % GALLERY_ROOT)
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
 MEDIA_URL = 'site_media/media/'
 STATIC_URL = "site_media/static/"
@@ -40,7 +42,7 @@ TEMPLATE_DIRS = [
 ]
 
 STATICFILES_DIRS = [
-    MEDIA_ROOT,
+    STATIC_DOC_ROOT,
 ]
 sys.path.append('./apps/')
 
