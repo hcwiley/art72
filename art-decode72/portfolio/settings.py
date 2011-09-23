@@ -17,8 +17,8 @@ IS_DEV = host in ('blu-wirz', 'lil-italy')
 IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
-MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
-STATIC_DOC_ROOT = PROJECT_ROOT.replace('portfolio','site_media/static')
+MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','media')
+STATIC_DOC_ROOT = PROJECT_ROOT.replace('portfolio','static')
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
 MEDIA_URL = 'site_media/media/'
