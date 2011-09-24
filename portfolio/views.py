@@ -39,6 +39,7 @@ def listSeries():
 
 base_args = {
            'serieses': listSeries(),
+           'STATIC_URL' : settings.STATIC_URL,
            'elements': ContactElement.objects.all(),
            'artist': Artist.objects.all()[0] if len(Artist.objects.all()) > 0 else Artist.objects.get_or_create(user=User.objects.all()[0]) 
 }
@@ -49,6 +50,7 @@ def getBaseArgs():
         artist = artist[0]
     return {
            'serieses': listSeries(),
+           'STATIC_URL' : settings.STATIC_URL,
            'elements': ContactElement.objects.all(),
            'artist': artist
     }    

@@ -12,12 +12,18 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 host = socket.gethostname()
-IS_DEV = host in ('blu-wired', 'blu-Ubuntu',) # RIP 'lil-italy') 
+IS_DEV = host in ('blu-wirz', 'blu-Ubuntu',) # RIP 'lil-italy') 
+IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
-MEDIA_ROOT = PROJECT_ROOT.replace('portfolio','site_media/media')
-STATIC_DOC_ROOT = MEDIA_ROOT
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+STATIC_DOC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+if 'gallery' not in os.listdir(MEDIA_ROOT):
+    os.mkdir('%sgallery' % MEDIA_ROOT)
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
+if 'thumbs' not in os.listdir(GALLERY_ROOT):
+    os.mkdir('%sthumbs' % GALLERY_ROOT)
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
 MEDIA_URL = '/site_media/media/'
 STATIC_URL = "/site_media/static/"

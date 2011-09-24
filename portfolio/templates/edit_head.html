@@ -1,11 +1,11 @@
 {% extends 'head.html' %}
 {% block edit_head %}
-<link href="/site_media/media/css/edit.css" rel="stylesheet" type="text/css">
-<script type='text/javascript' src='/site_media/media/js/jquery.form.js'>
+<link href="{{ STATIC_URL }}css/edit.css" rel="stylesheet" type="text/css">
+<script type='text/javascript' src='{{ STATIC_URL }}js/jquery.form.js'>
 </script>
-<script type='text/javascript' src='/site_media/media/js/edit.js'>
+<script type='text/javascript' src='{{ STATIC_URL }}js/edit.js'>
 </script>
-<!--<script type='text/javascript' src='/site_media/media/js/dndi.js'>
+<!--<script type='text/javascript' src='{{ STATIC_URL }}js/dndi.js'>
 </script>!-->
 {% endblock %}
 {% block edit_menu %}
