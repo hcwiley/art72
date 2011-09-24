@@ -98,7 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'portfolio.urls'
+ROOT_URLCONF = 'art72.urls'
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
