@@ -23,12 +23,12 @@ if IS_DEV:
     DATABASE_USER = ''
     DATABASE_PASSWORD = ''
 
-    MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'user-media')
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'collected-static')
 else:
     # set up email
     pass
 
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'user-media')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'collected-static')
 GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery')
 print os.listdir(GALLERY_ROOT)
 #THUMB_ROOT = os.path.join(GALLERY_ROOT, 'thumbs/')
