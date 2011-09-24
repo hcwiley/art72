@@ -26,19 +26,18 @@ GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
 if 'thumbs' not in os.listdir(GALLERY_ROOT):
     os.mkdir('%sthumbs' % GALLERY_ROOT)
 THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
-MEDIA_URL = 'site_media/media/'
-STATIC_URL = "site_media/static/"
-GALLERY_URL = "site_media/media/gallery/"
-THUMB_URL = "site_media/media/gallery/thumbs/"
-
+MEDIA_URL = '/site_media/media/'
+STATIC_URL = "/site_media/static/"
+GALLERY_URL = "/site_media/media/gallery/"
+THUMB_URL = "/site_media/media/gallery/thumbs/"
+ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, "admin/")
 
 if IS_DEV:
     DATABASE_ENGINE = 'django.db.backends.sqlite3'
     DATABASE_NAME = 'art72.db'
     DATABASE_USER = ''
     DATABASE_PASSWORD = ''
-else:
-    ADMIN_MEDIA_PREFIX = "%sadmin/" % MEDIA_URL
+
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
