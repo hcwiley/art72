@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 host = socket.gethostname()
-IS_DEV = host in ('blu-wirz', 'lil-italy')
+IS_DEV = host in ('blu-wired', 'lil-italy')
 IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
@@ -47,7 +47,11 @@ TEMPLATE_DIRS = [
 STATICFILES_DIRS = [
     STATIC_DOC_ROOT,
 ]
-sys.path.append('./apps/')
+sys.path.append(PROJECT_ROOT)
+sys.path.append('%s/apps/' % PROJECT_ROOT)
+sys.path.append('%s/apps/piece/' % PROJECT_ROOT)
+sys.path.append('%s/apps/artist/' % PROJECT_ROOT)
+sys.path.append('%s/apps/contact_element/' % PROJECT_ROOT)
 
 FORCE_LOWERCASE_TAGS = True #for django-tagging
 TEMPLATE_DEBUG = DEBUG
@@ -98,7 +102,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'art72.urls'
+ROOT_URLCONF = 'dev.urls'
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
