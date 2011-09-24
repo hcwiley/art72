@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+import os, sys
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)))))
+
 from django.core.management import execute_manager
 try:
     import settings # Assumed to be in the same directory.
@@ -9,3 +14,8 @@ except ImportError:
 
 if __name__ == "__main__":
     execute_manager(settings)
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

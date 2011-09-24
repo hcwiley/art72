@@ -6,47 +6,46 @@ import posixpath
 
 import socket
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir, os.pardir)))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), os.pardir)))
-
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+TEMPLATE_DIRS = [
+    os.path.join(PROJECT_ROOT, "templates"),
+]
 
 host = socket.gethostname()
 IS_DEV = host in ('blu-wirz', 'blu-Ubuntu',) # RIP 'lil-italy') 
 IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
-STATIC_DOC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
-if 'gallery' not in os.listdir(MEDIA_ROOT):
-    os.mkdir('%sgallery' % MEDIA_ROOT)
-GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
-if 'thumbs' not in os.listdir(GALLERY_ROOT):
-    os.mkdir('%sthumbs' % GALLERY_ROOT)
-THUMB_ROOT = os.path.join(GALLERY_ROOT, "thumbs/")
-MEDIA_URL = '/site_media/media/'
-STATIC_URL = "/site_media/static/"
-GALLERY_URL = "site_media/media/gallery/"
-THUMB_URL = "site_media/media/gallery/thumbs/"
-
-
 if IS_DEV:
     DATABASE_ENGINE = 'django.db.backends.sqlite3'
     DATABASE_NAME = 'art72.db'
     DATABASE_USER = ''
     DATABASE_PASSWORD = ''
-else:
-    ADMIN_MEDIA_PREFIX = "%sadmin/" % MEDIA_URL
 
-TEMPLATE_DIRS = [
-    os.path.join(PROJECT_ROOT, "templates"),
-]
+    MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'user-media')
+    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'collected-static')
+else:
+    # set up email
+    pass
+
+GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
+THUMB_ROOT = os.path.join(GALLERY_ROOT, 'thumbs/')
+
+if not os.path.exists(THUMB_ROOT):
+    os.makedirs(THUMB_ROOT)
+
+GALLERY_URL = '/site_media/media/gallery/'
+THUMB_URL = '/site_media/media/gallery/thumbs/'
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, 'static'),
 ]
-sys.path.append('./apps/')
+MEDIA_URL = '/site_media/media/'
+STATIC_URL = '/site_media/static/'
+ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin/') 
+
+sys.path.append(os.path.join(PROJECT_ROOT, 'apps/'))
 
 FORCE_LOWERCASE_TAGS = True #for django-tagging
 TEMPLATE_DEBUG = DEBUG
@@ -105,6 +104,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

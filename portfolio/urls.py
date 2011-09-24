@@ -12,8 +12,6 @@ urlpatterns = patterns('',
     (r'^video$', 'views.video'),
     (r'^contact$', 'views.contact'),
     (r'^contact.html$', 'views.contact'),
-    (r'^404$', 'views.four_oh_four'),
-    (r'^500$', 'views.four_oh_four'),
     (r'^robots.txt$', direct_to_template, {'template':'robots.txt', 'mimetype':'text/plain'})
 )
 
@@ -33,7 +31,7 @@ if settings.IS_DEV:
     # let django serve static media
     urlpatterns += patterns('',
         (r'%s(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
-        (r'^%s*(?P<path>.*)$'  % settings.STATIC_URL, 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
+        (r'^%s*(?P<path>.*)$'  % settings.STATIC_URL, 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     )
 #add content
 urlpatterns += patterns('',

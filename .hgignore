@@ -10,6 +10,7 @@ whoosh_index
 gallery/*
 *.bak
 .DS_STORE
+*.swp
 
 syntax: regexp
 ^art-decode72/portfolio/templates-old$
