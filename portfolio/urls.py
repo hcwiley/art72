@@ -33,7 +33,7 @@ if settings.IS_DEV:
     # let django serve static media
     urlpatterns += patterns('',
         (r'%s(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
-        (r'^%s*(?P<path>.*)$'  % settings.STATIC_URL, 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
+        (r'^%s*/(?P<path>.*)$'  % settings.STATIC_URL, 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     )
 #add content
 urlpatterns += patterns('',

@@ -13,7 +13,7 @@ TEMPLATE_DIRS = [
 ]
 
 host = socket.gethostname()
-IS_DEV = host in ('blu-wirz', 'blu-Ubuntu',) # RIP 'lil-italy') 
+IS_DEV = host in ('blu-wired', 'blu-Ubuntu',) # RIP 'lil-italy') 
 IS_DEV = IS_DEV or 'Users' in os.listdir('/')
 DEBUG = True
 
@@ -29,14 +29,14 @@ else:
     # set up email
     pass
 
-GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery/')
-THUMB_ROOT = os.path.join(GALLERY_ROOT, 'thumbs/')
-
-if not os.path.exists(THUMB_ROOT):
-    os.makedirs(THUMB_ROOT)
-
+GALLERY_ROOT = os.path.join(MEDIA_ROOT, 'gallery')
+print os.listdir(GALLERY_ROOT)
+#THUMB_ROOT = os.path.join(GALLERY_ROOT, 'thumbs/')
+#
+#if not os.path.exists(THUMB_ROOT):
+#    os.makedirs(THUMB_ROOT)
 GALLERY_URL = '/site_media/media/gallery/'
-THUMB_URL = '/site_media/media/gallery/thumbs/'
+#THUMB_URL = '/site_media/media/gallery/thumbs/'
 MEDIA_URL = '/site_media/media/'
 STATIC_URL = '/site_media/static/'
 

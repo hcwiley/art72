@@ -11,14 +11,14 @@ import Image
 
 class MyImage(models.Model):
     image = models.ImageField(upload_to='gallery/')
-    thumb = models.ImageField(upload_to='gallery/thumbs', blank=True, null=True, editable=False)
+    thumb = models.ImageField(upload_to='gallery/', blank=True, null=True, editable=False)
     thumbsize = (300,300)
     
     class Meta:
         ordering = ['image']
         
     def thumb(self):
-        return '%s' % self.image.url.replace('gallery', 'gallery/thumbs')
+        return '%s' % self.image.url.replace('gallery/', 'gallery/thumb_')
     
     def __unicode__(self):
         return self.image.url
@@ -27,7 +27,7 @@ class MyImage(models.Model):
         path = '%s/%s' % (settings.MEDIA_ROOT, self.image)
         img = Image.open(path)
         img = img.resize(self.thumbsize, Image.ANTIALIAS)
-        path = path.replace('gallery', 'gallery/thumbs')
+        path = path.replace('gallery/', 'gallery/thumb_')
         img.save(path)
         self.thumb = path
     
