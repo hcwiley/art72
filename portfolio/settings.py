@@ -37,12 +37,12 @@ if not os.path.exists(THUMB_ROOT):
 
 GALLERY_URL = '/site_media/media/gallery/'
 THUMB_URL = '/site_media/media/gallery/thumbs/'
+MEDIA_URL = '/site_media/media/'
+STATIC_URL = '/site_media/static/'
 
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, 'static'),
 ]
-MEDIA_URL = '/site_media/media/'
-STATIC_URL = '/site_media/static/'
 ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin/') 
 
 sys.path.append(os.path.join(PROJECT_ROOT, 'apps/'))

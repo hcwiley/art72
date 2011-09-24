@@ -28,11 +28,10 @@ urlpatterns += patterns('',
 )
 
 if settings.IS_DEV:
-    # let django serve static media
-    urlpatterns += patterns('',
-        (r'%s(?P<path>.*)$' % settings.GALLERY_URL, 'django.views.static.serve', {'document_root': settings.GALLERY_ROOT}),
-        (r'^%s*(?P<path>.*)$'  % settings.STATIC_URL, 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
+    # let django serve user-submitted media in dev
+    from django.conf.urls.static import static
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+
 #add content
 urlpatterns += patterns('',
     (r'^add/piece$', 'views.add_piece'),
