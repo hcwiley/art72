@@ -5,6 +5,7 @@ syntax: glob
 *.project
 *.pydevproject
 *.DS_STORE
+.DS_STORE
 *.prefs
 whoosh_index
 gallery/*
