@@ -1,0 +1,15 @@
+{% extends 'header.html' %}
+
+{% block logo %}
+href='/edit/' title='right click to edit'>
+<h2>{% if artist.site_name == "" %}Your name here?{% else %}{{ artist.site_name }}{% endif %}{% endblock %}
+    {% block series %}
+    {% for series in serieses %}
+       <a href='/edit/{{ series.slug }}' id='{{ series }}' class='{% if pieces.0.series == series or pieces.all.0.series.all.0 == series %}currentPage{% else %} notCur {% endif %}'><p>{{ series }}</p></a>
+   {% endfor %}
+   {% if user.is_authenticated %}
+    <p class='link' id='add-new-series'>(+) add new series</p>
+    {% include 'add-series.html' %}
+    {% endif %}
+   {% endblock %}
+{% block contact %} href='/edit/contact' {% endblock %}

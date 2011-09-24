@@ -10,6 +10,7 @@ syntax: glob
 whoosh_index
 gallery/*
 *.bak
+*.swp
 
 syntax: regexp
 ^art-decode72/portfolio/templates-old$
