@@ -9,7 +9,6 @@ syntax: glob
 whoosh_index
 gallery/*
 *.bak
-.DS_STORE
 
 syntax: regexp
 ^art-decode72/portfolio/templates-old$

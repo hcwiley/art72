@@ -1,0 +1,8 @@
+<div id='contact-links'>
+    {% autoescape off %}{% for element in elements %}
+	{% if element.links_to != '' %}
+	{{ element.html }}
+	{% endif %}
+	{% endfor %}
+	{% endautoescape %}
+</div>

@@ -1,0 +1,17 @@
+{% extends 'head.html' %}
+{% block edit_head %}
+<link href="{{ STATIC_URL }}css/edit.css" rel="stylesheet" type="text/css">
+<script type='text/javascript' src='{{ STATIC_URL }}js/jquery.form.js'>
+</script>
+<script type='text/javascript' src='{{ STATIC_URL }}js/edit.js'>
+</script>
+<!--<script type='text/javascript' src='{{ STATIC_URL }}js/dndi.js'>
+</script>!-->
+{% endblock %}
+{% block edit_menu %}
+{% include 'save-menu.html' %}
+{% include 'login.html' %}
+<div id='feedback'>
+	<h4></h4>
+</div>
+{% endblock %}
