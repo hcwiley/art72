@@ -18,7 +18,7 @@ AJAX_VIEW_PREFIX = AJAX_URL[1:]
 
 ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin/')
 sys.path.append(PROJECT_ROOT)
-sys.path.append('%s/biz/' % PROJECT_ROOT)
+sys.path.append('%s/apps/' % PROJECT_ROOT)
  
 ADMINS = (
     ('Cole Wiley', 'cole@decode72.com'),
@@ -52,7 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'art72.urls'
+ROOT_URLCONF = 'gallery.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates/'),
@@ -73,6 +73,8 @@ INSTALLED_APPS = (
     # everything above needed for admin
     'django.contrib.localflavor',
     'django.contrib.staticfiles',
+    'gallery',
+    'artist',
 )
 
 try:
