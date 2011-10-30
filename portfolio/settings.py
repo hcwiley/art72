@@ -27,9 +27,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'django.db.backends.sqlite3'
-DATABASE_NAME = 'art72.sqlite'
-
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
@@ -75,6 +72,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gallery',
     'artist',
+    'south',
 )
 
 try:

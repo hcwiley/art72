@@ -11,6 +11,13 @@ whoosh_index
 gallery/*
 *.bak
 *.swp
+local_settings.py
+*.png
+*.jpg
+*.jpeg
+*.PNG
+*.JPG
+*.JPEG
 
 syntax: regexp
 ^art-decode72/portfolio/templates-old$

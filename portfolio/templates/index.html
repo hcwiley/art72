@@ -1,1 +1,3 @@
-hello, world
+{% for image in images %}
+    <img src="{{ image.url }}" width="image.width" height="image.height" alt="image.name" />
+{% endfor %} 
