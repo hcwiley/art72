@@ -8,7 +8,6 @@ syntax: glob
 .DS_STORE
 *.prefs
 whoosh_index
-gallery/*
 *.bak
 *.swp
 local_settings.py
