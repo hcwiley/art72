@@ -1,12 +1,13 @@
 from django.shortcuts import render_to_response, Http404
 from django.views.generic.simple import redirect_to
+from gallery.models import ExtendedImage
 
 def home(request):
     """
     Renders the home page.
     Context:
     """
-    return render_to_response('index.html')
+    return render_to_response('index.html', {'images': ExtendedImage.objects.all() })
    
 def remove_slash(request, url):
     """
