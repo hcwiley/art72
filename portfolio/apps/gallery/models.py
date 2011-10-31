@@ -120,6 +120,5 @@ def delete_image_on_file(sender, instance, **kwargs):
     Delete the image and thumb files of the ExtendedImage sender post delete.
     While this will delete the files, it may leave empty directories.
     """
-    print 'hey oh'
     instance.image.delete(save=False)
     
