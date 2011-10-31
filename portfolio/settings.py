@@ -6,6 +6,9 @@ DEBUG = True
 #IS_DEV = True
 TEMPLATE_DEBUG = DEBUG
 
+MAX_IMAGE_SIZE = (1000, 1000)
+THUMB_SIZE = (160, 160)
+
 # root directories
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')

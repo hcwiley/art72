@@ -18,7 +18,7 @@ urlpatterns += patterns('',
 )
 
 if settings.DEBUG:
-    # let django serve static media
+    # let django serve user generated media while in development
     urlpatterns += patterns('',
         (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
@@ -26,6 +26,6 @@ if settings.DEBUG:
 # oh why oh why isn't there a REMOVE_SLASH option...
 urlpatterns += patterns('',
     (r'^admin$', 'views.admin_add_slash'),
-#    (r'^(?P<url>.*)$', 'views.remove_slash'),
+    (r'^(?P<url>.*)$', 'views.remove_slash'),
 )
 

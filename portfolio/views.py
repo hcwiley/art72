@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, Http404
 from django.views.generic.simple import redirect_to
- 
+
 def home(request):
     """
     Renders the home page.
