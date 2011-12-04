@@ -1,4 +1,4 @@
-from models import ExtendedImage, Piece
+from models import ExtendedImage, Piece, Series
 from datetime import datetime
 from portfolio import settings
 from django.shortcuts import render_to_response, Http404, HttpResponse
@@ -22,6 +22,11 @@ def common_args(ajax=False):
         args['base_template'] = "base-ajax.html"
     return args 
 
+
+def series(request, category, series):
+    args = common_args()
+    args['series'] = Series.objects.get(pk=series)
+    return render_to_response('gallery/series.html', args)
 
 def piece(request, category, series, piece):
     """

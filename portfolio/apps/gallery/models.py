@@ -22,21 +22,27 @@ import Image
 #        
 #admin.site.register(Category)
 #
-#class Series(models.Model):
-#    """
-#    A Series class.
-#    """
-#    name = models.CharField(max_length=400, unique=True)
+class Series(models.Model):
+    """
+    A Series class.
+    """
+    name = models.CharField(max_length=400, unique=True)
 #    category = models.ForeignKey(Category)
-#    
-#    def __unicode__(self):
-#        return self.name
-#    
-#    class Meta:
-#        verbose_name_plural = "Series"
-#
-#admin.site.register(Series)
-#
+    
+    def get_url(self):
+        return self.pk
+    
+    def pieces(self):
+        return self.piece_set.all()
+    
+    def __unicode__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Series"
+
+admin.site.register(Series)
+
 class Piece(models.Model):
     """
     A Piece class. This represents the abstract idea of a piece of work.
@@ -44,6 +50,7 @@ class Piece(models.Model):
     """
     title = models.CharField(max_length=400, unique=True)
     description = models.TextField(null=True, blank=True)
+    series = models.ForeignKey(Series, null=True, blank=True)
 
     def default_img(self):
         return self.extendedimage_set.all()[0]
