@@ -1,5 +1,5 @@
-<html>
-    <body>
+{% extends base_template %}
+{% block center %}
         <h1>{{ series.name }}</h1>
         {% for piece in series.pieces %}
         <a href="/{{ series.category.get_url }}/{{ series.get_url }}/{{ piece.get_url }}">
@@ -10,5 +10,4 @@
         </div>
         </a>
         {% endfor %}
-    </body>
-</html>
+{% endblock %}

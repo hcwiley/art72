@@ -22,7 +22,7 @@ if settings.DEBUG:
     )
 
 urlpatterns += patterns('',
-    (r'^$', 'views.home'),
+    #(r'^$', 'views.home'),
     (r'^', include(gallery_urls)),
 )
 

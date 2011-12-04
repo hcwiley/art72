@@ -1,0 +1,5 @@
+{% extends base_template %}
+{% block center %}
+{% for category in categories %} <a href='/{{ category.get_url }}'> <div><h1> {{ category }} </h1></div> </a>
+{% endfor %}
+{% endblock %} 

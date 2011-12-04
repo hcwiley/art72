@@ -16,11 +16,18 @@ def common_args(ajax=False):
     args = {
                'STATIC_URL' : settings.STATIC_URL,
                'year' : datetime.now().year,
+               'template_number' : '2',
                'base_template' : 'base.html',
            }
     if ajax:
         args['base_template'] = "base-ajax.html"
     return args 
+
+def home(request):
+    args = common_args()
+    args['categories'] = Category.objects.all()
+    return render_to_response('gallery/gallery.html', args)
+
 
 def category(request, category):
     args = common_args()
