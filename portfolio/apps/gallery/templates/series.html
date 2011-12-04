@@ -2,7 +2,7 @@
     <body>
         <h1>{{ series.name }}</h1>
         {% for piece in series.pieces %}
-        <a href="/cat/{{ series.get_url }}/{{ piece.get_url }}">
+        <a href="/{{ series.category.get_url }}/{{ series.get_url }}/{{ piece.get_url }}">
         <div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
             <img src="{{ piece.default_img }}" width="300px" height="auto" alt="{{ piece.title }}" />
             <p>{{ piece.title }}</p>

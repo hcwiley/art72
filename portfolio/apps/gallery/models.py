@@ -6,28 +6,37 @@ from django.dispatch import receiver
 from uuid import uuid4
 import Image
 
-#class Category(models.Model):
-#    """
-#    A category class, could be anything really.
-#    e.g. Publications, Posters, Website, etc.
-#    """
-#    name = models.CharField(max_length=100, unique=True)
-#    artist = models.ForeignKey(Artist)
-#    
-#    def __unicode__(self):
-#        return self.name
-#    
-#    class Meta:
-#        verbose_name_plural = "Categories"
-#        
-#admin.site.register(Category)
-#
+class Category(models.Model):
+    """
+    A category class, could be anything really.
+    e.g. Publications, Posters, Website, etc.
+    """
+    name = models.CharField(max_length=100, unique=True)
+    
+    def get_url(self):
+        return self.pk
+    
+    def series(self):
+        return self.series_set.all()
+    
+    def __unicode__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural = "Categories"
+        
+admin.site.register(Category)
+
 class Series(models.Model):
     """
     A Series class.
     """
     name = models.CharField(max_length=400, unique=True)
-#    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, blank=True, null=True)
+    
+    def default_piece(self):
+        #TODO: add in some error handling, here and elsewhere
+        return self.piece_set.all()[0] 
     
     def get_url(self):
         return self.pk
