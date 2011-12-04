@@ -44,16 +44,23 @@ class Piece(models.Model):
     """
     title = models.CharField(max_length=400, unique=True)
     description = models.TextField(null=True, blank=True)
-#    slug = models.SlugField(unique=True)
+
+    def default_img(self):
+        return self.extendedimage_set.all()[0]
+
+    def get_url(self):
+        return self.pk
 
     def __unicode__(self):
         return self.title
-
+    
+    def save(self, *args, **kwargs):
+        super(Piece, self).save(*args, **kwargs)
 
 try:
     MAX_IMAGE_SIZE = settings.MAX_IMAGE_SIZE 
 except AttributeError:
-    MAX_IMAGE_SIZE = (1000, 1000)
+    MAX_IMAGE_SIZE = (1200, 1200)
 
 try:
     THUMB_SIZE = settings.THUMB_SIZE
@@ -75,7 +82,10 @@ class ExtendedImage(models.Model):
     piece = models.ForeignKey(Piece)
     
     def __unicode__(self):
-        return self.orig_file_name
+        return self.image.url
+
+    def get_url(self):
+        return self.image.url
 
     def set_orig_file_name(self):
         """

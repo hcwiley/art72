@@ -1,6 +1,13 @@
 <html>
     <body>
-        {% for i in images %} <img src="{{ i.image.url }}" width="{{ i.image.width }}" height="{{ i.image.height }}" alt="{{ i }}" />
+        {% for p in pieces %}
+        <a href='/{{ p.get_url }}'>
+        <div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
+            <img src="{{ p.default_img.get_url }}" width="300px" height="auto" alt="{{ i }}" />
+            <p>{{ p.title }}</p>
+            <p>{{ p.description }}</p>
+        </div>
+        </a>
         {% endfor %}
     </body>
 </html>
