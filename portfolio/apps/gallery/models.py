@@ -6,12 +6,29 @@ from django.dispatch import receiver
 from uuid import uuid4
 import Image
 
+
+class Artist(models.Model):
+    """
+    Extra user info that makes up an Artist.
+    TODO:
+        everything
+    """
+    #user = models.ForeignKey(User, unique=True)
+    name = models.CharField(max_length = 100)
+    #css = ??
+    
+    def __unicode__(self):
+        return self.name
+
+admin.site.register(Artist)
+
 class Category(models.Model):
     """
     A category class, could be anything really.
     e.g. Publications, Posters, Website, etc.
     """
     name = models.CharField(max_length=100, unique=True)
+    artist = models.ForeignKey(Artist)
     
     def get_url(self):
         return self.pk
@@ -33,6 +50,7 @@ class Series(models.Model):
     """
     name = models.CharField(max_length=400, unique=True)
     category = models.ForeignKey(Category, blank=True, null=True)
+    artist = models.ForeignKey(Artist)
     
     def default_piece(self):
         #TODO: add in some error handling, here and elsewhere
@@ -60,6 +78,7 @@ class Piece(models.Model):
     title = models.CharField(max_length=400, unique=True)
     description = models.TextField(null=True, blank=True)
     series = models.ForeignKey(Series, null=True, blank=True)
+    artist = models.ForeignKey(Artist)
 
     def default_img(self):
         return self.extendedimage_set.all()[0]
@@ -96,6 +115,7 @@ class ExtendedImage(models.Model):
     image = models.ImageField(upload_to='images/%Y/%m/%d')
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
     piece = models.ForeignKey(Piece)
+    artist = models.ForeignKey(Artist)
     
     def __unicode__(self):
         return self.image.url

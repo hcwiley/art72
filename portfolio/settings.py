@@ -74,7 +74,6 @@ INSTALLED_APPS = (
     'django.contrib.localflavor',
     'django.contrib.staticfiles',
     'gallery',
-    'artist',
     'south',
 )
 
