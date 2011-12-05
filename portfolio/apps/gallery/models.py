@@ -21,7 +21,10 @@ class Artist(models.Model):
         return self.name
     
     def get_theme(self):
-        return self.theme_set.all()[0]
+        try:
+            return self.theme_set.all()[0]
+        except:
+            return None
 
 admin.site.register(Artist)
 
@@ -82,7 +85,10 @@ class Category(models.Model):
     artist = models.ForeignKey(Artist)
     
     def get_url(self):
-        return self.pk
+        try:
+            return self.pk
+        except:
+            return '1'
     
     def series(self):
         return self.series_set.all()
@@ -105,14 +111,20 @@ class Series(models.Model):
     
     def default_piece(self):
         #TODO: add in some error handling, here and elsewhere
-        return self.piece_set.all()[0] 
+        try:
+            return self.piece_set.all()[0]
+        except:
+            return None 
     
     def get_url(self):
-        return self.pk
+        try:
+            return self.pk
+        except:
+            return '1' 
     
     def pieces(self):
         return self.piece_set.all()
-    
+        
     def __unicode__(self):
         return self.name
     
@@ -135,7 +147,10 @@ class Piece(models.Model):
         return self.extendedimage_set.all()[0]
 
     def get_url(self):
-        return self.pk
+        try:
+            return self.pk
+        except:
+            return '1'
 
     def __unicode__(self):
         return self.title
