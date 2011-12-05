@@ -1,4 +1,4 @@
-from models import ExtendedImage, Piece, Series, Category
+from models import *
 from datetime import datetime
 from portfolio import settings
 from django.shortcuts import render_to_response, Http404, HttpResponse
@@ -16,7 +16,7 @@ def common_args(ajax=False):
     args = {
                'STATIC_URL' : settings.STATIC_URL,
                'year' : datetime.now().year,
-               'template_number' : '2',
+               'theme' : Artist.objects.all()[0].get_theme(),
                'base_template' : 'base.html',
            }
     if ajax:
