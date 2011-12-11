@@ -1,5 +1,7 @@
 {% extends base_template %}
+{% block breadcrumbs %}<a href="/">gallery</a>{% endblock %}
 {% block center %}
-{% for category in categories %} <a href='/{{ category.get_url }}'> <div><h1> {{ category }} </h1></div> </a>
+<h1>Categories</h1>
+{% for category in categories %} <a href='/{{ category.get_url }}'><h2>{{ category }}</h2></a>
 {% endfor %}
 {% endblock %} 

@@ -5,6 +5,7 @@ from django.db import models
 from django.dispatch import receiver
 from uuid import uuid4
 import Image
+import os
 
 class Artist(models.Model):
     """
@@ -86,7 +87,7 @@ class Category(models.Model):
     
     def get_url(self):
         try:
-            return self.pk
+            return str(self.pk)
         except:
             return '1'
     
@@ -118,7 +119,10 @@ class Series(models.Model):
     
     def get_url(self):
         try:
-            return self.pk
+            if self.category:
+                return os.path.join(self.category.get_url(), str(self.pk))
+            else:
+                return str(self.pk)
         except:
             return '1' 
     
@@ -143,12 +147,22 @@ class Piece(models.Model):
     series = models.ForeignKey(Series, null=True, blank=True)
     artist = models.ForeignKey(Artist)
 
+#TODO: change this
+    def name(self):
+        return self.title
+
+    def all_imgs(self):
+        return self.extendedimage_set.all()
+
     def default_img(self):
         return self.extendedimage_set.all()[0]
 
     def get_url(self):
         try:
-            return self.pk
+            if self.series:
+                return os.path.join(self.series.get_url(), str(self.pk))
+            else:
+                return str(self.pk)
         except:
             return '1'
 

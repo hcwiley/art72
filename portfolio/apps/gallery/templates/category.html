@@ -1,14 +1,12 @@
 {% extends base_template %}
+{% block breadcrumbs %}<a href="/">gallery</a>&nbsp;&gt;&nbsp;<a href="/{{ category.get_url }}">{{ category.name }}</a>{% endblock %}
 {% block center %}
  <h1>{{ category.name }}</h1>
-{% for series in category.series %} <a href="/{{ category.get_url }}/{{ series.get_url }}">
+{% for series in category.series %} <a href="/{{ series.get_url }}">
 <div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
     <img src="{{ series.default_piece.default_img }}" width="300px" height="auto" alt="{{ series.default_piece.title }}" />
     <p>
-        {{ series.default_piece.title }}
-    </p>
-    <p>
-        {{ series.default_piece.description }}
+        {{ series.name }}
     </p>
 </div> </a>
 {% endfor %}

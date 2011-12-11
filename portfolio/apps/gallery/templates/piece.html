@@ -1,12 +1,12 @@
 {% extends base_template %}
-{% block center %}
-<div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
-    <img src="{{ piece.default_img }}" width="300px" height="auto" alt="{{ piece.title }}" />
-    <p>
-        {{ piece.title }}
-    </p>
-    <p>
-        {{ piece.description }}
-    </p>
-</div>
+{% block breadcrumbs %}<a href="/">gallery</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.series.category.get_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.series.get_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.get_url }}">{{ piece.name }}</a>{% endblock %}
+{% block center %} <h1> {{ piece.title }} </h1>
+<h2> {{ piece.description }} </h2>
+<p>
+    {% for img in piece.all_imgs %}
+    {% if img == piece.default_img %}
+    default image
+    {% endif %} <img src="{{ img }}" width="{{ img.width }}px" height="{{ img.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" />
+    {% endfor %}
+</p>
 {% endblock %}
