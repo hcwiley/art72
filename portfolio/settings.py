@@ -74,8 +74,17 @@ INSTALLED_APPS = (
     'django.contrib.localflavor',
     'django.contrib.staticfiles',
     'gallery',
+    'sorl.thumbnail',
 #    'south',
 )
+
+THUMBNAIL_DEBUG = True
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 try:
     from local_settings import *

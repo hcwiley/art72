@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db.models.signals import post_delete
 from django.db import models
 from django.dispatch import receiver
+from sorl.thumbnail import ImageField
 from uuid import uuid4
 import Image
 import os
@@ -83,7 +84,7 @@ class Category(models.Model):
     e.g. Publications, Posters, Website, etc.
     """
     name = models.CharField(max_length=100, unique=True)
-    artist = models.ForeignKey(Artist)
+    artist = models.ForeignKey(Artist) 
     
     def get_url(self):
         try:
@@ -189,16 +190,11 @@ class ExtendedImage(models.Model):
     TODO:
         thumbnails - https://code.djangoproject.com/wiki/ThumbNails
     """
-    image = models.ImageField(upload_to='images/%Y/%m/%d')
+    image = ImageField(upload_to='images/%Y/%m/%d')
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
     piece = models.ForeignKey(Piece)
     artist = models.ForeignKey(Artist)
-    
-    def width(self):
-        return self.image.width
-    
-    def height(self):
-        return self.image.height
+    # TODO: remove artist?
     
     def __unicode__(self):
         return self.image.url
@@ -228,6 +224,7 @@ class ExtendedImage(models.Model):
         """
         Only allow images to be MAX_IMAGE_SIZE.
         Create thumbnail of THUMB_SIZE after the resize.
+        #TODO: check file size rather than max resolution
         """
         img = Image.open(self.image.path)
         img.thumbnail(MAX_IMAGE_SIZE, Image.ANTIALIAS)
