@@ -142,14 +142,11 @@ class Piece(models.Model):
     A Piece class. This represents the abstract idea of a piece of work.
     A piece can be represented by many extended images.
     """
+    #TODO: why is this title and everything else is name?
     title = models.CharField(max_length=400, unique=True)
     description = models.TextField(null=True, blank=True)
     series = models.ForeignKey(Series, null=True, blank=True)
     artist = models.ForeignKey(Artist)
-
-#TODO: change this
-    def name(self):
-        return self.title
 
     def all_imgs(self):
         return self.extendedimage_set.all()
@@ -196,6 +193,12 @@ class ExtendedImage(models.Model):
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
     piece = models.ForeignKey(Piece)
     artist = models.ForeignKey(Artist)
+    
+    def width(self):
+        return self.image.width
+    
+    def height(self):
+        return self.image.height
     
     def __unicode__(self):
         return self.image.url

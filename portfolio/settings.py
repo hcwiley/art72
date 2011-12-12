@@ -6,7 +6,7 @@ DEBUG = True
 #IS_DEV = True
 TEMPLATE_DEBUG = DEBUG
 
-MAX_IMAGE_SIZE = (1000, 1000)
+MAX_IMAGE_SIZE = (1200, 1200)
 THUMB_SIZE = (160, 160)
 
 # root directories
