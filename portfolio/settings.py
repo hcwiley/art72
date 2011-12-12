@@ -86,6 +86,8 @@ CACHES = {
     }
 }
 
+THUMBNAIL_UPSCALE = False
+
 try:
     from local_settings import *
 except ImportError:

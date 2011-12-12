@@ -8,8 +8,8 @@
     {% if img == piece.default_img %}
     default image
     {% endif %} 
-    {% thumbnail img.image "800x800" as foo %}
-    <img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" />
+    {% thumbnail img.image "800x800" as foo%}
+    <img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" style="margin:{{ foo|margin:"800x800" }}" />
     {% endthumbnail %}
     {% endfor %}
 </p>

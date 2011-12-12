@@ -245,6 +245,7 @@ def delete_image_on_file(sender, instance, **kwargs):
     """
     Delete the image and thumb files of the ExtendedImage sender post delete.
     While this will delete the files, it may leave empty directories.
+    #TODO: check to see if i still need to do this now that we're using the thumbnail image app
     """
     instance.image.delete(save=False)
     
