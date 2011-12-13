@@ -2,8 +2,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.db.models.signals import post_delete
 from django.db import models
-from django.dispatch import receiver
-from sorl.thumbnail import ImageField
+from django.dispatch import receiver 
+import sorl
 from uuid import uuid4
 import Image
 import os
@@ -190,7 +190,7 @@ class ExtendedImage(models.Model):
     TODO:
         thumbnails - https://code.djangoproject.com/wiki/ThumbNails
     """
-    image = ImageField(upload_to='images/%Y/%m/%d')
+    image = sorl.thumbnail.ImageField(upload_to='images/%Y/%m/%d')
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
     piece = models.ForeignKey(Piece)
     artist = models.ForeignKey(Artist)
@@ -238,6 +238,13 @@ class ExtendedImage(models.Model):
         self.rename_image_file()
         super(ExtendedImage, self).save(*args, **kwargs)
         self.do_resizes()
+        
+    def delete(self, *args, **kwargs):
+        """
+        Delete the actual image and all associated thumbnails and then delete.
+        """
+        sorl.thumbnail.delete(self.image) 
+        super(ExtendedImage, self).delete(*args, **kwargs)
 
 
 @receiver(post_delete, sender=ExtendedImage, weak=False)
@@ -245,7 +252,6 @@ def delete_image_on_file(sender, instance, **kwargs):
     """
     Delete the image and thumb files of the ExtendedImage sender post delete.
     While this will delete the files, it may leave empty directories.
-    #TODO: check to see if i still need to do this now that we're using the thumbnail image app
     """
-    instance.image.delete(save=False)
+    sorl.thumbnail.delete(instance.image)
     
