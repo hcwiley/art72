@@ -76,6 +76,8 @@ INSTALLED_APPS = (
     'gallery',
     'sorl.thumbnail',
 #    'south',
+    'artist',
+    'theme',
 )
 
 THUMBNAIL_DEBUG = True

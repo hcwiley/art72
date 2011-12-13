@@ -10,6 +10,16 @@ class Artist(models.Model):
     """
     #user = models.ForeignKey(User, unique=True)
     name = models.CharField(max_length = 100)
-    #css = ??
+    #theme = models.ForeignKey(Theme)
+    #user_theme = models.For
+    
+    def __unicode__(self):
+        return self.name
+    
+    def get_theme(self):
+        try:
+            return self.theme_set.all()[0]
+        except:
+            return None
 
 admin.site.register(Artist)
