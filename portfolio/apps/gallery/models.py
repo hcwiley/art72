@@ -34,6 +34,7 @@ class Category(models.Model):
         
 admin.site.register(Category)
 
+
 class Series(models.Model):
     """
     A Series class.
@@ -69,6 +70,7 @@ class Series(models.Model):
 
 admin.site.register(Series)
 
+
 class Piece(models.Model):
     """
     A Piece class. This represents the abstract idea of a piece of work.
@@ -101,15 +103,11 @@ class Piece(models.Model):
     def save(self, *args, **kwargs):
         super(Piece, self).save(*args, **kwargs)
 
+
 try:
     MAX_IMAGE_SIZE = settings.MAX_IMAGE_SIZE 
 except AttributeError:
     MAX_IMAGE_SIZE = (1200, 1200)
-
-try:
-    THUMB_SIZE = settings.THUMB_SIZE
-except AttributeError:
-    THUMB_SIZE = (160, 160)
     
 class ExtendedImage(models.Model):
     """
@@ -118,8 +116,7 @@ class ExtendedImage(models.Model):
     Detects file format and appends the appropriate extension.
     Saves image file into a dated directory to reduce the chance of degraded 
         performance from too many files in a directory.
-    TODO:
-        thumbnails - https://code.djangoproject.com/wiki/ThumbNails
+        #TODO: maybe adopt the cache's folder structure instead of using dates
     """
     image = sorl.thumbnail.ImageField(upload_to='images/%Y/%m/%d')
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
@@ -153,7 +150,6 @@ class ExtendedImage(models.Model):
     def do_resizes(self):
         """
         Only allow images to be MAX_IMAGE_SIZE.
-        Create thumbnail of THUMB_SIZE after the resize.
         #TODO: check file size rather than max resolution
         """
         img = Image.open(self.image.path)

@@ -7,7 +7,6 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 MAX_IMAGE_SIZE = (1200, 1200)
-THUMB_SIZE = (160, 160)
 
 # root directories
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -88,6 +87,7 @@ CACHES = {
     }
 }
 
+# sorl
 THUMBNAIL_UPSCALE = False
 
 try:

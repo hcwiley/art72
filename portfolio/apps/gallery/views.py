@@ -28,12 +28,10 @@ def home(request):
     args['categories'] = Category.objects.all()
     return render_to_response('gallery/gallery.html', args)
 
-
 def category(request, category):
     args = common_args()
     args['category'] = Category.objects.get(pk=category)
     return render_to_response('gallery/category.html', args)
-
 
 def series(request, category, series):
     args = common_args()
