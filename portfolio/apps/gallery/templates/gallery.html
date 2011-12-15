@@ -1,6 +1,9 @@
 {% extends base_template %}
 {% block breadcrumbs %}<a href="/">gallery</a>{% endblock %}
-{% block center %} <h1>Categories</h1>
+{% block center %} <h1>{{ artist.name }}</h1>
+{% if artist.statement %}
+<p>{{ artist.statement }}</p>
+{% endif %}
 {% for category in categories %} <a href='/{{ category.get_url }}'><h2>{{ category }}</h2></a>
 {% endfor %}
 {% endblock %} 

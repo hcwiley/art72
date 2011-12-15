@@ -10,8 +10,8 @@ class Artist(models.Model):
     """
     #user = models.ForeignKey(User, unique=True)
     name = models.CharField(max_length = 100)
+    statement = models.TextField(null=True, blank=True)
     #theme = models.ForeignKey(Theme)
-    #user_theme = models.For
     
     def __unicode__(self):
         return self.name

@@ -4,6 +4,8 @@ from portfolio import settings
 from django.shortcuts import render_to_response, Http404, HttpResponse
 #TODO: remove project dependency from app
 
+artist = Artist.objects.all()[0]
+
 def common_args(ajax=False):
     """
     The common arguments for all gallery views.
@@ -18,6 +20,7 @@ def common_args(ajax=False):
                'year' : datetime.now().year,
                'theme' : Artist.objects.all()[0].get_theme(),
                'base_template' : 'base.html',
+               'artist' : artist,
            }
     if ajax:
         args['base_template'] = "base-ajax.html"
@@ -25,7 +28,7 @@ def common_args(ajax=False):
 
 def home(request):
     args = common_args()
-    args['categories'] = Category.objects.all()
+    args['categories'] = Category.objects.filter(artist=args['artist'])
     return render_to_response('gallery/gallery.html', args)
 
 def category(request, category):

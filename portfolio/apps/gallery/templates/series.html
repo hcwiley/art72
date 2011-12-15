@@ -2,6 +2,9 @@
 {% load thumbnail %}
 {% block breadcrumbs %}<a href="/">gallery</a>&nbsp;&gt;&nbsp;<a href="/{{ series.category.get_url }}">{{ series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ series.get_url }}">{{ series.name }}</a>{% endblock %}
 {% block center %} <h1>{{ series.name }}</h1>
+{% if series.description %}
+<p>{{ series.description }}</p>
+{% endif %}
 {% for piece in series.pieces %} <a href="/{{ piece.get_url }}">
 <div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
     {% thumbnail piece.default_img.image "300x300" crop="center" as img %}

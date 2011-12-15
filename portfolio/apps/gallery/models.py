@@ -14,7 +14,7 @@ class Category(models.Model):
     A category class, could be anything really.
     e.g. Publications, Posters, Website, etc.
     """
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100)
     artist = models.ForeignKey(Artist) 
     
     def get_url(self):
@@ -30,6 +30,7 @@ class Category(models.Model):
         return self.name
     
     class Meta:
+        unique_together = ("name", "artist")
         verbose_name_plural = "Categories"
         
 admin.site.register(Category)
@@ -39,9 +40,10 @@ class Series(models.Model):
     """
     A Series class.
     """
-    name = models.CharField(max_length=400, unique=True)
-    category = models.ForeignKey(Category, blank=True, null=True)
     artist = models.ForeignKey(Artist)
+    name = models.CharField(max_length=400)
+    category = models.ForeignKey(Category, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     
     def default_piece(self):
         #TODO: add in some error handling, here and elsewhere
@@ -77,7 +79,7 @@ class Piece(models.Model):
     A piece can be represented by many extended images.
     """
     #TODO: why is this title and everything else is name?
-    title = models.CharField(max_length=400, unique=True)
+    title = models.CharField(max_length=400)
     description = models.TextField(null=True, blank=True)
     series = models.ForeignKey(Series, null=True, blank=True)
     artist = models.ForeignKey(Artist)

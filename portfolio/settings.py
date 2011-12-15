@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gallery',
     'sorl.thumbnail',
-#    'south',
+    'south',
     'artist',
     'theme',
 )
