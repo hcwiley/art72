@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     # everything above needed for admin
     'django.contrib.localflavor',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'gallery',
     'sorl.thumbnail',
     'south',
@@ -86,6 +87,8 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+AUTH_PROFILE_MODULE = "artist.artist"
 
 # sorl
 THUMBNAIL_UPSCALE = False

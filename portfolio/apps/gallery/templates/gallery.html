@@ -1,6 +1,12 @@
 {% extends base_template %}
 {% block breadcrumbs %}<a href="/">gallery</a>{% endblock %}
 {% block center %} <h1>{{ artist.name }}</h1>
+{% if user.is_authenticated %}
+hi, {{ user }}
+{% else %}
+you're not from around these parts
+{% endif %}
+
 {% if artist.statement %}
 <p>{{ artist.statement }}</p>
 {% endif %}
