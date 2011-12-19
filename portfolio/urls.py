@@ -18,6 +18,10 @@ urlpatterns = patterns('',
     (r'^sitemap.txt$', direct_to_template, {'template':'sitemap.txt', 'mimetype':'text/plain'}),
 )
 
+#TODO: allow login via username or email
+#TODO: make username and email unique check case insensitive
+#TODO: figure out what characters will be allowed for usernames
+#TODO: add in site domain info to email templates so activation links can go out correctly for testing
 urlpatterns += patterns('',
                        # Activation keys get matched by \w+ instead of the more specific
                        # [a-fA-F0-9]{40} because a bad activation key should still get to the view;
