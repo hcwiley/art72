@@ -9,8 +9,7 @@ def common_args(request, artist):
     The common arguments for all gallery views.
     
     STATIC_URL: static url from settings
-    year: the year at the time of request
-    base_template: the default base template  
+    year: the year at the time of request  
     """ 
     
     args = {

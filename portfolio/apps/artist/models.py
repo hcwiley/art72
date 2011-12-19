@@ -8,6 +8,7 @@ class Artist(models.Model):
     """
     Extra user info that makes up an Artist.
     """
+    #TODO: when checking for unique email, check for things like 'zackdever@gmail.com' vs 'zackdever+foo@gmail.com' and periods. not sure if this is specific to gmail or not
     user = models.OneToOneField(User)
     name = models.CharField(max_length = 100, null=True, blank=True)
     statement = models.TextField(null=True, blank=True)

@@ -8,6 +8,8 @@
     {% else %}
     {% if form.errors %}
     <p>err... that wasn't quite correct</p>
+     {{ form.errors }}
+     
     {% endif %}
     <form action='' method='post'>
         {% csrf_token %} <label for="username">email or username:</label>
@@ -20,3 +22,4 @@
 
         {% endblock %}
 </html>
+

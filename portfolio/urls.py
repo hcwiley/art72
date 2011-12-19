@@ -4,8 +4,7 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.simple import redirect_to, direct_to_template
 from gallery import urls as gallery_urls
 from django.conf.urls.defaults import patterns, include, url
-from registration.views import activate
-from registration.views import register
+from registration.views import activate, register
 from registration.forms import RegistrationFormUniqueEmail
 admin.autodiscover()
 
@@ -18,11 +17,6 @@ urlpatterns = patterns('',
     (r'^robots.txt$', direct_to_template, {'template':'robots.txt', 'mimetype':'text/plain'}),
     (r'^sitemap.txt$', direct_to_template, {'template':'sitemap.txt', 'mimetype':'text/plain'}),
 )
-
-#urlpatterns += patterns('',
-#    (r'^accounts/login$',  auth_views.login),
-#    (r'^accounts/logout$', auth_views.logout),
-#)
 
 urlpatterns += patterns('',
                        # Activation keys get matched by \w+ instead of the more specific
