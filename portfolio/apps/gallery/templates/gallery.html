@@ -1,15 +1,15 @@
-{% extends base_template %}
-{% block breadcrumbs %}<a href="/">gallery</a>{% endblock %}
-{% block center %} <h1>{{ artist.name }}</h1>
-{% if user.is_authenticated %}
-hi, {{ user }}
-{% else %}
-you're not from around these parts
-{% endif %}
-
+{% extends "base.html" %}
+{% block breadcrumbs %}<a href="/{{ artist.get_url }}">gallery of {{ artist.name }}</a>{% endblock %}
+{% block center %} <h1>artist: {{ artist.name }}</h1>
 {% if artist.statement %}
-<p>{{ artist.statement }}</p>
+<p>
+    statement: {{ artist.statement }}
+</p>
 {% endif %}
-{% for category in categories %} <a href='/{{ category.get_url }}'><h2>{{ category }}</h2></a>
-{% endfor %}
+galleries:
+ {% for cat in categories %}
+<a href='{{ cat.get_url }}'><h2>{{ cat }}</h2></a>     
+ {% empty %}
+ {{ artist.name }} hasn't set up any galleries as of yet
+ {% endfor %}
 {% endblock %} 

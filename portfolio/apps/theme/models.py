@@ -1,10 +1,5 @@
-from django.conf import settings
 from django.contrib import admin
-from django.db.models.signals import post_delete
 from django.db import models
-from django.dispatch import receiver 
-import Image
-import os
 from artist.models import Artist
 
 class CssFileWrapper(models.Model):
@@ -21,8 +16,7 @@ admin.site.register(CssFileWrapper)
 class Theme(models.Model):
     """
     All the things about the (css, levels of deepness, names).
-    TODO:
-        -better names for the css field
+    TODO: better names for the css field
     """
     name = models.CharField(max_length=50)
     site_css = models.ForeignKey(CssFileWrapper, related_name='%(app_label)s_%(class)s_site_css')

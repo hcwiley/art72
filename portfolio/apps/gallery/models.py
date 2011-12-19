@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.db.models.signals import post_delete
 from django.db import models
 from django.dispatch import receiver 
-import sorl
+from sorl import thumbnail
 from uuid import uuid4
 import Image
 import os
@@ -19,7 +19,7 @@ class Category(models.Model):
     
     def get_url(self):
         try:
-            return str(self.pk)
+            return os.path.join(self.artist.get_url(), str(self.pk))
         except:
             return '1'
     
@@ -78,7 +78,6 @@ class Piece(models.Model):
     A Piece class. This represents the abstract idea of a piece of work.
     A piece can be represented by many extended images.
     """
-    #TODO: why is this title and everything else is name?
     title = models.CharField(max_length=400)
     description = models.TextField(null=True, blank=True)
     series = models.ForeignKey(Series, null=True, blank=True)
@@ -120,7 +119,7 @@ class ExtendedImage(models.Model):
         performance from too many files in a directory.
         #TODO: maybe adopt the cache's folder structure instead of using dates
     """
-    image = sorl.thumbnail.ImageField(upload_to='images/%Y/%m/%d')
+    image = thumbnail.ImageField(upload_to='images/%Y/%m/%d')
     orig_file_name = models.CharField(max_length=100, editable=False, verbose_name="original file name")
     piece = models.ForeignKey(Piece)
     artist = models.ForeignKey(Artist)
@@ -171,7 +170,7 @@ class ExtendedImage(models.Model):
         """
         Delete the actual image and all associated thumbnails and then delete.
         """
-        sorl.thumbnail.delete(self.image) 
+        thumbnail.delete(self.image) 
         super(ExtendedImage, self).delete(*args, **kwargs)
 
 
@@ -181,5 +180,5 @@ def delete_image_on_file(sender, instance, **kwargs):
     Delete the image and thumb files of the ExtendedImage sender post delete.
     While this will delete the files, it may leave empty directories.
     """
-    sorl.thumbnail.delete(instance.image)
+    thumbnail.delete(instance.image)
     

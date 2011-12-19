@@ -7,14 +7,15 @@ from django.db.models.signals import post_save
 class Artist(models.Model):
     """
     Extra user info that makes up an Artist.
-    TODO:
-        everything
     """
     user = models.OneToOneField(User)
     name = models.CharField(max_length = 100, null=True, blank=True)
     statement = models.TextField(null=True, blank=True)
     #theme = models.ForeignKey(Theme)
     
+    def get_url(self):
+        return self.user.username
+        
     def __unicode__(self):
         if self.name:
             return self.name

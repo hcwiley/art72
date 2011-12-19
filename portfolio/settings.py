@@ -3,7 +3,7 @@
 import os
 import sys
 DEBUG = True
-#IS_DEV = True
+
 TEMPLATE_DEBUG = DEBUG
 
 MAX_IMAGE_SIZE = (1200, 1200)
@@ -15,8 +15,6 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'collected-static/')
 # urls
 MEDIA_URL = '/site_media/media/'
 STATIC_URL = '/site_media/static/'
-AJAX_URL = '/get/'
-AJAX_VIEW_PREFIX = AJAX_URL[1:]
 
 ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin/')
 sys.path.append(PROJECT_ROOT)
@@ -55,7 +53,6 @@ ROOT_URLCONF = 'portfolio.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates/'),
-    os.path.join(PROJECT_ROOT, 'templates/common/'),
 )
 
 STATICFILES_DIRS = (
@@ -78,8 +75,10 @@ INSTALLED_APPS = (
     'south',
     'artist',
     'theme',
+    'registration',
 )
 
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window
 THUMBNAIL_DEBUG = True
 CACHES = {
     'default': {

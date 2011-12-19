@@ -1,53 +1,47 @@
-from models import *
+from django.conf import settings
 from datetime import datetime
-from portfolio import settings
-from django.shortcuts import render_to_response, Http404, HttpResponse
-#TODO: remove project dependency from app
+from django.shortcuts import render_to_response, get_object_or_404
+from artist.models import Artist
+from gallery.models import Category, Series, Piece
 
-artist = Artist.objects.all()[0]
-
-def common_args(request, ajax=False):
+def common_args(request, artist):
     """
     The common arguments for all gallery views.
-    ajax: Describes if the args are for an ajax request.
     
     STATIC_URL: static url from settings
     year: the year at the time of request
     base_template: the default base template  
-    """
+    """ 
+    
     args = {
                'STATIC_URL' : settings.STATIC_URL,
                'year' : datetime.now().year,
-               'theme' : Artist.objects.all()[0].get_theme(),
-               'base_template' : 'base.html',
-               'artist' : artist,
                'user' : request.user,
+               'artist' : get_object_or_404(Artist, user__username__exact=artist), 
            }
-    if ajax:
-        args['base_template'] = "base-ajax.html"
     return args 
 
-def home(request):
-    args = common_args(request)
-    args['categories'] = Category.objects.filter(artist=args['artist'])
-    return render_to_response('gallery/gallery.html', args)
-
-def category(request, category):
-    args = common_args(request)
-    args['category'] = Category.objects.get(pk=category)
+def category(request, artist, category):
+    args = common_args(request, artist)
+    args['category'] = get_object_or_404(Category, pk=category)
     return render_to_response('gallery/category.html', args)
 
-def series(request, category, series):
-    args = common_args(request)
-    args['series'] = Series.objects.get(pk=series)
+def series(request, artist, category, series):
+    args = common_args(request, artist)
+    args['series'] = get_object_or_404(Series, pk=series)
     return render_to_response('gallery/series.html', args)
 
-def piece(request, category, series, piece):
+def piece(request, artist, category, series, piece):
     """
     #TODO: check that the category and series are correct
     Renders the home page.
     Context:
     """
-    args = common_args(request)
-    args['piece'] = Piece.objects.get(pk=piece)
+    args = common_args(request, artist)
+    args['piece'] = get_object_or_404(Piece, pk=piece)
     return render_to_response('gallery/piece.html', args )
+
+def artist(request, artist):
+    args = common_args(request, artist)
+    args['categories'] = args['artist'].category_set.all()
+    return render_to_response('gallery/gallery.html', args)

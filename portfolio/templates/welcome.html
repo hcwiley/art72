@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Art72</title>
+    </head>
+    <body>
+        <h1>Welcome to Art72</h1>
+        <h2>Art72 is the easiest way to make your online gallery.</h2>
+        
+        {% if user.is_authenticated %} 
+        <h3>Welcome back <a href="/{{ user.username }}">{{ user }}</a>.</h3> 
+        <p>Not you? <a href="/accounts/logout">log out</a></p>
+        
+        <p>
+        Here's some other artists you might want to check out.
+        </p>        
+                {% else %} 
+        
+        <h3>Want your own gallery?</h3>
+        <p>Cool, you can get one <a href="/accounts/register">here</a>.</p>
+        
+        <h3>Have your own gallery?</h3>
+        <p>You can login <a href="/accounts/login">here</a>.
+        
+        <h3>Just visiting?</h3>
+        <p>
+            Great, here's all {{ artists.count }} artist in the system right now.
+            <br />
+            You can view each of their galleries by clicking below.
+        </p>
+                {% endif %}
+        <ul>
+            {% for artist in artists %}
+            <li>
+                <a href="/{{ artist.user.username }}">{{ artist }}</a>
+            </li>
+            {% empty %}
+            <li>
+                Art is dead.
+            </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

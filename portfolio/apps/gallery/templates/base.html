@@ -1,16 +1,20 @@
 <!DOCTYPE HTML>
 <html>
     <head>
+        <title>{% block titletext %}{% endblock %}</title>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
         <meta name='description' content='content managed artist websites' />
         <meta name='keywords' content='cms, artist, website, template, content, management, art72, art, easy, gallery,' />
-        {% autoescape off %}{{ theme.to_html }}{% endautoescape %}
         <link type='image/x-icon' rel="icon" href='{{ STATIC_URL }}images/fav.ico' />
-        <title>{% block title %}{% endblock %}</title>
+        {% autoescape off %}{{ artist.theme.to_html }}{% endautoescape %}
     </head>
     <body>
         <div id='container'>
-            <p style="float: right"><a href="/accounts/logout/">log out</a></p>
+            <p style="float: right">
+                {% if user.is_authenticated %} <a href="/accounts/logout/">log out</a>
+                {% else %} <a href="/accounts/login/">log in</a> or <a href="/accounts/register">register</a>
+                {% endif %}
+            </p>
             {% block breadcrumbs %}{% endblock %}
             <div id='wrapper'>
                 <div id='main'>

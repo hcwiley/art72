@@ -1,19 +1,22 @@
 <html>
-{% block content %}
+    {% block content %}
 
-  {% if user.is_authenticated %}
-    <p>currently logged in as {{ user }}, <a href="/accounts/logout/">not you</a>?</p>
-{% else %}
-  <form action='.' method='post'>{% csrf_token %}
-    <label for="username">email:</label>
-    <input type="text" name="username" value="" id="username">
-    <label for="password">password:</label>
-    <input type="password" name="password" value="" id="password">
+    {% if user.is_authenticated %}
+    <p>
+        currently logged in as {{ user }}, <a href="/accounts/logout">not you</a>?
+    </p>
+    {% else %}
+    {% if form.errors %}
+    <p>err... that wasn't quite correct</p>
+    {% endif %}
+    <form action='' method='post'>
+        {% csrf_token %} <label for="username">email or username:</label>
+        <input type="text" name="username" value="" id="username">
+        <label for="password">password:</label>
+        <input type="password" name="password" value="" id="password">
+        <input type="submit" value="login" />
+        <input type="hidden" name="next" value="/" />
+        {% endif %}
 
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="/" />
-  <form action='.' method='post'>
-  {% endif %}
-
-{% endblock %}
+        {% endblock %}
 </html>
