@@ -32,7 +32,7 @@
         <ul>
             {% for artist in artists %}
             <li>
-                <a href="/{{ artist.user.username }}">{{ artist }}</a>
+                <a href="/{{ artist.user.username }}">{{ artist }}</a>{% if user.is_authenticated and user.artist == artist %} (ignore this one, it's you){% endif %}
             </li>
             {% empty %}
             <li>
