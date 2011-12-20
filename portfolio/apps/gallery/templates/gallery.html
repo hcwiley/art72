@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block breadcrumbs %}<a href="/{{ artist.get_url }}">gallery of {{ artist.name }}</a>{% endblock %}
-{% block center %} <h1>artist: {{ artist.name }}</h1>
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>{% endblock %}
+{% block center %} <h1>artist: {{ artist }}</h1>
 {% if artist.statement %}
 <p>
     statement: {{ artist.statement }}
@@ -8,8 +8,9 @@
 {% endif %}
 galleries:
  {% for cat in categories %}
-<a href='{{ cat.get_url }}'><h2>{{ cat }}</h2></a>     
+<a href='{{ cat.get_absolute_url }}'><h2>{{ cat }}</h2></a>     
  {% empty %}
+ <br />
  {{ artist.name }} hasn't set up any galleries as of yet
  {% endfor %}
 {% endblock %} 

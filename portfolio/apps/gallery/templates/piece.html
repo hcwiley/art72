@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="/{{ artist.get_url }}">gallery of {{ artist.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.series.category.get_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.series.get_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.get_url }}">{{ piece.name }}</a>{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.category.get_absolute_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ piece.series.get_absolute_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.get_absolute_url }}">{{ piece.name }}</a>{% endblock %}
 {% block center %} <h1> {{ piece.title }} </h1>
 {% if piece.description %}
 <h2> {{ piece.description }} </h2>

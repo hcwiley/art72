@@ -17,11 +17,8 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     artist = models.ForeignKey(Artist) 
     
-    def get_url(self):
-        try:
-            return os.path.join(self.artist.get_url(), str(self.pk))
-        except:
-            return '1'
+    def get_absolute_url(self): 
+        return os.path.join(self.artist.get_absolute_url(), str(self.pk))   #urllib.quote(smart_str(self.user.username))
     
     def series(self):
         return self.series_set.all()
@@ -52,10 +49,10 @@ class Series(models.Model):
         except:
             return None 
     
-    def get_url(self):
+    def get_absolute_url(self):
         try:
             if self.category:
-                return os.path.join(self.category.get_url(), str(self.pk))
+                return os.path.join(self.category.get_absolute_url(), str(self.pk)) #urllib.quote(smart_str(self.user.username))
             else:
                 return str(self.pk)
         except:
@@ -89,10 +86,10 @@ class Piece(models.Model):
     def default_img(self):
         return self.extendedimage_set.all()[0]
 
-    def get_url(self):
+    def get_absolute_url(self):
         try:
             if self.series:
-                return os.path.join(self.series.get_url(), str(self.pk))
+                return os.path.join(self.series.get_absolute_url(), str(self.pk)) #urllib.quote(smart_str(self.user.username))
             else:
                 return str(self.pk)
         except:

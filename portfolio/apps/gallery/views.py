@@ -16,10 +16,10 @@ def common_args(request, artist):
                'STATIC_URL' : settings.STATIC_URL,
                'year' : datetime.now().year,
                'user' : request.user,
-               'artist' : get_object_or_404(Artist, user__username__exact=artist), 
+               'artist' : get_object_or_404(Artist, user__username=artist), 
            }
     return args 
-
+#TODO: user {% url %} tag in template for backwards lookup to view
 def category(request, artist, category):
     args = common_args(request, artist)
     args['category'] = get_object_or_404(Category, pk=category)

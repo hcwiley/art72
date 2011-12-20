@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="/{{ artist.get_url }}">gallery of {{ artist.name }}</a>&nbsp;&gt;&nbsp;<a href="/{{ category.get_url }}">{{ category.name }}</a>{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% endblock %}
 {% block center %}
  <h1>{{ category.name }}</h1>
-{% for series in category.series %} <a href="/{{ series.get_url }}">
+{% for series in category.series %} <a href="{{ series.get_absolute_url }}">
 <div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
     {% thumbnail series.default_piece.default_img.image "300x300" crop="center" as img %}
     <img src="{{ img.url }}" width="{{ img.x }}" height="{{ img.y }}" alt="{{ series.default_piece.title }}" />

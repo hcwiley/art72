@@ -1,11 +1,15 @@
+from django.contrib.sites.models import Site
 from django.shortcuts import Http404, render_to_response
 from django.views.generic.simple import redirect_to
 from artist.models import Artist
    
 def welcome(request):
-    artists = Artist.objects.all()
-    user = request.user
-    return render_to_response('welcome.html', locals())
+    if request.user.is_authenticated():
+        user = request.user
+        domain = Site.objects.get_current().domain
+        return render_to_response('registration/profile.html', locals())
+    else:
+        return render_to_response('welcome.html', {'artists': Artist.objects.all()})
    
 def remove_slash(request, url):
     """
