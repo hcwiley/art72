@@ -8,6 +8,7 @@ from uuid import uuid4
 import Image
 import os
 from artist.models import Artist
+from django.template.defaultfilters import slugify
 
 class Category(models.Model):
     """
@@ -15,16 +16,24 @@ class Category(models.Model):
     e.g. Publications, Posters, Website, etc.
     """
     name = models.CharField(max_length=100)
-    artist = models.ForeignKey(Artist) 
-    
+    artist = models.ForeignKey(Artist)
+    slug = models.SlugField()
+    #TODO: at least make some decent admin forms (auto slug populate, use the image admin, etc.
+    #TODO: start making forms and hook up both dajax (the data one and the presentation one), at least for testing 
     def get_absolute_url(self): 
-        return os.path.join(self.artist.get_absolute_url(), str(self.pk))   #urllib.quote(smart_str(self.user.username))
+        return os.path.join(self.artist.get_absolute_url(), self.slug)
     
     def series(self):
         return self.series_set.all()
     
     def __unicode__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        #TODO: this will bomb fo sho if it's not unique. we got to decide on some url schema and then enforce it. until then i'll stick with this.
+        if self.slug == '':
+            self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
     
     class Meta:
         unique_together = ("name", "artist")
@@ -41,6 +50,7 @@ class Series(models.Model):
     name = models.CharField(max_length=400)
     category = models.ForeignKey(Category, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
+    slug = models.SlugField()
     
     def default_piece(self):
         #TODO: add in some error handling, here and elsewhere
@@ -49,14 +59,11 @@ class Series(models.Model):
         except:
             return None 
     
-    def get_absolute_url(self):
-        try:
-            if self.category:
-                return os.path.join(self.category.get_absolute_url(), str(self.pk)) #urllib.quote(smart_str(self.user.username))
-            else:
-                return str(self.pk)
-        except:
-            return '1' 
+    def get_absolute_url(self):    
+        if self.category:
+            return os.path.join(self.category.get_absolute_url(), self.slug)
+        else:
+            return os.path.join(self.artist.get_absolute_url(), self.slug)
     
     def pieces(self):
         return self.piece_set.all()
@@ -64,6 +71,12 @@ class Series(models.Model):
     def __unicode__(self):
         return self.name
     
+    def save(self, *args, **kwargs):
+        #TODO: this will bomb fo sho if it's not unique. we got to decide on some url schema and then enforce it. until then i'll stick with this.
+        if self.slug == '':
+            self.slug = slugify(self.name)
+        super(Series, self).save(*args, **kwargs)
+        
     class Meta:
         verbose_name_plural = "Series"
 
@@ -79,6 +92,7 @@ class Piece(models.Model):
     description = models.TextField(null=True, blank=True)
     series = models.ForeignKey(Series, null=True, blank=True)
     artist = models.ForeignKey(Artist)
+    slug = models.SlugField()
 
     def all_imgs(self):
         return self.extendedimage_set.all()
@@ -87,18 +101,18 @@ class Piece(models.Model):
         return self.extendedimage_set.all()[0]
 
     def get_absolute_url(self):
-        try:
-            if self.series:
-                return os.path.join(self.series.get_absolute_url(), str(self.pk)) #urllib.quote(smart_str(self.user.username))
-            else:
-                return str(self.pk)
-        except:
-            return '1'
+        if self.series:
+            return os.path.join(self.series.get_absolute_url(), self.slug)
+        else:
+            return os.path.join(self.artist.get_absolute_url(), self.slug)
 
     def __unicode__(self):
         return self.title
     
     def save(self, *args, **kwargs):
+        #TODO: this will bomb fo sho if it's not unique. we got to decide on some url schema and then enforce it. until then i'll stick with this.
+        if self.slug == '':
+            self.slug = slugify(self.title)
         super(Piece, self).save(*args, **kwargs)
 
 

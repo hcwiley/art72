@@ -22,12 +22,12 @@ def common_args(request, artist):
 #TODO: user {% url %} tag in template for backwards lookup to view
 def category(request, artist, category):
     args = common_args(request, artist)
-    args['category'] = get_object_or_404(Category, pk=category)
+    args['category'] = get_object_or_404(Category, slug=category)
     return render_to_response('gallery/category.html', args)
 
 def series(request, artist, category, series):
     args = common_args(request, artist)
-    args['series'] = get_object_or_404(Series, pk=series)
+    args['series'] = get_object_or_404(Series, slug=series)
     return render_to_response('gallery/series.html', args)
 
 def piece(request, artist, category, series, piece):
@@ -37,7 +37,7 @@ def piece(request, artist, category, series, piece):
     Context:
     """
     args = common_args(request, artist)
-    args['piece'] = get_object_or_404(Piece, pk=piece)
+    args['piece'] = get_object_or_404(Piece, slug=piece)
     return render_to_response('gallery/piece.html', args )
 
 def artist(request, artist):

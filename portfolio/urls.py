@@ -47,6 +47,7 @@ urlpatterns += patterns('',
                            {'template': 'registration/registration_complete.html'},
                            name='registration_complete'),
                        )
+#these forms needs to enforce the case insensitive email and username
 
 
 if settings.DEBUG:
