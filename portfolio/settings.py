@@ -47,9 +47,21 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'subdomains.middleware.SubdomainURLRoutingMiddleware',
 )
 
-ROOT_URLCONF = 'portfolio.urls'
+# This is the URL that will be loaded for any subdomain that is not listed
+# in SUBDOMAIN_URLCONFS. If you're going use wildcard subdomains, this will
+# correspond to the wildcarded subdomain. 
+# For example, 'accountname.mysite.com' will load the ROOT_URLCONF, since 
+# it is not defined in SUBDOMAIN_URLCONFS.
+ROOT_URLCONF = 'portfolio.urls.urls'
+
+SUBDOMAIN_URLCONFS = {
+    # The format for these is 'subdomain': 'urlconf'
+    None: 'portfolio.urls.promo',
+#    'api': 'portfolio.urls.api',
+}
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates/'),

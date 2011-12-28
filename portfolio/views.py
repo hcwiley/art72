@@ -9,7 +9,7 @@ def welcome(request):
         domain = Site.objects.get_current().domain
         return render_to_response('registration/profile.html', locals())
     else:
-        return render_to_response('welcome.html', {'artists': Artist.objects.all()})
+        return render_to_response('welcome.html', {'artists': Artist.objects.all(), 'subdomain': request.subdomain})
    
 def remove_slash(request, url):
     """
