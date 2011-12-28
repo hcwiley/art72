@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>{% endblock %}
 {% block center %} <h1>artist: {{ artist }}</h1>
-subdomain: {% request.subdomain %}
+subdomain: {{ subdomain }}
 {% if artist.statement %}
 <p>
     statement: {{ artist.statement }}

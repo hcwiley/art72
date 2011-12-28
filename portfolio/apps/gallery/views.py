@@ -3,6 +3,7 @@ from datetime import datetime
 from django.shortcuts import render_to_response, get_object_or_404
 from artist.models import Artist
 from gallery.models import Category, Series, Piece
+from django.contrib.sites.models import Site
 
 def common_args(request):
     """
@@ -17,6 +18,7 @@ def common_args(request):
                'year' : datetime.now().year,
                'user' : request.user,
                'artist' : get_object_or_404(Artist, user__username=request.subdomain), 
+               'subdomain': request.subdomain,
            }
     return args 
 #TODO: user {% url %} tag in template for backwards lookup to view
