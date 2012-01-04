@@ -8,7 +8,7 @@
         <p>
             Not you? <a href="/accounts/logout">log out</a>
         </p>
-        <h2>your gallery: <a href="http://{{ domain }}{{ user.get_profile.get_absolute_url }}">http://{{ domain }}{{ user.get_profile.get_absolute_url }}</a></h2>
+        <h2>your site: <a href="{{ user.get_profile.get_absolute_url }}">{{ user.get_profile.get_absolute_url }}</a></h2>
         <h2>account info</h2>
         <ul>
             <li>

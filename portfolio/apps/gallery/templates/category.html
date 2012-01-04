@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ artist.get_gallery_url }}">gallery</a>&nbsp;&gt;&nbsp;<a href="{{ category.get_absolute_url }}">{{ category.name }}</a>{% endblock %}
 {% block center %}
  <h1>{{ category.name }}</h1>
 {% for series in category.series %} <a href="{{ series.get_absolute_url }}">

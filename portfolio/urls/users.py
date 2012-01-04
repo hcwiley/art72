@@ -23,8 +23,9 @@ if settings.DEBUG:
     )
 
 urlpatterns += patterns('',
-    (r'^$', 'views.welcome'),
+    (r'^$', redirect_to, {'url': '/gallery'}),
     (r'^gallery/', include(gallery_urls)),
+    (r'^gallery', redirect_to, {'url': '/gallery/'}),
 )
 
 # oh why oh why isn't there a REMOVE_SLASH option...

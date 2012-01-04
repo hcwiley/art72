@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ artist.get_gallery_url }}">gallery</a>{% endblock %}
 {% block center %} <h1>artist: {{ artist }}</h1>
 subdomain: {{ subdomain }}
 {% if artist.statement %}
@@ -7,11 +7,12 @@ subdomain: {{ subdomain }}
     statement: {{ artist.statement }}
 </p>
 {% endif %}
-galleries:
+<p>galleries:
  {% for cat in categories %}
 <a href='{{ cat.get_absolute_url }}'><h2>{{ cat }}</h2></a>     
  {% empty %}
  <br />
  {{ artist.name }} hasn't set up any galleries as of yet
  {% endfor %}
+</p>
 {% endblock %} 
