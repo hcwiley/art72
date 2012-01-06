@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib import admin 
 from django.contrib.auth import views as auth_views
 from django.views.generic.simple import redirect_to, direct_to_template
-from gallery import urls as gallery_urls
 from django.conf.urls.defaults import patterns, include, url
 from registration.views import activate, register
 from registration.forms import RegistrationFormUniqueEmail
@@ -10,6 +9,7 @@ admin.autodiscover()
 
 # basic stuff
 urlpatterns = patterns('',
+    (r'^$', 'views.welcome'),
     (r'^favicon.ico$', redirect_to, {'url': '/site_media/static/images/fav.ico'}),
     (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -56,11 +56,6 @@ if settings.DEBUG:
 #TODO don't let people name their top level series admin, site_media, etc.
         (r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
-
-urlpatterns += patterns('',
-    (r'^$', 'views.welcome'),
-    (r'^', include(gallery_urls)),
-)
 
 # oh why oh why isn't there a REMOVE_SLASH option...
 urlpatterns += patterns('',

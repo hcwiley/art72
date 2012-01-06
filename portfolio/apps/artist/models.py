@@ -5,7 +5,9 @@ from django.contrib import admin
 from django.dispatch import receiver 
 from django.db.models.signals import post_save, pre_save
 from django.utils.encoding import smart_str
+import os
 import urllib
+from django.contrib.sites.models import Site
 
 class Artist(models.Model):
     """
@@ -18,7 +20,11 @@ class Artist(models.Model):
     #theme = models.ForeignKey(Theme)
     
     def get_absolute_url(self): 
-        return "/%s" % urllib.quote(smart_str(self.user.username))
+        current_site = Site.objects.get_current()
+        return "http://%s.%s" % (self.user.username, current_site.domain)
+    
+    def get_gallery_url(self): 
+        return os.path.join(self.get_absolute_url(), "gallery")
         
     def __unicode__(self):
         if self.user.get_full_name() != '':

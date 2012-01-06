@@ -18,11 +18,12 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
     artist = models.ForeignKey(Artist)
     slug = models.SlugField()
+    #TODO: probably going to need some sort of rich/mark up text editing for descriptions, some way to put links?
     #TODO: at least make some decent admin forms (auto slug populate, use the image admin, etc.
     #TODO: start making forms and hook up both dajax (the data one and the presentation one), at least for testing
     #TODO: should slugs update automagically? when the name changes? should we ask the user? what if we do something like stack overflow e.g. use a unique number, and then add in the (not required unique or correct) slug 
     def get_absolute_url(self): 
-        return os.path.join(self.artist.get_absolute_url(), self.slug)
+        return os.path.join(self.artist.get_gallery_url(), self.slug)
     
     def series(self):
         return self.series_set.all()
