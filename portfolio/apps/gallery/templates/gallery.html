@@ -1,16 +1,18 @@
 {% extends "base.html" %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist }}</a>{% endblock %}
-{% block center %} <h1>artist: {{ artist }}</h1>
-{% if artist.statement %}
-<p>
-    statement: {{ artist.statement }}
-</p>
-{% endif %}
-galleries:
- {% for cat in categories %}
-<a href='{{ cat.get_absolute_url }}'><h2>{{ cat }}</h2></a>     
- {% empty %}
- <br />
- {{ artist.name }} hasn't set up any galleries as of yet
- {% endfor %}
+{% load thumbnail %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>{% endblock %}
+{% block center %}
+<div id='gallery'>
+    {% for cat in categories %}
+    <div class='thumbs'>
+        <a href='{{ cat.get_absolute_url }}'>
+	    	{% thumbnail cat.series.0.default_piece.default_img.image "200x200" crop="center" as img %}<img src="{{ img.url }}" width="{{ img.x }}" height="{{ img.y }}" alt="{{ series.default_piece.title }}" />{% endthumbnail %}
+			<h5>{{ cat }}</h5>
+		</a>
+	</div>
+        {% empty %}
+        <br/>
+        {{ artist.name }} hasn't set up any galleries as of yet
+    {% endfor %}
+</div>
 {% endblock %} 

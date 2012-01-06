@@ -72,7 +72,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'gallery',
     'sorl.thumbnail',
-    'south',
+#    'south',
     'artist',
     'theme',
     'registration',

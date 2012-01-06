@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.category.get_absolute_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.get_absolute_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a>{% endblock %}
-{% block center %} <h1> {{ piece.title }} </h1>
-{% if piece.description %}
-<h2> {{ piece.description }} </h2>
-{% endif %}
-<p>
-    {% for img in piece.all_imgs %}
-    {% if img == piece.default_img %}
-    default image
-    {% endif %}
-    {% thumbnail img.image "800x800" as foo%} <img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" style="margin:{{ foo|margin:"800x800" }}" />
-    {% endthumbnail %}
-    {% endfor %}
-</p>
-{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.category.get_absolute_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.get_absolute_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a>{% endblock %}
+{% block center %}
+<div id='gallery-piece'>
+    <div id='gallery-piece-text'>
+        <h3>{{ piece.title }} </h3>
+        <p class='piece-bio'>
+            {% if piece.description %} 
+            {{ piece.description }} 
+            {% endif %}
+        </p>
+    </div>
+	<div id='gallery-piece-images'>
+	<div id='piece'>
+		{% thumbnail piece.default_img.image "600x800" as foo %}<img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}" />
+        {% endthumbnail %}
+        {% for img in piece.all_imgs %}
+        {% if img != piece.default_img %}
+        {% thumbnail img.image "200x200" as foo %}<img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" style="margin:{{ foo|margin:"800x800" }}" />
+        {% endthumbnail %}
+        {% endif %}
+        {% endfor %}
+	</div>
+	</div>
+</div>{% endblock %}

@@ -1,21 +1,17 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">gallery of {{ artist.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ series.category.get_absolute_url }}">{{ series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ series.get_absolute_url }}">{{ series.name }}</a>{% endblock %}
-{% block center %} <h1>{{ series.name }}</h1>
-{% if series.description %}
-<p>
-    {{ series.description }}
-</p>
-{% endif %}
-<div style="border: 1px solid #000; width: 320px; height: 350px; margin: 10px; padding: 10px; float: left;">
-    {% for piece in series.pieces %} <a href="{{ piece.get_absolute_url }}"> {% thumbnail piece.default_img.image "300x300" crop="center" as img %} <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="{{ piece.title }}" /> {% endthumbnail %}
-    <p>
-        {{ piece.title }}
-    </p>
-    <p>
-        {{ piece.description }}
-    </p>
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ series.category.get_absolute_url }}">{{ series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ series.get_absolute_url }}">{{ series.name }}</a>{% endblock %}
+{% block center %}
+<div id='gallery'>
+    <h3>{{ series.name }}</h3>
+    {% for piece in series.pieces %} <a href="{{ piece.get_absolute_url }}">
+        <div class='thumbs'>
+            {% thumbnail piece.default_img.image "200x200" crop="center" as img %}<img src="{{ img.url }}" width="{{ img.x }}" height="{{ img.y }}" alt="{{ piece.title }}" />{% endthumbnail %}
+            <h5>
+                {{ piece.title }}
+            </h5>
+        </div>
+    </a>
+    {% endfor %}
 </div>
-</a>
-{% endfor %}
 {% endblock %} 

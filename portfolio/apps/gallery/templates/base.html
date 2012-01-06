@@ -6,21 +6,49 @@
         <meta name='description' content='content managed artist websites' />
         <meta name='keywords' content='cms, artist, website, template, content, management, art72, art, easy, gallery,' />
         <link type='image/x-icon' rel="icon" href='{{ STATIC_URL }}images/fav.ico' />
-        {% autoescape off %}{{ artist.theme.to_html }}{% endautoescape %}
+        {% autoescape off %}{{ artist.get_theme.to_html }}{% endautoescape %}
     </head>
     <body>
         <div id='container'>
             <p style="float: right">
                 {% if user.is_authenticated %} <a href="/accounts/logout/">log out</a>
-                {% else %} <a href="/accounts/login/">log in</a> or <a href="/accounts/register">register</a>
+                {% else %} <a href="/accounts/login/">log in</a>
+                or <a href="/accounts/register">register</a>
                 {% endif %}
             </p>
-            {% block breadcrumbs %}{% endblock %}
+            <header>
+                <div id="header-text">
+                    <h1>Hello!</h1>
+                    <h2>My name is {{ artist }}.</h2>
+                    <h2>Welcome to my portfolio website.</h2>
+                </div>
+            </header>
+            <div id='nav'>
+                <div id='nav-links'>
+                    <ul>
+                        {% for cat in artist.category_set.all %}
+                        <li>
+                            <a href="{{ cat.get_absolute_url }}">{{ cat }} /</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div id='nav-links-sub'>
+                    {% block breadcrumbs %}{% endblock %}
+                </div>
+            </div>
             <div id='wrapper'>
                 <div id='main'>
                     {% block center %}{% endblock %}
                 </div>
             </div>
+            <footer>
+            	<div id='footer-links'>
+            	{% for cat in artist.category_set.all %}
+	                <a>{{ cat }} /</a>
+	            {% endfor %}
+				</div>
+            </footer>
         </div>
     </body>
 </html>
