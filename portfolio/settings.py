@@ -55,7 +55,7 @@ MIDDLEWARE_CLASSES = (
 # correspond to the wildcarded subdomain. 
 # For example, 'accountname.mysite.com' will load the ROOT_URLCONF, since 
 # it is not defined in SUBDOMAIN_URLCONFS.
-ROOT_URLCONF = 'portfolio.urls'
+ROOT_URLCONF = 'portfolio.apps.gallery.urls'
 
 SUBDOMAIN_URLCONFS = {
     # The format for these is 'subdomain': 'urlconf'
