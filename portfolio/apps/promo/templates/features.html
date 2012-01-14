@@ -1,0 +1,103 @@
+{% extends base_template|default:"base.html" %}
+{% block title %}
+Art72 | Features
+{% endblock %}
+{% block background-image %}
+<div id='bg'>
+    <!-- Will go to this when there is a user model
+    <img id='painter' class='cur' src='{{ user.medium.background }}' />
+    !--><img id='painter' class='cur' src='{{ STATIC_URL }}images/bg-painter.jpg' />
+</div>{% endblock %}
+{% block center %}
+<div class='top-copy'>
+    <h2>Art 72 Features</h2>
+    <h4 class="underline">Getting your work on the web, looking great, hassle free</h4>
+    <br>
+    <br>
+    <br>
+</div>
+<div id='features-content'>
+	<div>
+        <h3 class="sub-head">Upload your artwork in seconds</h3>
+        <br>
+        <p class="half-column">
+            Our app is designed to keep you at your eisel, not the keyboard and mouse. Add, edit, and remove content all through an easy to use interface. Our interface allows you to edit your content directly from the page, just login.
+        </p>
+        <img src="{{ STATIC_URL }}images/uploadtime.png" width="127" height="150" class="upload"/>
+        <br>
+    </div>
+    <div>
+        <h3 class="sub-head">No code. Drag and Drop to the rescue!</h3>
+        <br>
+        <p class="half-column">
+            You've spent time perfecting your craft, you shouldn't have to spend a lot of time learning ours. We've made a concerted effort to make Art72 as intuitive and easy to use as possible.
+        </p>
+        <br>
+        <img src="{{ STATIC_URL }}images/nocode-dragdrop.png" width="300" height="150"/>
+        <br>
+    </div>
+    <div>
+        <h3 class="sub-head">Color scheme. Fonts. Layout. Done.</h3>
+        <br>
+        <p class="half-column">
+            Ok, so you passed your basic color theory and two dimensional design class, but that doesn't mean you want to spend hours on end designing every last aspect of your site. That's our job.
+            We have developed some starting color schemes, fonts, and layouts so you can get your work looking good in minutes.
+        </p>
+        <br/>
+        <img src="{{ STATIC_URL }}images/colortypegrid.png" width="350" height="150" class="layout"/>
+        <br/>
+    </div>
+    <br>
+	<!--
+    <div class='no-border'>
+        <br>
+        <h4><strong>As well as...</strong></h4>
+        <br>
+        <div class="thirds-column">
+            <h3 class="sub-head">Vimeo, YouTube, Flickr, etc...</h3>
+            <p>
+                We know you already have images and videos all over the internet. That's why we're connected to all the existing services we could think of. If we're missing one, let us know and we'll look into it. 
+            </p>
+            <br>
+        </div>
+        <div class="thirds-column">
+            <h3 class="sub-head">Setup your domain name</h3>
+            <p>
+                Already have a domain name? Just point it to us.
+                <br/>
+                Need a domain name? We can do that for you. 
+                <br/>
+                Not ready to shell out the extra bucks for a domain? We'll put you up at a subdomain of Art72 (e.g. johndoe.art72.me).
+            </p>
+            <br>
+        </div>
+        <div class="thirds-column">
+            <h3 class="sub-head">Mobile Compatibility</h3>
+            <p>
+                You're at your big openning and you want to show someone some of your other work... Good thing your new Art72 site is mobile compatible.
+            </p>
+            <br>
+        </div>
+        <div class="thirds-column">
+            <h3 class="sub-head">Complete Security</h3>
+            <p>
+                This goes back to us spending time perfecting our craft. Be rest assured that we only use secure transmitions when secure data is on the line.
+            </p>
+            <br>
+        </div>
+        <div class="thirds-column">
+            <h3 class="sub-head">One for the Techies...</h3>
+            <p>
+                Buzz word, buzz word, buzz word... But hey if people are buzzing about it and we do it, might as well mention it. We do our part to make sure your page will climb its way up Google and work on everyone's browser (even Internet Explorer).
+            </p>
+            <br>
+        </div>
+        <br>
+        <br>
+    </div>
+	!-->
+</div>
+<div class='bottom-copy'>
+    <a href='/pricing'><h3 id="bottom-copy">Want to see our plans?</h3></a>
+</div>
+{% endblock %} 

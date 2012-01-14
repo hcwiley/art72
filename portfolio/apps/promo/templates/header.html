@@ -1,0 +1,46 @@
+<div id='header'>
+    <a href='/'>
+        <div id="logo">
+            <!--<img src='{{ STATIC_URL }}images/art72-small-gray.png' title='Decode72' width="115" height="70"/>-->
+        </div>
+    </a>
+    <form class='email-signup' id='header-email-signup' action='/email-signup' method='post'>
+    	{% csrf_token %}
+        <div id="what-artist">
+            <p>
+                what kind of artist are you?
+            </p>
+            <br>
+            <select class='artist-type' name='artist_type'>
+                <option value='painter'>painting/drawing</option>
+                <option value='photographer'>photographer</option>
+                <option value='sculptor'>sculptor</option>
+                <option value='ceramicists'>ceramicists</option>
+                <option value='digital'>digital</option>
+                <option value='video'>performance/video</option>
+            </select>
+        </div>
+        <div id="signup">
+            <p>
+                we'll keep you in the loop
+            </p>
+            <br>
+            <input style='width: 170px;' class='email' name='email' type='text' placeholder='your email goes here please'><input type='submit' class='submit' value='submit' name='submit'>
+        </div>
+    </form>
+    <div id="soc-media">
+        <a class='no-link' target='_blank' href="https://twitter.com/decode72">
+            <div id="twitter">
+            </div>
+        </a>
+        <a class='no-link' target='_blank' href="https://facebook.com/art72.me">
+            <div id="facebook">
+            </div>
+        </a>
+    </div>
+    <div id="header-nav">
+        <p><a {% if page = 'features' %} class='cur-page' {% endif %} href="/features">features</a>&nbsp;&nbsp;|&nbsp;&nbsp; </p>
+        <p><a {% if page = 'pricing' %} class='cur-page' {% endif %} href="/pricing">pricing</a> &nbsp;&nbsp;|&nbsp;&nbsp;
+        <p><a {% if page = 'signup' %} class='cur-page' {% endif %} href="/signup">sign up</a></p>
+    </div>
+</div>

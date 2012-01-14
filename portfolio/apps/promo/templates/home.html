@@ -1,0 +1,28 @@
+{% extends base_template|default:"promo/base.html" %}
+{% block title %}
+Art72
+{% endblock %}
+{% block background-image %}
+<div id='bg'>
+    <img id='painter' class='cur' src='{{ STATIC_URL }}images/bg-painter.jpg' />
+</div>{% endblock %}
+{% block center %}
+<div class='top'>
+    <img id='art72-logo' src='{{ STATIC_URL }}images/art72-logo.png' title='Art72' width="230" height="139"/><h1>You make great art.</h1>
+    <h1>We make great webapps.</h1>
+    <h3>They should be introduced, maybe even grab a beer...</h3>
+</div>
+<div class='bottom'>
+    <div class='left'>
+        <p>
+            <span class='blue-text'>Art72</span>
+            is a webapp currently in development by <span class='blue-text'><a class='no-link' target='_blank' href='http://decode72.com'>Decode72</a></span>
+            for artists to be able to easily manage a virtual gallery of their work. And like art, webapps take time to go from sketches to master pieces. We've got our canvas stretched, our wax models carved, and our film rolled. <a href='/signup'>Sign up for email updates</a> and we'll let you know when we are having our big openning (there will be ou'derves and the finest of wines).
+        </p>
+    </div>
+    <div class='right'>
+		<br/><br/>
+        <a href='/features'><h3 id='learn-more'>Learn More <img src='{{ STATIC_URL }}images/right-arrow.png' title='learn more' width="33" height="27"/></h3></a>
+        <br/>
+    </div>
+	</div>{% endblock %}

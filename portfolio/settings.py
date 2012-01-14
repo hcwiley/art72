@@ -26,7 +26,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+AJAX_VIEW_PREFIX = '/get/'
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
@@ -55,20 +55,20 @@ MIDDLEWARE_CLASSES = (
 # correspond to the wildcarded subdomain. 
 # For example, 'accountname.mysite.com' will load the ROOT_URLCONF, since 
 # it is not defined in SUBDOMAIN_URLCONFS.
-ROOT_URLCONF = 'portfolio.urls.users'
+ROOT_URLCONF = 'portfolio.urls'
 
 SUBDOMAIN_URLCONFS = {
     # The format for these is 'subdomain': 'urlconf'
-    None: 'portfolio.urls.promo',
+    None: 'portfolio.apps.promo.urls',
 #    'api': 'portfolio.urls.api',
 }
 
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates/'),
+    os.path.join(PROJECT_ROOT, '../templates/'),
 )
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static/'),
+    os.path.join(PROJECT_ROOT, '../static/'),
 )
 
 INSTALLED_APPS = (
@@ -82,6 +82,8 @@ INSTALLED_APPS = (
     'django.contrib.localflavor',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django.contrib.webdesign',
+    'contactform',
     'gallery',
     'sorl.thumbnail',
     'south',

@@ -1,0 +1,332 @@
+{% extends base_template|default:"base.html" %}
+{% load webdesign %}
+{% block title %}
+Art72
+{% endblock %}
+{% block background-image %}
+<div id='preview'>
+    <img id='close-preview' src='{{ STATIC_URL }}images/x-icon.png' />
+    <object id='page'>
+        <embed src=''></embed>
+    </object>
+</div>
+<div id='dark-overlay'>
+</div>
+<div id='bg'>
+    <img id='painter' class='cur' src='{{ STATIC_URL }}images/bg-painter.jpg' />
+</div>
+{% endblock %}
+{% block center %}
+<link id='register-css' type='text/css' rel='stylesheet' href='{{ STATIC_URL }}css/register.css'/>
+<script src='{{ STATIC_URL }}js/register.js' type='text/javascript'>
+</script>
+<div id='sidebar'>
+    <div>
+        <h3>Progress </h3>
+        <div id='s0' class='step completed-step'>
+            <h5>Choose your plan</h5>
+            <div>
+            </div>
+        </div>
+        <div id='s1' class='step'>
+            <h5>Sign in or create an account</h5>
+            <div>
+            </div>
+        </div>
+        <div id='s2' class='step'>
+            <h5>Choose your layout</h5>
+            <div>
+            </div>
+        </div>
+        <div id='s3' class='step'>
+            <h5>Upload your artwork</h5>
+            <div>
+            </div>
+        </div>
+        <div id='s4' class='step'>
+            <h5>Done!</h5>
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id='central-register'>
+    <div id='plan'>
+        <div class='top-copy'>
+            <h2>Pick your plan</h2>
+            <h4 class="underline">3 Standard Tiers for you to choose from - pick the choice that's right for you</h4>
+        </div>
+        <div class='pricing-columns register'>
+            <div>
+                <h3>Starving Artist</h3>
+                <h2>Free</h2>
+                <ul>
+                    <li>
+                        50 images
+                    </li>
+                    <li>
+                        Site hosted at a subdomain 
+                        <br>
+                        <i>(e.g. michelangelo.art72.me)</i>
+                    </li>
+                    <li>
+                        Choice of 3 layouts
+                    </li>
+                    <li>
+                        Choice of 5 color palettes
+                    </li>
+                    <li>
+                        Choice of 5 typefaces
+                    </li>
+                </ul>
+                <div class='plan-button rounded-all'>
+                    <h4>Select this plan</h4>
+                </div>
+            </div>
+            <div>
+                <h3>Emerging Artist</h3>
+                <h2>$10<span class='rate'>per month</span></h2>
+                <ul>
+                    <li>
+                        Unlimited images
+                    </li>
+                    <li>
+                        Site hosted at your own domain
+                        <br>
+                        <i>(e.g. michelangelo.com)</i>
+                    </li>
+                    <li>
+                        Access to all layouts
+                    </li>
+                    <li>
+                        Access to all color palettes
+                    </li>
+                    <li>
+                        Access to all typefaces
+                    </li>
+                </ul>
+                <div class='plan-button rounded-all'>
+                    <h4>Select this plan</h4>
+                </div>
+            </div>
+			<!--
+            <div>
+                <h3>Established Artist</h3>
+                <h2>$20<span class='rate'>per month</span></h2>
+                <ul>
+                    <li>
+                        Everything from Developing Artist
+                    </li>
+                    <li>
+                        Built in e-commerce
+                    </li>
+                </ul>
+                <div class='plan-button rounded-all'>
+                    <h4>Select this plan</h4>
+                </div>
+            </div>
+			!-->
+        </div>
+    </div>
+    <div id='create-account'>
+        <div class='top-copy'>
+            <h2>Create Your Art72 Account</h2>
+        </div>
+        <div id='account-details'>
+            <form id='account-form'>
+                <div>
+                    <h3>First Name</h3>
+                    <input class='rounded-all' name='first_name' type='text' placeholder='Andy'>
+                </div>
+                <div>
+                    <h3>Last Name</h3>
+                    <input class='rounded-all' name='last_name' type='text' placeholder='Warhol'>
+                </div>
+                <div>
+                    <h3>Email</h3>
+                    <input class='rounded-all' name='email' type='text' placeholder='andywarhol@soupcan.com'>
+                </div>
+                <div>
+                    <h3>Password</h3>
+                    <input class='rounded-all' name='password' id='password' type='password'>
+                </div>
+                <div class='no-border'>
+                    <h3>Confirm Password</h3>
+                    <input class='rounded-all' name='confirm_password' id='confirm_password' type='password'>
+                </div>
+                <div class='no-border terms'>
+                    <p class='terms'>
+                        Of course you've read the <a href='/terms' target='_blank' class='no-link'>Terms of Service</a>
+                    </p>
+                    <input class='rounded-all' name='terms' id='terms' type='checkbox'>
+                </div>
+            </form>
+            <br/>
+            <button class='signup-button rounded-all' id='account-done'>
+                <h4>Continue</h4>
+            </button>
+			<br/>
+			<br/>
+			<div id='form-feedback'>
+				<h3></h3>
+			</div>
+        </div>
+    </div>
+    <div id='layout'>
+        <div class='top-copy'>
+            <h2>Choose Your layout</h2>
+            <h4 class="underline">Layout. Color Scheme. Fonts. Done.</h4>
+        </div>
+        <div class='layout-options'>
+            <h3>Layouts</h3>
+            <div>
+                <div class='layout-thirds'>
+                    <div>
+                        <h4 alt='layout-1'>Layout 1</h4>
+                        <div class='select rounded-all'>
+                            <h4>Select</h4>
+                        </div>
+                    </div>
+                    <p>
+                        {% lorem 20 w %}
+                    </p>
+                    <br/>
+                    <img src='{{ STATIC_URL }}images/layout1.jpg' alt='Layout 1' width="210" height='190'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                </div>
+                <div class='layout-thirds'>
+                    <div>
+                        <h4 alt='layout-1'>Layout 2</h4>
+                        <div class='select rounded-all'>
+                            <h4>Select</h4>
+                        </div>
+                    </div>
+                    <p>
+                        {% lorem 20 w %}
+                    </p>
+                    <br/>
+                    <img src='{{ STATIC_URL }}images/layout1.jpg' alt='Layout 2' width="210" height='190'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                </div>
+                <div class='layout-thirds'>
+                    <div>
+                        <h4 alt='layout-1'>Layout 3</h4>
+                        <div class='select rounded-all'>
+                            <h4>Select</h4>
+                        </div>
+                    </div>
+                    <p>
+                        {% lorem 20 w %}
+                    </p>
+                    <br/>
+                    <img src='{{ STATIC_URL }}images/layout1.jpg' alt='Layout 3' width="210" height='190'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class='layout-options collapse'>
+            <h3>Color Schemes</h3>
+            <div>
+                <div class='color-option'>
+                    <img src='{{ STATIC_URL }}images/color1.jpg' alt='Color Scheme 1' width="85" height='85'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div class='color-option'>
+                    <img src='{{ STATIC_URL }}images/color1.jpg' alt='Color Scheme 2' width="85" height='85'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div class='color-option'>
+                    <img src='{{ STATIC_URL }}images/color1.jpg' alt='Color Scheme 3' width="85" height='85'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div class='color-option'>
+                    <img src='{{ STATIC_URL }}images/color1.jpg' alt='Color Scheme 4' width="85" height='85'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div class='color-option'>
+                    <img src='{{ STATIC_URL }}images/color1.jpg' alt='Color Scheme 5' width="85" height='85'/>
+                    <p class='preview'>
+                        Preview
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='layout-options collapse'>
+            <h3>Font Combinations</h3>
+            <div>
+                <div alt='Font Combination 1' class='font-options'>
+                    <h1 class='FONT_NAME'>Font Name</h1>
+                    <h2 class='FONT_NAME'>Font Name</h2>
+                    <p class='FONT_NAME'>
+                        Font Name
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div alt='Font Combination 2' class='font-options'>
+                    <h1 class='FONT_NAME'>Font Name 2</h1>
+                    <h2 class='FONT_NAME'>Font Name 2</h2>
+                    <p class='FONT_NAME'>
+                        Font Name 2
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div alt='Font Combination 3' class='font-options'>
+                    <h1 class='FONT_NAME'>Font Name 3</h1>
+                    <h2 class='FONT_NAME'>Font Name 3</h2>
+                    <p class='FONT_NAME'>
+                        Font Name 3
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+                <div alt='Font Combination 4' class='font-options'>
+                    <h1 class='FONT_NAME'>Font Name 4</h1>
+                    <h2 class='FONT_NAME'>Font Name 4</h2>
+                    <p class='FONT_NAME'>
+                        Font Name 4
+                    </p>
+                    <div class='select rounded-all'>
+                        <h4>Select</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<form id='render-me'>
+    <input type='text' id='layout-input' name='layout' /><input type='text' id='font-input' name='font' /><input type='text' id='color-input' name='color' />
+</form>{% endblock %}

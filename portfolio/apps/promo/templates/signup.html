@@ -1,0 +1,42 @@
+{% extends base_template|default:"base.html" %}
+{% block title %}
+Art72 | Sign up
+{% endblock %}
+{% block background-image %}
+<div id='bg'>
+    <img id='painter' class='cur' src='{{ STATIC_URL }}images/bg-painter.jpg' />
+</div>{% endblock %}
+{% block center %}
+<div class='top signup'>
+    <img id='art72-logo' src='{{ STATIC_URL }}images/art72-logo.png' title='Art72' width="230" height="139"/>
+    <h1>Art72 Beta Sign Up</h1><br>
+    <h4>We'll let you know as soon a spot is available, just let us know who we're dealing with...</h4>
+    <form id='beta-signup' class='email-signup' name='email-signup' action='/email-signup' method='post'>
+        {% csrf_token %}
+        <div>
+            <input class='email rounded-all' name='email' type='text' placeholder='your email goes here please'>
+        </div>
+        <div>
+            <select class='artist-type' name='artist_type'>
+                <option value='painter'>painting/drawing</option>
+                <option value='photographer'>photographer</option>
+                <option value='sculptor'>sculptor</option>
+                <option value='ceramicists'>ceramicists</option>
+                <option value='digital'>digital</option>
+                <option value='video'>performance/video</option>
+            </select>
+        </div>
+        <div>
+            <input class='location rounded-all' id='location' name='location' type='text' placeholder='where do you call home?'>
+        </div>
+        <div>
+            <div id='signup-button' class='submit rounded-all'>
+                <h4>Sign Me Up!</h4>
+            </div>
+        </div>
+    </form>
+	<div id='feedback'>
+		<h2></h2>
+	</div>
+</div>
+{% endblock %}

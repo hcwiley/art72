@@ -1,0 +1,88 @@
+{% extends base_template|default:"base.html" %}
+{% load webdesign %}
+{% block title %}
+Art72 | Pricing
+{% endblock %}
+{% block background-image %}
+<div id='bg'>
+    <img id='painter' class='cur' src='{{ STATIC_URL }}images/bg-painter.jpg' />
+</div>{% endblock %}
+{% block center %}
+<div class='top-copy'>
+    <h2>Art 72 Pricing</h2>
+    <h4 class="underline">3 Standard Tiers for you to choose from - pick the choice that's right for you</h4>
+</div>
+<div class='pricing-columns'>
+    <div>
+        <h3>Starving Artist</h3>
+        <h2>Free</h2>
+		<ul>
+	        <li>
+	        	50 images
+			</li>
+			<li>
+				Site hosted at a subdomain <br> <i>(e.g. michelangelo.art72.me)</i>
+			</li>
+			<li>
+				Choice of 3 layouts
+			</li>
+			<li>
+	            Choice of 5 color palettes
+	        </li>
+			<li>
+	            Choice of 5 typefaces
+	        </li>
+		</ul>
+        <a href='/signup'>
+            <div class='signup-button rounded-all'>
+                <h4>Sign Me Up!</h4>
+            </div>
+        </a>
+    </div>
+    <div>
+        <h3>Emerging Artist</h3>
+        <h2>$10<span class='rate'>per month</span></h2>
+		<ul>
+	        <li>
+	            Unlimited images
+	        </li>
+			<li>
+                Site hosted at your own domain<br><i>(e.g. michelangelo.com)</i>
+            </li>
+			<li>
+                Access to all layouts
+            </li>
+			<li>
+                Access to all color palettes
+            </li>
+			<li>
+                Access to all typefaces
+            </li>
+		</ul>
+        <a href='/signup'>
+            <div class='signup-button rounded-all'>
+                <h4>Sign Me Up!</h4>
+            </div>
+        </a>
+    </div>
+    <!--
+	<div>
+        <h3>Established Artist</h3>
+        <h2>$20<span class='rate'>per month</span></h2>
+        <ul>
+            <li>
+                Everything from Developing Artist
+            </li>
+			<li>
+				Built in e-commerce
+			</li>
+        </ul>
+        <a href='/signup'>
+            <div class='signup-button rounded-all'>
+                <h4>Sign Me Up!</h4>
+            </div>
+        </a>
+    </div>
+	!-->
+</div>
+{% endblock %}

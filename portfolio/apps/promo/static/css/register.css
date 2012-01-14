@@ -1,0 +1,438 @@
+
+#sidebar{
+    position: fixed;
+    float: right;
+    left: 70%;
+	top: 70px;
+    opacity: 0;
+    text-align: left;
+    width: 230px;
+    min-height: 100%;
+    height: auto;
+    z-index: 10;
+    border-left: 1px solid #CCC;
+}
+
+#sidebar > div{
+	position: relative;
+	top: 0px;
+	left: 0px;
+    float: left;
+	height: 100%;
+	margin-top: 0px;
+    margin-left: 30px;
+}
+
+div.step{
+    border-bottom: 1px solid #B8DE1E;
+    margin: 10px;
+	height: auto;
+	margin-top: 0px;
+    padding: 20px 0px;
+}
+
+div.step.completed-step:hover{
+	cursor: pointer;
+}
+
+.step{
+    opacity: .5;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+}
+
+.step#s0{
+	background-image: url('../images/step0.png');
+	background-repeat: no-repeat;
+	background-position-x: left;
+	background-position-y: top;
+}
+
+.step#s1{
+    background-image: url('../images/step1.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: top;
+}
+.step#s2{
+    background-image: url('../images/step2.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: top;
+}
+.step#s3{
+    background-image: url('../images/step3.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: top;
+}
+.step#s4{
+    background-image: url('../images/step4.png');
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-position-y: top;
+}
+
+.step h5{
+    color: #808084;
+	margin: -15px 0px 0px 40px;
+    display: block;
+}
+
+.step h6{
+	color: #808084;
+	margin: 2px 0px;
+	height: auto;
+	display: block;
+	clear: both;
+	float: none;
+}
+
+.completed-step{
+    opacity: 1;
+}
+
+.step > div > img.progress-feedback{
+    margin-left: 10px;
+    width: 140px;
+    height: auto;
+}
+.step > div > p.progress-feedback{
+    font-size: 12px;
+    text-align: center;
+    margin-left: -10px;
+}
+
+.step > div > img.progress-feedback-color{
+    margin-left: 40px;  
+}
+.step > div > p.progress-feedback-color{
+    font-size: 12px;
+    text-align: center;
+    margin-left: -10px;
+}
+#central-register{
+    position: absolute;
+    background-color: #FFF;
+    float: left;
+    top: 0px;
+    width: 990px;
+    overflow: hidden;
+    min-height: 95%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+#central-register > div:not(.big-space){
+    float: left;
+    position: relative;
+    display: none;
+    top: 0px;
+    min-height: 100%;
+    margin-top: 600px;
+}
+
+#central-register > #plan{
+    display: block;
+    margin-top: 0px;
+    height: 300px;
+}
+
+#account-details{
+    margin-left: 70px;
+}
+
+#account-details h3{
+    display: inline;
+    text-align: right;
+    font-size: 20px;
+}
+
+#account-form div{
+    width: 410px;
+    text-align: right;
+    padding: 20px 5px;
+    margin: 0 auto;
+    border-bottom: 1px solid #B8DE1E;
+}
+#account-form > div:last-child{
+    border: none;
+}
+
+#account-form input{
+    background: #fff;
+    border: solid 1px #CCC;
+    margin-left: 30px;
+    width: 200px;
+	color: #808084;
+}
+
+.terms{
+    font-size: 12px;
+    display: inline;
+    margin-left: -60px;
+}
+.terms input{
+    position: relative;
+    width: 20px;
+    left: -10px;
+    top: 7px;
+}
+
+.top-copy{
+    float: left;
+}
+
+div.pricing-columns.register{
+    padding-left: 10px;
+}
+
+div.pricing-columns.register > div{
+    width: 210px;   
+}
+
+.no-border, #account-form div.no-border{
+    border: none;
+}
+
+#layout{
+    height: auto;
+    width: 100%;
+}
+
+.layout-options{
+    position: relative;
+    float: left;
+    left: 30px;
+    width: 700px;
+}
+
+.layout-options h3{
+    font-size: 16px;
+    float: left;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #B8DE1E;
+    background-image: url('../images/down-arrow.png');
+    background-repeat: no-repeat;
+    background-position-x: right;
+	background-position: 100% 0;
+}
+
+.collapse{
+    height: 50px;
+    overflow: hidden;
+}
+
+.collapse > h3{
+    background-image: url('../images/up-arrow.png');
+	color: #767578;
+}
+
+.layout-thirds{
+    padding: 10px 0px;
+    float: left;
+    display: inline;
+    width: 213px;
+    margin-right: 20px;
+    text-align: left;
+}
+
+.layout-thirds h4, .layout-thirds > div > div{
+    display: inline;
+}
+
+.layout-thirds > div{
+    border-bottom: 1px solid #B8DE1E;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    width: 210px;
+}
+
+.layout-thirds p{
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.layout-thirds img{
+    width: 210px;
+    height: 190px;
+}
+
+.color-option {
+    display: inline-block;
+    float: left;
+    padding: 10px 0px;
+    margin: 0 10px;
+    margin-bottom: 10px;
+    width: 120px;
+}
+
+.color-option p{
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.color-option img{
+    width: 85px;
+    height: 85px;
+}
+
+.preview{
+    font-style: italic;
+}
+
+.preview:hover{
+    cursor: pointer;
+    opacity: .7
+}
+
+.select{
+    background: #B6B7BA;
+    text-align: center;
+    float: right;
+    color: #fff;
+    width: 60px;
+    margin-top: -5px;
+    padding: 5px 10px;
+}
+
+.select:hover{
+    cursor: pointer;
+    opacity: .7;
+}
+
+.color-option > .select{
+    float: left;
+    margin: 10px 20px;
+}
+
+.select *{
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.font-options{
+    display: inline-block;
+    float: left;
+    width: 125px;
+    padding: 0px 25px 0px 0px;
+    margin: 10px 20px 0px 0px;
+    border-right: 1px solid #999;
+}
+.font-options > *{
+    color: #999;
+    text-align: left;
+}
+
+.font-options > .select{
+    float: left;
+    margin: 10px 0px 0px 0px;
+}
+
+.font-options h1{
+    font-size: 22px;
+}
+
+.font-options h2{
+    font-size: 18px;
+    font-weight: 500;
+}
+.font-options p{
+    font-size: 16px;
+}
+
+.step > div{
+	height: auto;
+}
+
+.step > div > .progress-feedback-font{
+	float: left;
+}
+.step > div > .progress-feedback-font.font-options {
+    border: none;
+	display: block;
+	clear: both;
+    height: auto;
+    float: none;
+	margin: 5px 10px;
+	text-align: left;
+}
+
+.step > div > .progress-feedback-font > *{
+    font-size: 12px;
+}
+
+#dark-overlay{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	height: 100px;
+	width: 100px;
+	display: none;
+	background: #111;
+	opacity: .7;
+    z-index: 20;
+}
+
+#preview{
+	position: fixed;
+	display: none;
+	height: 100px;
+    width: 100px;
+	top: 50%;
+    left: 50%;
+	z-index: 30;
+	background: #fff;
+}
+#page{
+	opacity: 1;
+	height: 100%;
+	width: 100%;
+	background: #fff;
+}
+
+#page > embed{
+	width: 100%;
+	height: 100%;
+}
+
+#close-preview{
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: -50px;
+	right: -50px;
+}
+
+#close-preview:hover{
+	cursor: pointer;
+}
+
+#render-me{
+	display: none;
+	visibility: hidden;
+}
+
+footer{
+	height: 70px;
+}
+footer > div{
+	margin-top: 20px;
+}
+button.signup-button > h4{
+    text-align: center;
+    padding-top: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: adelle, Helvetica, Arial, sans-serif;
+    color: #FFF;
+}
+
+#account-form input.filled-out{
+    color: #000;
+}
