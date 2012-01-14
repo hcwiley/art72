@@ -11,13 +11,14 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', 'views.welcome'),
     (r'^favicon.ico$', redirect_to, {'url': '/site_media/static/images/fav.ico'}),
-    (r'^admin/', include(admin.site.urls)),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/',    include(admin.site.urls)),
     (r'^admin$', 'views.admin_add_slash'),
     (r'^robots.txt$', direct_to_template, {'template':'robots.txt', 'mimetype':'text/plain'}),
     (r'^sitemap.txt$', direct_to_template, {'template':'sitemap.txt', 'mimetype':'text/plain'}),
 )
 
+#TODO: submit a pull request to sorl thumbnail with updated django admin docs entry
 #TODO: allow login via username or email
 #TODO: make username and email unique check case insensitive
 #TODO: figure out what characters will be allowed for usernames
