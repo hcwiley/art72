@@ -80,9 +80,8 @@ function animateIn(loc){
     }
 	$('.cur-page').removeClass('cur-page');
     $('a[href='+loc+']').addClass('cur-page');
-	console.log(loc);
     $.ajax({
-        url: '/get' + loc,
+        url: '/ajax' + loc,
         type: 'get',
         success: function(data){
             var title = $($(data)[0]).text();
