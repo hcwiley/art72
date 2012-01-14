@@ -80,6 +80,7 @@ function animateIn(loc){
     }
 	$('.cur-page').removeClass('cur-page');
     $('a[href='+loc+']').addClass('cur-page');
+	console.log(loc);
     $.ajax({
         url: '/get' + loc,
         type: 'get',
