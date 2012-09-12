@@ -1,26 +1,28 @@
 {% extends "base.html" %}
 {% load thumbnail %}
-{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.category.get_absolute_url }}">{{ piece.series.category.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.series.get_absolute_url }}">{{ piece.series.name }}</a>&nbsp;&gt;&nbsp;<a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a>{% endblock %}
+{% block breadcrumbs %}<a href="{{ artist.get_absolute_url }}">{{ artist }}</a>&nbsp;<h4>/</h4>&nbsp;<a href="{{ piece.series.category.get_absolute_url }}">{{ piece.series.category.title }}</a>&nbsp;<h4>/</h4>&nbsp;<a href="{{ piece.series.get_absolute_url }}">{{ piece.series.title }}</a>&nbsp;<h4>/</h4>&nbsp;<a href="{{ piece.get_absolute_url }}">{{ piece.title }}</a>{% endblock %}
 {% block center %}
+<style>
+    {% autoescape off %}{{ artist.theme.piece_css }}{% endautoescape %}
+</style>
+<script src='{{ STATIC_URL }}gallery/js/piece.js' type='text/javascript'>
+</script>
+<div style='position: fixed; background: #000; z-index: -1; width:0; height: 0;' id='big-img'>
+    <img id='close-big' class='ignore' style='position: absolute; top: 30px; right: 20px;'  src='{{ STATIC_URL }}promo/images/x-icon.png' />
+    <img style='position: fixed;' class='big-img ignore' />
+</div>
+<div id='dark-overlay'>
+</div>
 <div id='gallery-piece'>
     <div id='gallery-piece-text'>
         <h3>{{ piece.title }} </h3>
         <p class='piece-bio'>
-            {% if piece.description %} 
-            {{ piece.description }} 
-            {% endif %}
+            {% include "gallery/piece/specs.html" with piece=piece %}
         </p>
     </div>
 	<div id='gallery-piece-images'>
 	<div id='piece'>
-		{% thumbnail piece.default_img.image "600x800" as foo %}<img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}" />
-        {% endthumbnail %}
-        {% for img in piece.all_imgs %}
-        {% if img != piece.default_img %}
-        {% thumbnail img.image "200x200" as foo %}<img src="{{ foo.url }}" width="{{ foo.width }}px" height="{{ foo.height }}px" alt="{{ piece.title }}-{{ forloop.counter }}" style="margin:{{ foo|margin:"800x800" }}" />
-        {% endthumbnail %}
-        {% endif %}
-        {% endfor %}
+		{% include 'gallery/piece/gallery_base.html' with piece=piece %}
 	</div>
 	</div>
 </div>{% endblock %}

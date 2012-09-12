@@ -1,0 +1,7 @@
+<div class='piece-specs'>
+    {{ series.description }}
+    <h4 class='medium piece-specs'>Medium &nbsp;</h4><h6 class='dimensions piece-specs'>{{ series.children.0.materials }}</h6><br>
+    <h4 class='year piece-specs'>Year &nbsp;</h4><h6 class='dimensions piece-specs'>{{ series.children.0.date }}</h6><br>
+    <h4 class='dimensions piece-specs'>dimensions &nbsp;</h4><h6 class='dimensions piece-specs'>{{ series.children.0.dimensions }}</h6><br>
+    {% if series.children.0.for_sale %}<h4>Price &nbsp;</h4><h6 class='dimensions piece-specs'>{{ series.children.0.price }}</h6><br>{% endif %}
+</div>

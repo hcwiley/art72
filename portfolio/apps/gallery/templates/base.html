@@ -1,28 +1,35 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>{% block titletext %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
         <meta name='description' content='content managed artist websites' />
         <meta name='keywords' content='cms, artist, website, template, content, management, art72, art, easy, gallery,' />
         <link type='image/x-icon' rel="icon" href='{{ STATIC_URL }}images/fav.ico' />
-        {% autoescape off %}{{ artist.get_theme.to_html }}{% endautoescape %}
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <style>
+            {% autoescape off %}{% if theme %}{{ theme.render_css }} {% else %} {{ artist.theme.render_css }}{% endif %}{% endautoescape %}
+        </style>
     </head>
-    <body>
+    <body {% if artist.theme.site_layout.supports_background_image %} background="{{ MEDIA_URL }}{{ artist.theme.background_image }}" {% endif %}>
         <div id='container'>
-            <p style="float: right">
-                {% if user.is_authenticated %} <a href="/accounts/logout/">log out</a>
-                {% else %} <a href="/accounts/login/">log in</a>
-                or <a href="/accounts/register">register</a>
-                {% endif %}
-            </p>
             <header>
-                <div id="header-text">
-                    <h1>Hello!</h1>
-                    <h2>My name is {{ artist }}.</h2>
-                    <h2>Welcome to my portfolio website.</h2>
+                <div id="header-info">
+                    <div class='hello' id="header-text">
+                        {{ artist.homepage_blurb }}
+						<h1>Hello!</h1>
+                        <h2>My name is {{ artist }}.</h2>
+                        <h2>Welcome to my portfolio website.</h2>
+                    </div>
+					<div class='name-about' id='header-text'>
+						<a href='/'><h1>{{ artist.display_name }}</h1></a>
+						<h4>{{ artist.statement|removetags:"p"|safe }}</h4>
+					</div>
                 </div>
             </header>
+			<div id='about-contact'>
+				<h5><a href='/about'>About</a> &amp; <a href='/contact'>Contact</a></h5>
+			</div>
             <div id='nav'>
                 <div id='nav-links'>
                     <ul>
@@ -33,7 +40,7 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div id='nav-links-sub'>
+                <div class='breadcrumbs' id='nav-links-sub'>
                     {% block breadcrumbs %}{% endblock %}
                 </div>
             </div>
@@ -43,11 +50,10 @@
                 </div>
             </div>
             <footer>
-            	<div id='footer-links'>
-            	{% for cat in artist.category_set.all %}
-	                <a>{{ cat }} /</a>
-	            {% endfor %}
-				</div>
+                <div id='footer-links'>
+                    {% for cat in artist.category_set.all %}<a>{{ cat }} /</a>
+                    {% endfor %}
+                </div>
             </footer>
         </div>
     </body>

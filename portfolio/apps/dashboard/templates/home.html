@@ -1,0 +1,38 @@
+{% extends base_template|default:"dashboard/base.html" %}
+{% block home-nav-class %}current-nav{% endblock %}
+{% block center %}
+<div id='main' class='dashboard-index'>
+    <div id="dashboard-main-nav" class="shadow rounded">
+        <div class="nav rounded">
+            <a href='/dashboard/add-piece'>
+                <div class="nav-icon">
+                    <img src="{{ STATIC_URL }}gallery/images/add-art-piece.png" width="200" height="200" alt="Add an Art Piece" />  
+                </div>
+                <div class="nav-icon-text rounded-bottom">
+                    <h3>ADD ART PIECE</h3>
+                </div>
+            </a>
+        </div>
+        <div class="nav rounded margin-left-30">
+            <a href='/dashboard/work'>
+                <div class="nav-icon">
+                    <img src="{{ STATIC_URL }}gallery/images/org-gallery.png" width="200" height="200" alt="Organize My Gallery" />
+                </div>
+                <div class="nav-icon-text rounded-bottom">
+                    <h3>ARRANGE MY GALLERY</h3>
+                </div>
+            </a>
+        </div>
+        <div class="nav rounded margin-left-30">
+            <a href='/dashboard/theme'>
+                <div class="nav-icon">
+                    <img src="{{ STATIC_URL }}gallery/images/edit-theme-icon.png" width="200" height="200" alt="Edit theme" />
+                </div>
+                <div class="nav-icon-text rounded-bottom">
+                    <h3>CHANGE MY THEME</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

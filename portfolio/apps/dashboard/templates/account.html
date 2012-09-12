@@ -1,0 +1,84 @@
+{% extends base_template|default:"dashboard/base.html" %}
+{% block title %}Account info | {{ block.super }}{% endblock %}
+{% block account-nav-class %}current-nav{% endblock %}
+{% block center %}
+<div id="main">
+    <h2 class="edit-heading">What do you want to say about yourself?</h2>
+    <div class="info-column">
+        <h3>first name</h3>
+        <h4 class='artist-info' id='first_name'>{{ artist.user.first_name }}</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+		<h3>last name</h3>
+        <h4 class='artist-info' id='last_name'>{{ artist.user.last_name }}</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+        <h3>alias</h3>
+        <h4 class='artist-info' id='display_name'>{{ artist.display_name }}</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+        <!--<h3>username</h3>
+        <h4 class='artist-info' id='username'>{{ artist.user.username }}</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>!-->
+        <h3>password</h3>
+        <h4 class='artist-info' id='password'>........</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+        <h3>email</h3>
+        <h4 class='artist-info' id='email'>{{ artist.user.email }}</h4>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+        <h3>phone</h3>
+        <h4 class='artist-info' id='phone'>{{ artist.phone }}</h4>
+        <h5 class='edit-button'>edit</h5>
+    </div>
+    <div class="info-column">
+        <h3>a little bio about me</h3>
+        <p class='artist-info' id='bio'>
+            {% autoescape off %}
+			{{ artist.bio }}
+			{% endautoescape %}
+        </p>
+        <h5 class='edit-button'>edit</h5>
+        <br>
+        <br>
+        <h3>preferred medium</h3>
+        <h4 class='artist-info' id='medium'>{{ artist.medium }}</h4>
+        <h5 class='edit-button'>edit</h5>
+    </div>
+    <div class="info-column">
+        <h3>artist statement</h3>
+        <p class='artist-info' id='statement'>
+        	{% autoescape off %}
+            {{ artist.statement }}
+            {% endautoescape %}
+        </p>
+        <h5 class='edit-button'>edit</h5>
+    </div>
+    <div class="info-column">
+        <h3>youtube id</h3>
+        <h4 class='artist-info' id='youtube_id'>{{ artist.youtube_id }}</h4>
+		<h5 class='edit-button'>edit</h5>
+		<br>
+		<br>
+		<h3>vimeo id</h3>
+        <h4 class='artist-info' id='vimeo_id'>{{ artist.vimeo_id }}</h4>
+        <h5 class='edit-button'>edit</h5>
+    </div>
+</div>
+<form action="" method="post" id='messenger'>
+	{% csrf_token %}
+	{{ account_form }}
+	{{ artist_form }}
+</form>
+<!--<form action='' method='post' id='messenger'>
+	{% csrf_token %}<input name='instance' value='{{ form.instance }}' />
+</form>!-->
+{% endblock %}

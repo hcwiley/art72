@@ -1,9 +1,10 @@
 Django==1.4
 gondor==1.0b1.post14
-psycopg2==2.4.1
+psycopg2==2.4.5
 PIL==1.1.7
-South==0.7.3
-sorl-thumbnail==11.09.1
+South==0.7.6
+sorl-thumbnail==11.12
 python-memcached==1.48
-django-registration==0.7
+django-registration==0.8
 django-subdomains==1.1.2
+docutils==0.9.1

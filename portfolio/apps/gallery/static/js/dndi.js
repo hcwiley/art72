@@ -60,7 +60,7 @@ function overA(obj){
 }
 
 function dndiDivs(){
-    as = $('#nav').add('#contact').add('#logo').add('#container');
+    as = $('div');//$('#nav').add('#contact').add('#logo').add('#container');
     for (var i = 0; i < $(as).length; i++) {
         $(as[i]).hover(function(){
             console.log('entered...');
@@ -120,6 +120,6 @@ function saveMenu(){
 }
 
 function initDndi(){
-//    dndiDivs();
+    dndiDivs();
     saveMenu();
 }

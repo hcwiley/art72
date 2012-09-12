@@ -58,21 +58,21 @@ function handlePostSuccess(responseText, statusText, xhr, $form){
                 initPieceGallery();
         });
     }, 1500);
-    closeAddPieceForm();
+    closeAddPieceAdminForm();
 }
 
 function handlePostFail(response, statusText, xhr){
     $('#feedback > *').text(response)
 }
 
-function closeAddSeriesForm(){
+function closeAddSeriesAdminForm(){
     $('#add-series').add($('#add-series > *')).animate({
         opacity: 0
     }, 100);
     $('#add-series').add($('#add-series > *')).css('z-index', -1);
 }
 
-function closeAddPieceForm(){
+function closeAddPieceAdminForm(){
     $('#add-piece').animate({
         opacity: 0
     }, 100);
@@ -88,10 +88,10 @@ function editHeader(){
 
 function initAddNew(){
     $('#close-add-piece').bind('click', function(){
-        closeAddPieceForm();
+        closeAddPieceAdminForm();
     });
     $('#close-add-series').bind('click', function(){
-        closeAddSeriesForm();
+        closeAddSeriesAdminForm();
     });
     $('#add-new-series').bind('click', function(){
         $('#add-series').add($('#add-series > *')).animate({
@@ -117,7 +117,7 @@ function initAddNew(){
             $(this).trigger('submit');
         }
         else if (event.keyCode == 27 || event.which == 27) {
-            closeAddPieceForm();
+            closeAddPieceAdminForm();
         }
     });
     $('#add-piece-form').submit(function(){
@@ -153,7 +153,7 @@ function initAddNew(){
             $(this).trigger('submit');
         }
         else if (event.keyCode == 27 || event.which == 27) {
-            closeAddPieceForm();
+            closeAddPieceAdminForm();
         }
     });
     $('#add-series-form').submit(function(){
@@ -200,7 +200,7 @@ function initLogin(){
             $(this).trigger('submit');
         }
         else if (event.keyCode == 27 || event.which == 27) {
-            closeAddPieceForm();
+            closeAddPieceAdminForm();
         }
     });
     $('#login-form').submit(function(){

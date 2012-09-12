@@ -1,0 +1,16 @@
+{% autoescape off %}
+<div id='current-image'>
+    {% if piece.default_media.is_video %}
+	{% include "gallery/piece/video.html" with media=piece.default_media dim=theme.piece_layout.image_dimension %}
+	{% else %}
+   {% include "gallery/piece/image.html" with media=piece.default_media dim=theme.piece_layout.image_dimension pos='' %}
+   {% endif %}
+</div>
+<div class='other-images'>
+{% for media in piece.children %}
+    {% if media != piece.default_media %}
+       {% include "gallery/piece/image.html" with media=media dim=theme.piece_layout.thumb_dimension pos='center' %}
+   {% endif %}
+{% endfor %}
+</div>
+{% endautoescape %}

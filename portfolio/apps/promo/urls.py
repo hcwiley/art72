@@ -2,21 +2,17 @@ from django.conf import settings
 from django.contrib import admin 
 from django.contrib.auth import views as auth_views
 from django.views.generic.simple import redirect_to, direct_to_template
-from django.conf.urls.defaults import patterns, include, url
 from registration.views import activate, register
 from registration.forms import RegistrationFormUniqueEmail
-from django.conf.urls.defaults import *
-from django.contrib import admin 
-from apps.promo import views as promo_views
-from django.views.generic.simple import redirect_to, direct_to_template
+from django.conf.urls.defaults import patterns, include, url
 
 #from art72_django.settings import DEBUG
 #from art72_django.settings import AJAX_VIEW_PREFIX as ajax
 admin.autodiscover()
 
 # custom 404 and 500 handlers
-handler404 = 'views.art72_django'
-handler500 = 'views.art72_django_500'
+handler404 = 'apps.promo.views.art72_404'
+handler500 = 'apps.promo.views.art72_500'
 
 # basic stuff
 urlpatterns = patterns('',
@@ -43,11 +39,11 @@ urlpatterns += patterns('',
                            name='registration_activate'),
                        url(r'^accounts/login$',
                            auth_views.login,
-                           {'template_name': 'registration/login.html'},
+                           {'template_name': 'promo/registration/login.html'},
                            name='auth_login'),
                        url(r'^accounts/logout$',
                            auth_views.logout,
-                           {'template_name': 'registration/logged_out.html'},
+                           {'template_name': 'promo/registration/logged_out.html'},
                            name='auth_logout'),
                        url(r'^accounts/register$',
                            register,
@@ -55,30 +51,24 @@ urlpatterns += patterns('',
                            name='registration_register'),
                        url(r'^accounts/register/complete$',
                            direct_to_template,
-                           {'template': 'registration/registration_complete.html'},
+                           {'template': 'promo/registration/registration_complete.html'},
                            name='registration_complete'),
                        )
 #these forms needs to enforce the case insensitive email and username
 
-# public pages w/ajax support
-urlpatterns += patterns('promo.views',
-    (r'^%s(?P<page>.*)$' % settings.AJAX_VIEW_PREFIX, 'ajax'),
-    (r'^(?P<page>.*)$', 'default'),
-#    (r'^(?P<ajax>(%s)?)contact$' % ajax, 'views.contact'),
-)
 
 if settings.DEBUG:
 #     let us test out missing page and server error when debugging
 #TODO don't let people name their top level series admin, site_media, etc.
     urlpatterns += patterns('',
-#        (r'^404$', 'views.art72_django'),
-#        (r'^500$', 'views.art72_django_500'),
+        (r'^404$', handler404),
+        (r'^500$', handler500),
 	(r'^%s(?P<path>.*)$' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     )
 
-# oh why oh why isn't there a REMOVE_SLASH option...
-urlpatterns += patterns('',
-    (r'^admin$', 'views.admin_add_slash'),
-    (r'^(?P<url>.*)$', 'views.remove_slash'),
+# public pages w/ajax support
+urlpatterns += patterns('apps.promo.views',
+    (r'^%s(?P<page>.*)$' % settings.AJAX_VIEW_PREFIX, 'ajax'),
+    (r'^(?P<page>.*)$', 'default'),
+#    (r'^(?P<ajax>(%s)?)contact$' % ajax, 'views.contact'),
 )
-

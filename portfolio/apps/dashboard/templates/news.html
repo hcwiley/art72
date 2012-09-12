@@ -1,0 +1,11 @@
+{% extends base_template|default:"dashboard/base.html" %}
+
+{% block title %}theme | {{ block.super }}{% endblock %}
+{% block theme-nav-class %}current-nav{% endblock %}
+
+{% block center %}
+<div id='main'>
+<embed width='100%' height='100%' src='http://dailyserving.com'>
+</embed>
+</div>
+{% endblock %}

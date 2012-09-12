@@ -10,6 +10,7 @@ syntax: glob
 whoosh_index
 *.bak
 *.swp
+*.orig
 local_settings.py
 
 syntax: regexp

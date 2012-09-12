@@ -1,0 +1,9 @@
+{% autoescape off %}
+<div class='piece-specs'>
+    {{ piece.description }}
+    <h4 class='medium piece-specs'>Medium &nbsp;</h4><h6 class='dimensions piece-specs'>{{ piece.materials }}</h6><br>
+    <h4 class='year piece-specs'>Year &nbsp;</h4><h6 class='dimensions piece-specs'>{{ piece.date }}</h6><br>
+    <h4 class='dimensions piece-specs'>dimensions &nbsp;</h4><h6 class='dimensions piece-specs'>{{ piece.dimensions }}</h6><br>
+    {% if piece.for_sale %}<h4>Price &nbsp;</h4><h6 class='dimensions piece-specs'>{{ piece.price }}</h6><br>{% endif %}
+</div>
+{% endautoescape %}

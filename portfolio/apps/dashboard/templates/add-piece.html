@@ -1,0 +1,15 @@
+{% extends base_template|default:"dashboard/base.html" %}
+
+{% block title %}your work | {{ block.super }}{% endblock %}
+{% block work-nav-class %}current-nav{% endblock %}
+
+{% block center %}
+<div id='main'>
+<form method='post' action=''>
+	{% csrf_token %}
+    {{ piece_form }}
+    {{ media_form }}
+	<input type='submit' />
+</form>
+</div>
+{% endblock %}

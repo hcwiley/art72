@@ -1,0 +1,8 @@
+<div id='login'>
+<p style="float: right">
+    {% if user.is_authenticated %} <a href="/accounts/logout">log out</a>
+    {% else %} <a href="/accounts/login">log in</a>
+    or <a href="/accounts/register">register</a>
+    {% endif %}
+</p>
+</div>

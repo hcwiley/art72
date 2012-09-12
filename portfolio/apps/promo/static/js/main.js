@@ -268,6 +268,9 @@ function init(){
     initEmailSubmit();
     reinit();
     watchURLChange();
+	$.get('/site_media/static/promo/images/twitter-hover.png');
+	$.get('/site_media/static/promo/images/facebook-hover.png');
+	$.get('/site_media/static/promo/images/art72-small-color.png');
     window.setTimeout("resize();", 200);
 	if(document.cookie.match('type:')){
 		var type = document.cookie.split(';');
@@ -277,7 +280,6 @@ function init(){
 				break;
 			}
 		}
-//		type = type[1]+'';
 		type = type.replace('type:','');
 		type = type.replace(' ','');
 		type = type.replace('=','');

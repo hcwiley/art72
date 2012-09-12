@@ -492,6 +492,7 @@ p {
 div.pricing-columns {
     float: left;
     text-align: left;
+	margin-left: 120px;
 	margin-bottom: 100px;
     padding: 20px 20px 20px 100px;
 }
@@ -581,6 +582,16 @@ div.pricing-columns li {
     height: 42px;
     margin: 0px auto;
 }
+
+button#signup-button > h4{
+    text-align: center;
+    padding-top: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: adelle, Helvetica, Arial, sans-serif;
+    color: #FFF;
+}
+
 
 #signup-button:hover, div.signup-button:hover, div.plan-button:hover, button.signup-button:hover {
     background-color: #B8DE1E;

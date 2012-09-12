@@ -14,10 +14,10 @@ Art72 | Sign up
     <form id='beta-signup' class='email-signup' name='email-signup' action='/email-signup' method='post'>
         {% csrf_token %}
         <div>
-            <input class='email rounded-all' name='email' type='text' placeholder='your email goes here please'>
+            <input class='email rounded-all' tabindex='1' name='email' type='text' placeholder='your email goes here please'>
         </div>
         <div>
-            <select class='artist-type' name='artist_type'>
+            <select class='artist-type' tabindex='2' name='artist_type'>
                 <option value='painter'>painting/drawing</option>
                 <option value='photographer'>photographer</option>
                 <option value='sculptor'>sculptor</option>
@@ -27,12 +27,12 @@ Art72 | Sign up
             </select>
         </div>
         <div>
-            <input class='location rounded-all' id='location' name='location' type='text' placeholder='where do you call home?'>
+            <input class='location rounded-all' tabindex='3' id='location' name='location' type='text' placeholder='where do you call home?'>
         </div>
         <div>
-            <div id='signup-button' class='submit rounded-all'>
+            <button id='signup-button' tabindex='4' class='submit rounded-all'>
                 <h4>Sign Me Up!</h4>
-            </div>
+            </button>
         </div>
     </form>
 	<div id='feedback'>

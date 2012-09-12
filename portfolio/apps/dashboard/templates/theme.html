@@ -1,0 +1,151 @@
+{% extends base_template|default:"dashboard/base.html" %}
+{% load thumbnail %}
+{% block title %}theme | {{ block.super }}{% endblock %}
+{% block theme-nav-class %}current-nav{% endblock %}
+{% block center %}
+<script src='{{ STATIC_URL }}dashboard/js/theme.js' type='text/javascript'>
+</script>
+<div id='preview'>
+    <img id='close-preview' src='{{ STATIC_URL }}promo/images/x-icon.png' />
+	<object id='page'>
+    </object>
+</div>
+<div id='dark-overlay'>
+</div>
+<div id="main">
+	<h2 class="edit-heading">Layout. Color Scheme. Fonts. Done.</h2>
+	<div id='theme-sidebar'>
+		<h3>your current theme</h3>
+		<div id='publish'>
+            <h4 class='preview'>preview changes</h4>
+			<h4 id='cancel'>cancel changes</h4>
+            <h4 id='send'>publish changes</h4>
+        </div>
+		<br>
+		<h4>site layout</h4>
+		{% thumbnail current.site_layout.icon '125x100' as icon %}
+        <img id='site_layout' src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+        {% endthumbnail %}
+		<h4>category layout</h4>
+        {% thumbnail current.category_layout.icon '125x100' as icon %}
+        <img id='category_layout' src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+        {% endthumbnail %}
+		<h4>series layout</h4>
+        {% thumbnail current.series_layout.icon '125x100' as icon %}
+        <img id='series_layout' src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+        {% endthumbnail %}
+		<h4>piece layout</h4>
+        {% thumbnail current.piece_layout.icon '125x100' as icon %}
+        <img id='piece_layout' src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+        {% endthumbnail %}
+		<h4>color scheme</h4>
+		<div id='colors'>
+        {{ current.colors.as_wheel }}
+		</div>
+		<h4>fonts</h4>
+		<div id='fonts'>
+			<h7 style='font-family: {{ current.fonts.f1.typekit }};'>{{ current.fonts.f1 }}</h7>
+			<h7 style='font-family: {{ current.fonts.f2.typekit }};'>{{ current.fonts.f2 }}</h7>
+		</div>
+	</div>
+	<ul id='layout-choices'>
+		<li class='layout-section'>
+			<h3>1. edit the layout for your site layout</h3>
+			{% for layout in site_layouts %}
+			<div class='layout-option' item='id_site_layout' option='{{ layout.pk }}'>
+				{% thumbnail layout.icon '125x100' as icon %}
+				<img src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+				{% endthumbnail %}
+				<h6 class='preview'>Preview | </h6>
+				<h6 class='choose'>Choose</h6>
+				{% autoescape off %}
+				<p>
+				{{ layout.description }}
+				</p>
+				{% endautoescape %}
+			</div>
+            {% endfor %}
+		</li>
+		<li class='layout-section'>
+            <h3>2. edit the layout for displaying your categories of art</h3>
+            {% for layout in category_layouts %}
+            <div class='layout-option' item='id_category_layout' option='{{ layout.pk }}'>
+                {% thumbnail layout.icon '125x100' as icon %}
+				<img src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+				{% endthumbnail %}
+				<h6 class='preview'>Preview | </h6>
+                <h6 class='choose'>Choose</h6>
+                {% autoescape off %}
+                <p>
+                {{ layout.description }}
+                </p>
+                {% endautoescape %}
+            </div>
+            {% endfor %}
+        </li>
+		<li class='layout-section'>
+            <h3>3. edit the layout for displaying your series of art</h3>
+            {% for layout in series_layouts %}
+            <div class='layout-option' item='id_series_layout' option='{{ layout.pk }}'>
+                {% thumbnail layout.icon '125x100' as icon %}
+				<img src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+				{% endthumbnail %}
+				<h6 class='preview'>Preview | </h6>
+                <h6 class='choose'>Choose</h6>
+                {% autoescape off %}
+                <p>
+                {{ layout.description }}
+                </p>
+                {% endautoescape %}
+            </div>
+            {% endfor %}
+        </li>
+		<li class='layout-section'>
+            <h3>4. edit the layout for displaying indiviual art pieces</h3>
+            {% for layout in piece_layouts %}
+            <div class='layout-option' item='id_piece_layout' option='{{ layout.pk }}'>
+                {% thumbnail layout.icon '125x100' as icon %}
+				<img src='{{ MEDIA_URL }}{{ icon }}' alt='{{ layout.title }}' width='125px' height='100px' />
+				{% endthumbnail %}
+				<h6 class='preview'>Preview | </h6>
+                <h6 class='choose'>Choose</h6>
+                {% autoescape off %}
+                <p>
+                {{ layout.description }}
+                </p>
+                {% endautoescape %}
+            </div>
+            {% endfor %}
+        </li>
+		<li class='layout-section'>
+            <h3>5. edit your color scheme</h3>
+            {% for color in color_schemes %}
+            <div class='layout-option' item='id_colors' option='{{ color.pk }}'>
+                {{ color.as_wheel }}
+                <h6 class='preview'>Preview | </h6>
+                <h6 class='choose'>Choose</h6>
+            </div>
+            {% endfor %}
+        </li>
+		<li class='layout-section'>
+            <h3>5. edit your color scheme</h3>
+            {% for font in fonts %}
+            <div class='layout-option' item='id_fonts' option='{{ font.pk }}' >
+            	<div>
+                <h7 style='font-family: {{ font.f1.typekit }};'>{{ font.f1 }}</h7>
+                <h7 style='font-family: {{ font.f2.typekit }};'>{{ font.f2 }}</h7>
+				</div>
+                <h6 class='preview'>Preview | </h6>
+                <h6 class='choose'>Choose</h6>
+            </div>
+            {% endfor %}
+        </li>
+	</ul>
+</div>
+<form action="" id='messenger' method="post">
+	{% csrf_token %}
+    {{ form }}
+	<input type='submit' value='submit'/>
+</form>
+{% endblock %}
+{{ theme.colors.as_wheel }}

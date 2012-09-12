@@ -28,7 +28,7 @@ Art72
             <div>
             </div>
         </div>
-        <div id='s1' class='step'>
+        <div id='s1' class='step completed-step'>
             <h5>Sign in or create an account</h5>
             <div>
             </div>
@@ -36,14 +36,15 @@ Art72
         <div id='s2' class='step'>
             <h5>Choose your layout</h5>
             <div>
+            	<div id='step-layout'>
+        		</div>
+				<div id='step-color'>
+                </div>
+				<div id='step-font'>
+                </div>
             </div>
         </div>
         <div id='s3' class='step'>
-            <h5>Upload your artwork</h5>
-            <div>
-            </div>
-        </div>
-        <div id='s4' class='step'>
             <h5>Done!</h5>
             <div>
             </div>
@@ -51,6 +52,7 @@ Art72
     </div>
 </div>
 <div id='central-register'>
+	<!--
     <div id='plan'>
         <div class='top-copy'>
             <h2>Pick your plan</h2>
@@ -109,7 +111,6 @@ Art72
                     <h4>Select this plan</h4>
                 </div>
             </div>
-			<!--
             <div>
                 <h3>Established Artist</h3>
                 <h2>$20<span class='rate'>per month</span></h2>
@@ -125,9 +126,9 @@ Art72
                     <h4>Select this plan</h4>
                 </div>
             </div>
-			!-->
         </div>
     </div>
+	!-->
     <div id='create-account'>
         <div class='top-copy'>
             <h2>Create Your Art72 Account</h2>
@@ -136,33 +137,33 @@ Art72
             <form id='account-form'>
                 <div>
                     <h3>First Name</h3>
-                    <input class='rounded-all' name='first_name' type='text' placeholder='Andy'>
+                    <input class='rounded-all' tabindex='1' name='first_name' type='text' placeholder='Andy'>
                 </div>
                 <div>
                     <h3>Last Name</h3>
-                    <input class='rounded-all' name='last_name' type='text' placeholder='Warhol'>
+                    <input class='rounded-all' tabindex='2' name='last_name' type='text' placeholder='Warhol'>
                 </div>
                 <div>
                     <h3>Email</h3>
-                    <input class='rounded-all' name='email' type='text' placeholder='andywarhol@soupcan.com'>
+                    <input class='rounded-all' tabindex='3' name='email' type='text' placeholder='andywarhol@soupcan.com'>
                 </div>
                 <div>
                     <h3>Password</h3>
-                    <input class='rounded-all' name='password' id='password' type='password'>
+                    <input class='rounded-all' tabindex='4' name='password' id='password' type='password'>
                 </div>
                 <div class='no-border'>
                     <h3>Confirm Password</h3>
-                    <input class='rounded-all' name='confirm_password' id='confirm_password' type='password'>
+                    <input class='rounded-all' tabindex='5' name='confirm_password' id='confirm_password' type='password'>
                 </div>
                 <div class='no-border terms'>
                     <p class='terms'>
                         Of course you've read the <a href='/terms' target='_blank' class='no-link'>Terms of Service</a>
                     </p>
-                    <input class='rounded-all' name='terms' id='terms' type='checkbox'>
+                    <input class='rounded-all' tabindex='6' name='terms' id='terms' type='checkbox'>
                 </div>
             </form>
             <br/>
-            <button class='signup-button rounded-all' id='account-done'>
+            <button class='signup-button rounded-all' tabindex='7' id='account-done'>
                 <h4>Continue</h4>
             </button>
 			<br/>
@@ -285,7 +286,6 @@ Art72
             <div>
                 <div alt='Font Combination 1' class='font-options'>
                     <h1 class='FONT_NAME'>Font Name</h1>
-                    <h2 class='FONT_NAME'>Font Name</h2>
                     <p class='FONT_NAME'>
                         Font Name
                     </p>
@@ -295,7 +295,6 @@ Art72
                 </div>
                 <div alt='Font Combination 2' class='font-options'>
                     <h1 class='FONT_NAME'>Font Name 2</h1>
-                    <h2 class='FONT_NAME'>Font Name 2</h2>
                     <p class='FONT_NAME'>
                         Font Name 2
                     </p>
@@ -305,7 +304,6 @@ Art72
                 </div>
                 <div alt='Font Combination 3' class='font-options'>
                     <h1 class='FONT_NAME'>Font Name 3</h1>
-                    <h2 class='FONT_NAME'>Font Name 3</h2>
                     <p class='FONT_NAME'>
                         Font Name 3
                     </p>
@@ -315,7 +313,6 @@ Art72
                 </div>
                 <div alt='Font Combination 4' class='font-options'>
                     <h1 class='FONT_NAME'>Font Name 4</h1>
-                    <h2 class='FONT_NAME'>Font Name 4</h2>
                     <p class='FONT_NAME'>
                         Font Name 4
                     </p>

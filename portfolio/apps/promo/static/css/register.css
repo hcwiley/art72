@@ -1,9 +1,11 @@
-
+#wrapper{
+	height: 93%;
+}
 #sidebar{
     position: fixed;
     float: right;
     left: 70%;
-	top: 70px;
+	top: 80px;
     opacity: 0;
     text-align: left;
     width: 230px;
@@ -27,7 +29,7 @@ div.step{
     border-bottom: 1px solid #B8DE1E;
     margin: 10px;
 	height: auto;
-	margin-top: 0px;
+	margin-top: 20px;
     padding: 20px 0px;
 }
 
@@ -42,6 +44,7 @@ div.step.completed-step:hover{
 }
 
 .step#s0{
+	display: none;
 	background-image: url('../images/step0.png');
 	background-repeat: no-repeat;
 	background-position-x: left;
@@ -92,21 +95,21 @@ div.step.completed-step:hover{
     opacity: 1;
 }
 
-.step > div > img.progress-feedback{
+.step img.progress-feedback{
     margin-left: 10px;
     width: 140px;
     height: auto;
 }
-.step > div > p.progress-feedback{
+.step p.progress-feedback{
     font-size: 12px;
     text-align: center;
     margin-left: -10px;
 }
 
-.step > div > img.progress-feedback-color{
+#step-color img.progress-feedback-color{
     margin-left: 40px;  
 }
-.step > div > p.progress-feedback-color{
+#step-color p.progress-feedback-color{
     font-size: 12px;
     text-align: center;
     margin-left: -10px;
@@ -125,7 +128,7 @@ div.step.completed-step:hover{
     z-index: 1;
 }
 
-#central-register > div:not(.big-space){
+#central-register > div{
     float: left;
     position: relative;
     display: none;
@@ -136,12 +139,19 @@ div.step.completed-step:hover{
 
 #central-register > #plan{
     display: block;
-    margin-top: 0px;
+    margin: 0px;
     height: 300px;
 }
 
+#central-register > #create-account{
+	display: block;
+	margin-top: 0px;
+	margin-left: 20px;
+}
+
 #account-details{
-    margin-left: 70px;
+    position: relative;
+	left: 40px;
 }
 
 #account-details h3{
@@ -186,7 +196,8 @@ div.step.completed-step:hover{
 }
 
 div.pricing-columns.register{
-    padding-left: 10px;
+	width: 480px;
+    margin: 0 50px;
 }
 
 div.pricing-columns.register > div{
@@ -205,8 +216,14 @@ div.pricing-columns.register > div{
 .layout-options{
     position: relative;
     float: left;
-    left: 30px;
-    width: 700px;
+    left: 50px;
+    width: 680px;
+	height: auto;
+	min-height: auto;
+}
+
+.layout-options h3:hover{
+	cursor: pointer;	
 }
 
 .layout-options h3{
@@ -235,7 +252,7 @@ div.pricing-columns.register > div{
     padding: 10px 0px;
     float: left;
     display: inline;
-    width: 213px;
+    width: 206px;
     margin-right: 20px;
     text-align: left;
 }
@@ -267,7 +284,7 @@ div.pricing-columns.register > div{
     padding: 10px 0px;
     margin: 0 10px;
     margin-bottom: 10px;
-    width: 120px;
+    width: 100px;
 }
 
 .color-option p{
@@ -301,12 +318,12 @@ div.pricing-columns.register > div{
 
 .select:hover{
     cursor: pointer;
-    opacity: .7;
+    background-color: #B8DE1E;
 }
 
 .color-option > .select{
     float: left;
-    margin: 10px 20px;
+    margin: 10px 10px;
 }
 
 .select *{
@@ -319,9 +336,10 @@ div.pricing-columns.register > div{
 .font-options{
     display: inline-block;
     float: left;
-    width: 125px;
+    width: 120px;
+	height: 110px;
     padding: 0px 25px 0px 0px;
-    margin: 10px 20px 0px 0px;
+    margin: 10px 20px 20px 0px;
     border-right: 1px solid #999;
 }
 .font-options > *{
@@ -350,10 +368,10 @@ div.pricing-columns.register > div{
 	height: auto;
 }
 
-.step > div > .progress-feedback-font{
+#step-font .progress-feedback-font{
 	float: left;
 }
-.step > div > .progress-feedback-font.font-options {
+#step-font .progress-feedback-font.font-options {
     border: none;
 	display: block;
 	clear: both;
@@ -363,7 +381,7 @@ div.pricing-columns.register > div{
 	text-align: left;
 }
 
-.step > div > .progress-feedback-font > *{
+#step-font .progress-feedback-font > *{
     font-size: 12px;
 }
 
@@ -375,7 +393,7 @@ div.pricing-columns.register > div{
 	width: 100px;
 	display: none;
 	background: #111;
-	opacity: .7;
+	opacity: .9;
     z-index: 20;
 }
 

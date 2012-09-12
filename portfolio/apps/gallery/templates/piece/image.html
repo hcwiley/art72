@@ -1,0 +1,4 @@
+{% load thumbnail %}
+{% thumbnail media.image dim crop=pos as pic %}
+<img src="{{ pic.url }}" full='{{ MEDIA_URL }}{{ media.image }}' width="{{ pic.width }}px" height="{{ pic.height }}px" alt="{{ media.piece.title }}" />
+{% endthumbnail %}

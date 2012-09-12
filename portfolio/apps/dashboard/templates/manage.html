@@ -1,0 +1,225 @@
+{% extends base_template|default:"dashboard/base.html" %}
+{% load thumbnail %}
+{% block title %}Arrange work | {{ block.super }}{% endblock %}
+{% block work-nav-class %}current-nav{% endblock %}
+{% block center %}
+<script src='{{ STATIC_URL }}dashboard/js/manage.js' type='text/javascript'>
+</script>
+<div id="main">
+    <h2 class="edit-heading">View, edit, and sort your artwork </h2>
+    <div class="info-column">
+        <h3>manage my art</h3>
+        <div id='change-level' class="drop-down">
+            <h3 class='current'>{{ level }}</h3>
+            <img src="{{ STATIC_URL }}dashboard/images/down-arrow.png" width="25" height="25" alt="drop down menu">
+			<div id='other-levels'>
+				<a href='/dashboard/manage/category'><h3>Category</h3></a>
+				<a href='/dashboard/manage/series'><h3>Series</h3></a>
+				<a href='/dashboard/manage/piece'><h3>Piece</h3></a>
+			</div>
+        </div><hr class="blue-line">
+			{% for cat in categories %}
+	        <ul>
+	        	{% if level != 'category' %}
+	            <li class="list-heading">
+	                category: {{ cat }}
+	            </li>
+				{% endif %}
+	            <ul class="list-series">
+	            	{% if level == 'category' %}
+	            	<a class='gallery-click' strip='{{ cat.slug }}' href='/dashboard/manage/category/{{ cat.slug }}'>
+                        <li {%  if cat == category %}title='click to remove filter' class="selected-filter"{%  endif %}>
+                            {%  if cat == category %} >> {%  endif %}{{ cat }}
+                        </li>
+                    </a>
+					{% endif %}
+	            	{% if level == 'series' %}
+	                {% for ser in cat.children.all %}<a class='gallery-click' strip='{{ ser.slug }}' href='/dashboard/manage/series/{{ ser.slug }}'>
+	                    <li {%  if ser == series %}title='click to remove filter' class="selected-filter"{%  endif %}>
+	                        {%  if ser == series %} >> {%  endif %}{{ ser }}
+	                    </li>
+	                </a>
+	                {% endfor %}
+					{% endif %}
+					{% if level == 'piece' %}
+	                {% for ser in cat.children.all %}
+					    {% for pic in ser.children.all %}
+					    <a class='gallery-click' strip='{{ pic.slug }}' href='/dashboard/manage/piece/{{ pic.slug }}'>
+	                    <li {%  if pic == piece %}title='click to remove filter' class="selected-filter"{%  endif %}>
+	                        {%  if pic == piece %} >> {%  endif %}{{ pic }}
+	                    </li>
+		                </a>
+						{% endfor %}
+	                {% endfor %}
+	                {% endif %}
+	            </ul>
+	        </ul>
+            {% endfor %}
+		<a href='/dashboard/add-{{ level }}'><h6 class="add-category">add a {{ level }}</h6></a>
+        <a href='/dashboadr/remove-{{ level }}'><h6 class="add-category-last">delete the selected {{ level }}</h6></a>
+        <a href='/dashboard/work'><h3>filter my images</h3></a>
+    </div>
+    {% if piece %}
+    <div class="column-wide">
+        <div class="column-wide-specs">
+            <div class="series-column-short">
+                <h3>art piece name</h3>
+                <h4 id='title'>{{ piece.title }}</h4>
+                <h5 class='edit-button'>edit</h5>
+            </div>
+            <div class="series-column-short">
+                <h3>series</h3>
+                <h4 id='series'>{{ piece.series }}</h4>
+                <h6 class="list-heading skip">(CATEGORY: {{ piece.series.category }})</h6>
+                <h5 class='edit-button'>change</h5>
+            </div>
+            <div class="series-column-short">
+                <h3>art piece url</h3>
+                <h4>{{ piece.get_absolute_url }}</h4>
+                <h5 class='copy-button'>copy</h5>
+            </div>
+        </div>
+        <div class="column-wide-description">
+            <h3>art piece description (if applicable)</h3>
+            <p id='description'>
+            	{% autoescape off%}
+                {{ piece.description }}
+                {% endautoescape %}
+            </p>
+            <h5 class='edit-button'>edit</h5>
+        </div>
+        <hr class="blue-line">
+        <div class="artpiece-column-short">
+            <h3>materials</h3>
+            <h4>{{ piece.materials }}</h4>
+            <h5>edit</h5>
+        </div>
+        <div class="artpiece-column-short">
+            <h3>year</h3>
+            <h4>{{ piece.date }}</h4>
+            <h5>edit</h5>
+        </div>
+        <div class="artpiece-column-short">
+            <h3>dimensions</h3>
+            <h4>{{ piece.dimensions }}</h4>
+            <h5>edit</h5>
+        </div>
+        <div class="artpiece-column-short">
+            <h3>for sale</h3>
+            <h4>{{ piece.pretty_for_sale }}</h4>
+            <h5>edit</h5>
+        </div>
+        <div class="artpiece-column-short-trashpiece" title="This is terrible work! Trash this piece!">
+        </div>
+        <div class="artpiece-column-short-addpiece" title="Add More Art!">
+        </div>
+        <div class="artpiece-column-short-previewpiece" title="How's it looking?">
+        </div>
+        <div class="column-wide-images">
+        	{% autoescape off %}
+			<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+	            <div class='piece-thumb'>
+	            {% for media in piece.children %}
+	            {% thumbnail media.image "170x170" crop="center" as pic %}<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+	                <div class='piece-thumb'>
+	                    <img src="{{ pic.url }}" width="{{ pic.width }}px" height="{{ pic.height }}px" alt="{{ piece.title }}" />
+	                </div>
+	            </a>{% endthumbnail %}
+	            {% endfor %}
+				</div>
+			</a>
+			{% endautoescape %}
+        </div>
+    </div>{% endif %}
+    {% if series %}
+    <div class="column-wide">
+        <div class="column-wide-specs">
+            <div class="series-column-short">
+                <h3>series name</h3>
+                <h4 id='title'>{{ series.title }}</h4>
+                <h5 class='edit-button'>edit</h5>
+            </div>
+            <div class="series-column-short">
+                <h3>category</h3>
+                <h4 id='category'>{{ series.category }}</h4>
+                <h5 class='edit-button'>change</h5>
+            </div>
+            <div class="series-column-short">
+                <h3>series url</h3>
+                <h4>{{ series.get_absolute_url }}</h4>
+                <h5 class='copy-button'>copy</h5>
+            </div>
+        </div>
+        <div class="column-wide-description fixed-width-500">
+            <h3>series description</h3>
+            <p id='description'>
+            	{% autoescape off%}
+                {{ series.description }}
+                {% endautoescape %}
+            </p>
+            <h5 class='edit-button'>edit</h5>
+        </div>
+        <div class="action-icons">
+            <div class="artpiece-column-short-addpiece" title="Add More Art to this series!">
+            </div>
+            <div class="artpiece-column-short-previewpiece" title="How's it looking?">
+            </div>
+        </div>
+        <div class="column-wide-images">
+            {% for piece in series.children %}
+            {% thumbnail piece.default_media.image "170x170" crop="center" as pic %}<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+                <div class='piece-thumb'>
+                    <img src="{{ pic.url }}" width="{{ pic.width }}px" height="{{ pic.height }}px" alt="{{ piece.title }}" />
+                </div>
+            </a>{% endthumbnail %}
+            {% endfor %}
+        </div>
+    </div>{% endif %}
+    {% if category %}
+	<div class="column-wide">
+	 <div class="column-wide-specs">
+            <div class="series-column-short">
+                <h3>category name</h3>
+                <h4 id='title'>{{ category.title }}</h4>
+                <h5 class='edit-button'>edit</h5>
+            </div>
+			<div class="series-column-short">
+                <h3>category url</h3>
+                <h4>{{ category.get_absolute_url }}</h4>
+                <h5 class='copy-button'>copy</h5>
+            </div>
+        </div>
+        <div class="column-wide-description fixed-width-500">
+            <h3>category description</h3>
+            <p id='description'>
+                {% autoescape off%}
+                {{ category.description }}
+                {% endautoescape %}
+            </p>
+            <h5 class='edit-button'>edit</h5>
+        </div>
+        <div class="action-icons">
+            <div class="artpiece-column-short-addpiece" title="Add More Art to this series!">
+            </div>
+            <div class="artpiece-column-short-previewpiece" title="How's it looking?">
+            </div>
+        </div>
+		<div class="column-wide-images">
+            {% for ser in category.children.all %}
+			{% for piece in ser.children.all %}
+            {% thumbnail piece.default_media.image "170x170" crop="center" as pic %}<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+                <div class='piece-thumb'>
+                    <img src="{{ pic.url }}" width="{{ pic.width }}px" height="{{ pic.height }}px" alt="{{ piece.title }}" />
+                </div>
+            </a>{% endthumbnail %}
+            {% endfor %}
+			{% endfor %}
+        </div>
+		</div>
+	{% endif %}
+</div>
+<form action='' method='post' id='messenger'>
+    {% csrf_token %}
+    {{ form }}
+</form>
+{% endblock %}

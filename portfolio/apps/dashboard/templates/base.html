@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block title %}Dashboard{% endblock %}</title>
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <script type="text/javascript" src="https://use.typekit.com/ibl6rtz.js"></script>
+        <script type="text/javascript">
+            try {
+                Typekit.load();
+            } catch (e) {
+            }
+        </script>
+        <link type='image/x-icon' rel="icon" href='{{ STATIC_URL }}{{ STATIC_URL }}dashboard/images/fav.ico' />
+        <link type='text/css' rel='stylesheet' href='{{ STATIC_URL }}dashboard/css/dashboard.css' />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}dashboard/js/dashboardWheel.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}dashboard/js/dashboard.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}dashboard/js/modernizr.js"></script>
+        <script id='tiny_mce_js' type="text/javascript" src="{{ STATIC_URL }}dashboard/js/tiny_mce/tiny_mce.js"></script>
+        <script type="text/javascript" src="{{ STATIC_URL }}dashboard/js/tiny_mce/textareas.js"></script>
+    </head>
+    <body {% if artist.theme.background_image %} background="{{ MEDIA_URL }}{{ artist.theme.background_image }}" {% endif %}>
+        <div class='wrapper-thin'>
+            <header>
+                <ul>
+                    <li class="{% block home-nav-class %}{% endblock %}">
+                        <a href="/dashboard">dashboard home</a>
+                    </li>
+                    <li class="{% block account-nav-class %}{% endblock %}">
+                        <a href="/dashboard/account">artist & account info</a>
+                    </li>
+                    <li class="{% block theme-nav-class %}{% endblock %}">
+                        <a href="/dashboard/theme">edit my theme</a>
+                    </li>
+                    <li class="{% block work-nav-class %}{% endblock %}">
+                        <a href="/dashboard/work">arrange my work</a>
+                    </li>
+                    <li class='list-last'>
+                        <a href="/accounts/logout">log out</a>
+                    </li>
+                    <h4 id='ajax-feedback'></h4>
+                </ul>
+            </header>
+        </div>
+        <div id='wrapper'>
+            {% block center %}{% endblock %}
+        </div>
+        <footer>
+            <div id="recent-activity-wrapper">
+                <div class="wrapper-thin">
+                    <div id="recent-activity-header">
+                        <ul>
+                            <li class="list-first">
+                                my recent activity
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="recents">
+                    <div id='previous-recent' class="recents-arrows">
+                        <img src="{{ STATIC_URL }}dashboard/images/arrow-left-gray.png" width="50" height="150" alt="scroll left">
+                    </div>
+                    <div id='recent-wrapper'>
+                        <div id='recent-slider'>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                            <div class="recents-content">
+                                <div class="recents-fpo"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id='next-recent' class="recents-arrows">
+                        <img src="{{ STATIC_URL }}dashboard/images/arrow-right-gray.png" width="50" height="150" alt="scroll right">
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </body>
+</html>

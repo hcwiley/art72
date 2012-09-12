@@ -10,21 +10,17 @@ from django.views.decorators.csrf import requires_csrf_token
 from apps.contactform.utils import submit as submit_contact_form
 import settings
 
-pages = ['home', 'features', 'signup', 'pricing', 'register']
+pages = ['home', 'features', 'signup', 'pricing', 'register', 'terms']
 
 def common_args(ajax=False):
     """
     The common arguments for all art72_django views.
     ajax: Describes if the args are for an ajax request.
     
-    STATIC_URL: static url from settings
-    year: the year at the time of request
     contact: art72_django business contact information
     base_template: the default base template  
     """
     args = {
-               'STATIC_URL' : settings.STATIC_URL,
-               'year' : datetime.now().year,
                'base_template' : 'promo/base.html',
            }
     if ajax:
@@ -34,9 +30,9 @@ def common_args(ajax=False):
 # This can be called when CsrfViewMiddleware.process_view has not run, therefore
 # need @requires_csrf_token in case the template needs {% csrf_token %}.
 @requires_csrf_token
-def art72_django(request, template_name='common/404.html'):
+def art72_404(request, template_name='promo/common/404.html'):
     """ 
-    404 handler for art72_django.
+    404 handler for art72 promo site.
 
     Templates: `404.html`
     Context:
@@ -45,15 +41,20 @@ def art72_django(request, template_name='common/404.html'):
             The path of the requested URL (e.g., '/app/pages/bad_page/')
         
     """
-    t = loader.get_template(template_name) # You need to create a 404.html template.
-    args = common_args()
-    args['request_path'] = request.path
-    return http.HttpResponseNotFound(t.render(RequestContext(request, args)))
+    if request.path.endswith('/'):
+        return redirect_to(request, request.path.rstrip('/'))
+    elif request.path == '/admin':
+        return redirect_to(request, '/admin/')
+    else:
+        t = loader.get_template(template_name) # You need to create a 404.html template.
+        args = common_args()
+        args['request_path'] = request.path
+        return http.HttpResponseNotFound(t.render(RequestContext(request, args)))
 
 @requires_csrf_token
-def art72_django_500(request, template_name='500.html'):
+def art72_500(request, template_name='promo/common/500.html'):
     """ 
-    500 error handler for art72_django.
+    500 error handler for art72 promo site.
 
     Templates: `500.html`
     Context: common_args from art72_django
@@ -68,63 +69,19 @@ def default(request, page):
         page = 'home'
     if page in pages:
         args['page'] = page
-        return render_to_response('promo/%s.html' % page, args)
+        return render_to_response('promo/%s.html' % page, args, context_instance=RequestContext(request))
     else:
         raise Http404
     
 def ajax(request, page):
-    print 'ajax'
     args = common_args(True)
     args.update(csrf(request))
     if page == '' or page == '/' :
         page = 'home'
     if page in pages:
-        return render_to_response('promo/%s.html' % page, args)
+        return render_to_response('promo/%s.html' % page, args, context_instance=RequestContext(request))
     else:
         raise Http404
-
- 
-def home(request, ajax):
-    """
-    Renders the home page.
-    Context:
-        common args
-        assocs - list of all professional associations
-    """
-    args = common_args(ajax)
-    args.update(csrf(request))
-    return render_to_response('promo/home.html', args)
-
-def features(request, ajax):
-    """
-    Renders the home page.
-    Context:
-        common args
-        assocs - list of all professional associations
-    """
-    args = common_args(ajax)
-    args.update(csrf(request))
-    return render_to_response('promo/features.html', args)
-
-def signup(request, ajax):
-    """
-    Renders the signup page.
-    Context:
-        common args
-    """
-    args = common_args(ajax)
-    args.update(csrf(request))
-    return render_to_response('promo/signup.html', args)
-
-def features(request, ajax):
-    """
-    Renders the pricing page.
-    Context:
-        common args
-    """
-    args = common_args(ajax)
-    args.update(csrf(request))
-    return render_to_response('promo/pricing.html', args)
 
 def email_signup(request):
     recipients = ['decode72@decode72.com']
@@ -135,20 +92,3 @@ def email_signup(request):
 #    args.update(submit_results)
 #    print 'updated args'
 #    return render_to_response('.html', args)
-
-
-def remove_slash(request, url):
-    """
-    Rechecks the URL without the trailing slash(es) before raising an Http404.
-    TODO: look into moving this into the custom 404 handler - won't need have a catchall url this way.
-    """
-    if url.endswith('/'):
-        return redirect_to(request, '/' + url.rstrip('/'))
-    else:
-        raise Http404
-    
-def admin_add_slash(request):
-    """
-    Because APPEND_SLASH is false, manually append slash in this case.
-    """
-    return redirect_to(request, request.path + '/')

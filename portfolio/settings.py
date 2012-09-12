@@ -6,7 +6,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-MAX_IMAGE_SIZE = (1200, 1200)
+MAX_IMAGE_SIZE = (1400, 1400)
 
 # root directories
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
@@ -15,10 +15,11 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'collected-static/')
 # urls
 MEDIA_URL = '/site_media/media/'
 STATIC_URL = '/site_media/static/'
+LOGIN_URL = '/accounts/login'
+LOGIN_REDIRECT_URL  = '/dashboard'
 
 ADMIN_MEDIA_PREFIX = os.path.join(STATIC_URL, 'admin/')
 sys.path.append(PROJECT_ROOT)
-sys.path.append('%s/apps/' % PROJECT_ROOT)
  
 ADMINS = (
     ('Cole Wiley', 'cole@decode72.com'),
@@ -63,6 +64,17 @@ SUBDOMAIN_URLCONFS = {
 #    'api': 'portfolio.urls.api',
 }
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+   "django.core.context_processors.static",
+   "django.contrib.auth.context_processors.auth",
+   "django.core.context_processors.debug",
+   "django.core.context_processors.i18n",
+   "django.core.context_processors.media",
+   "django.core.context_processors.static",
+   "django.contrib.messages.context_processors.messages",
+   "django.core.context_processors.csrf",
+)
+
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, '../templates/'),
 )
@@ -83,13 +95,14 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.webdesign',
-    'contactform',
-    'gallery',
+    'apps.contactform',
+    'apps.theme',
+    'apps.gallery',
     'sorl.thumbnail',
     'south',
-    'artist',
-    'theme',
+    'apps.artist',
     'registration',
+    'apps.school',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window

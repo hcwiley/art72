@@ -1,0 +1,174 @@
+{% extends base_template|default:"dashboard/base.html" %}
+{% load thumbnail %}
+{% block title %}Arrange work | {{ block.super }}{% endblock %}
+{% block work-nav-class %}current-nav{% endblock %}
+{% block center %}
+<div id="main">
+    <h2 class="edit-heading">View, edit, and sort your artwork </h2>
+    <div class="info-column">
+        <h3 class="selected-filter"> &#62;&#62; filter my images</h3>
+        <hr class="blue-line"><h3>manage my:</h3>
+        <a href='/dashboard/manage/category'><h4>Category</h4></a>
+        <a href='/dashboard/manage/series'><h4>Series</h4></a>
+        <a href='/dashboard/manage/piece'><h4>Piece</h4></a>
+    </div>
+    <div class="info-column">
+        <ul>
+            <li>
+                <h4 class='blue'> &#62;&#62; Category</h4>
+                <ul class="nested-list category">
+                    {% for cat in categories %}
+					<a class='gallery-click' strip='{{ cat.slug }}' href='{{ cat.dashboard_url }}'>
+					<li {% if cat == curCategory %}title='click to remove filter' class="selected-filter"{% endif %}>
+                        {% if cat == curCategory %} &#62;&#62; {% endif %}{{ cat }}
+                    </li>
+					</a>
+					{% endfor %}
+                </ul>
+            </li>
+            <li>
+            	{% if not series %}
+				    {% for cat in categories %}
+					   <ul class='nested-list'>
+		                <h4 class='blue'> &#62;&#62; Series ({{ cat }})</h4>
+				        {% for ser in cat.children %}
+		                <ul class="nested-list-piece">
+							<a class='gallery-click' strip='{{ ser.slug }}' href='{{ ser.dashboard_url }}'>
+		                    <li {% if ser == curSeries %}title='click to remove filter' class="selected-filter"{% endif %}>
+		                        {% if ser == curSeries %} &#62;&#62; {% endif %}{{ ser }}
+		                    </li>
+							</a>
+		                </ul>
+				        {% endfor %}
+						</ul>
+				    {% endfor %}
+				{% else %}
+				    {% for ser in series %}
+                    <h4 class='blue'> &#62;&#62; Series ({{ ser.category }})</h4>
+                    <ul class="nested-list series">
+                        <a class='gallery-click' strip='{{ ser.slug }}' href='{{ ser.dashboard_url }}'>
+                        <li {% if ser == curSeries %}title='click to remove filter' class="selected-filter"{% endif %}>
+                            {% if ser == curSeries %} &#62;&#62; {% endif %}{{ ser }}
+                        </li>
+                        </a>
+                    </ul>
+                    {% endfor %}
+				{% endif %}
+            </li>
+            <li>
+                <h4 class='blue'>Piece</h4>
+				<ul class='nested-list piece'>
+				{% if not pieces %}
+				    {% if not curCategory %}
+					   {% for cat in categories %}
+		                    {% for series in cat.children.all %}
+		                        {% for piece in series.children.all %}
+		                        <a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+		                        <li {% if piece == curPiece %}class="selected-filter"{% endif %}>
+		                            {% if piece == curPiece %} &#62;&#62; {% endif %}{{ piece }}
+		                        </li>
+		                        </a>
+	                        {% endfor %}
+	                    {% endfor %}
+					{% endfor %}
+	                {% else %}
+			        {% for series in curCategory.children.all %}
+			            {% for piece in series.children.all %}
+						<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+                        <li {% if piece == curPiece %}class="selected-filter"{% endif %}>
+                            {% if piece == curPiece %} &#62;&#62; {% endif %}{{ piece }}
+                        </li>
+                        </a>
+						{% endfor %}
+					{% endfor %}
+				{% endif %}
+				{% else %}
+					{% for piece in pieces %}
+					    <a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+	                    <li {% if piece == curPiece %}class="selected-filter"{% endif %}>
+	                        {% if piece == curPiece %} &#62;&#62; {% endif %}{{ piece }}
+	                    </li>
+						</a>
+	                {% endfor %}
+				{% endif %}
+				</ul>
+            </li>
+        </ul>
+    </div>
+    <div class="info-column-wide">
+		{% if not pieces %}
+		  <!-- no pieces explicitly passed in -->
+		  {% if curCategory %}
+		      <!-- there is a category currently selected!-->
+			  <!-- cycle through all its kids!-->
+			{% for ser in curCategory.children.all %}
+	        <div class="info-column-wide-heading{% if forloop.first %}-first{% endif %}">
+			<h3 class='blue'>{{ ser|upper }}</h3>
+			</div>
+		        {% for piece in ser.children %}
+				{% autoescape off%}
+					<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+	                <div class='piece-thumb'>
+                      {% include "gallery/piece/image.html" with media=piece.default_media dim='170x170' pos='center' %}
+	                </div>
+	                </a>
+                    {% endautoescape %}
+				{% endfor %}
+			{% endfor %}
+		  {% else %}
+		  <!-- There isnt a category currently selected, so get all children from all categories!-->
+			{% for cat in categories %}
+	            <div class="info-column-wide-heading{% if forloop.first %}-first{% endif %}">
+	            <h3 class='blue'>{{ cat }}</h3>
+	            </div>
+			    {% for ser in cat.children %}
+                    <h5 {% if forloop.first %}class='first'{% endif %}>{{ ser }}</h5>
+					{% for piece in ser.children %}
+	                {% autoescape off%}
+					<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+	                <div class='piece-thumb'>
+	                  {% include "gallery/piece/image.html" with media=piece.default_media dim='170x170' pos='center' %}
+	                </div>
+	                </a>
+                    {% endautoescape %}
+					{% endfor %}
+                {% endfor %}
+			{% endfor %}
+		  {% endif %}
+		{% else %}
+		<!-- There have been pieces passed in!-->
+			{% if not curPiece %}
+			 <!-- there is no current piece though!-->
+			 <!-- get all the children!-->
+			    {% autoescape off%}
+			    {% for piece in pieces %}
+				<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+                <div class='piece-thumb'>
+			    {% include "gallery/piece/image.html" with media=piece.default_media dim='170x170' pos='center' %}
+	        	</div>
+				</a>
+				{% endfor %}
+				{% endautoescape %}
+			{% else %}
+			<!-- there is a current piece -->
+			    {% autoescape off%}
+				<a class='gallery-click' class='piece' strip='{{ piece.slug }}' href='{{ piece.dashboard_url }}'>
+                <div class='piece-thumb'>
+            	{% include "gallery/piece/image.html" with media=curPiece.default_media dim='170x170' pos='center' %}
+                </div>
+                </a>
+                {% endautoescape %}
+				  <div id='piece-info-pane'>
+		            {% autoescape off%}
+		            {{ curPiece.form_as_edit }}
+		            {% endautoescape %}
+		        </div>
+			{% endif %}
+		{% endif %}
+    </div>
+</div>
+<form action='' method='post' id='messenger'>
+	{% csrf_token %}
+    {{ form }}
+</form>
+{% endblock %}
